@@ -160,46 +160,74 @@
 
     <!-- Contacto -->
     <section id="contacto" class="py-32 bg-slate-50">
-    <div class="max-w-3xl mx-auto px-6 bg-white p-12 rounded-[3rem] shadow-xl border border-slate-100">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-slate-900 mb-4">Iniciemos tu próximo paso</h2>
-            <p class="text-slate-500">Recibe una propuesta estratégica personalizada.</p>
-        </div>
-        
-        <!-- FormSubmit Setup -->
-        <form id="contact-form" action="https://formsubmit.co/ajax/sebastian@sebastianjimenez.cl" method="POST" class="space-y-6">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
-            <!-- Configuraciones de FormSubmit -->
-            <input type="hidden" name="_subject" value="Nueva consulta desde tu Web!">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
+            <!-- Información de Contacto Directa -->
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-5xl font-extrabold text-slate-900 mb-6 leading-tight">¿Hablemos de tu <br><span class="text-blue-600">próxima inversión?</span></h2>
+                    <p class="text-xl text-slate-500">Analicemos juntos la rentabilidad y el resguardo de tu patrimonio con datos reales del mercado en la zona.</p>
+                </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input type="text" name="Nombre" placeholder="Nombre completo" required 
-                       class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition">
-                <input type="email" name="Email" placeholder="Correo electrónico" required 
-                       class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition">
+                <div class="space-y-6">
+                    <!-- WhatsApp Directo -->
+                    <a href="https://wa.me/56951134778?text=Hola%20Sebastián,%20necesito%20asesoría%20inmobiliaria" 
+                       class="flex items-center space-x-4 p-6 bg-white rounded-3xl shadow-sm hover:shadow-md transition group">
+                        <div class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400 font-bold uppercase tracking-wider">Escríbeme directo</p>
+                            <p class="text-xl font-bold text-slate-900">+56 9 5113 4778</p>
+                        </div>
+                    </a>
+
+                    <!-- Email Profesional -->
+                    <div class="flex items-center space-x-4 p-6 bg-white rounded-3xl shadow-sm">
+                        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-400 font-bold uppercase tracking-wider">Email Profesional</p>
+                            <p class="text-xl font-bold text-slate-900">sebastian@sebastianjimenez.cl</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <textarea name="Mensaje" placeholder="¿En qué propiedad o servicio estás interesado?" rows="4" required 
-                      class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition"></textarea>
-            
-            <button type="submit" id="submit-btn" 
-                    class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center space-x-3">
-                <span>Enviar Solicitud</span>
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </form>
 
-        <!-- Mensaje de éxito con Confetti -->
-        <div id="success-msg" class="hidden text-center py-8">
-            <div class="text-6xl mb-4">🎉</div>
-            <h3 class="text-2xl font-bold text-slate-900">¡Solicitud Enviada!</h3>
-            <p class="text-slate-500">Te contactaré en menos de 24 horas.</p>
-            <button onclick="window.location.reload()" class="mt-6 text-blue-600 font-bold underline">Enviar otro mensaje</button>
+            <!-- Formulario con FormSubmit -->
+            <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100">
+                <form id="contact-form" action="https://formsubmit.co/ajax/sebastian@sebastianjimenez.cl" method="POST" class="space-y-6">
+                    <input type="hidden" name="_subject" value="Nueva consulta desde la Web">
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <div class="space-y-4">
+                        <input type="text" name="Nombre" placeholder="Tu nombre" required 
+                               class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition">
+                        <input type="email" name="Email" placeholder="Tu correo" required 
+                               class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition">
+                        <textarea name="Mensaje" placeholder="¿En qué puedo ayudarte?" rows="4" required 
+                                  class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition"></textarea>
+                    </div>
+
+                    <button type="submit" id="submit-btn" 
+                            class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold hover:bg-blue-600 transition-all shadow-lg flex items-center justify-center space-x-3">
+                        <span>Enviar Mensaje</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+
+                <!-- Mensaje de éxito (Oculto) -->
+                <div id="success-msg" class="hidden text-center py-10">
+                    <div class="text-6xl mb-4">🚀</div>
+                    <h3 class="text-2xl font-bold text-slate-900">¡Mensaje Recibido!</h3>
+                    <p class="text-slate-500 mt-2">Te responderé a la brevedad.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-
     <!-- Modal de Propiedad -->
     <div id="propertyModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-sm">
         <div class="bg-white w-full max-w-5xl max-h-[90vh] rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row relative shadow-2xl">
