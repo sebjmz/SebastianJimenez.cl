@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebastian Jimenez | Consultor Inmobiliario Estratégico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .no-scroll {
+            overflow: hidden;
+        }
+
+        /* Ajuste para el padding del nav al hacer scroll */
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Modal de Bienvenida (Filtro Inicial) -->
+    <div id="welcomeModal" class="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-xl transition-opacity duration-500">
+        <div class="bg-white w-full max-w-xl rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100">
+            <div class="p-12 text-center">
+                <div class="text-2xl font-bold tracking-tighter text-slate-900 mb-2">
+                    SEBASTIAN<span class="text-blue-600">JIMENEZ</span>
+                </div>
+                <p class="text-slate-400 uppercase text-[10px] font-black tracking-[0.2em] mb-8">Estrategia Inmobiliaria de la Quinta Región</p>
+                <h2 class="text-3xl font-bold text-slate-900 mb-6">¿En qué puedo ayudarte hoy?</h2>
+                <div class="space-y-4">
+                    <button onclick="closeWelcome('vender')" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold hover:bg-blue-600 transition duration-300 flex items-center justify-center space-x-3">
+                        <i class="fas fa-home"></i>
+                        <span>Quiero vender/arrendar</span>
+                    </button>
+                    <button onclick="closeWelcome('invertir')" class="w-full border-2 border-slate-200 text-slate-700 py-5 rounded-2xl font-bold hover:border-blue-600 hover:text-blue-600 transition duration-300 flex items-center justify-center space-x-3">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Busco oportunidades de inversión</span>
+                    </button>
+                </div>
+                <button onclick="closeWelcome('nada')" class="mt-8 text-slate-400 text-sm font-medium hover:text-slate-600 underline underline-offset-4">
+                    Solo estoy explorando el sitio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegación Principal -->
+    <nav id="mainNav" class="fixed w-full z-50 transition-all duration-500 bg-transparent">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex justify-between h-24 items-center transition-all duration-300" id="navContainer">
+                <a href="#inicio" id="navLogo" class="text-xl font-bold tracking-tight text-white hover:opacity-80 transition-all duration-300">
+                    SEBASTIAN<span class="text-blue-500">JIMENEZ</span>.CL
+                </a>
+                <div id="navLinks" class="hidden md:flex items-center gap-10 text-[13px] font-semibold uppercase tracking-widest text-white">
+                    <a href="#inicio" class="hover:text-blue-400 transition-colors">Inicio</a>
+                    <a href="#propiedades" class="hover:text-blue-400 transition-colors">Propiedades</a>
+                    <a href="#metodo" class="hover:text-blue-400 transition-colors">Mi Método</a>
+                    <a href="#contacto" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-blue-900/20 ring-1 ring-white/10">
+                        Contactar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-gradient pt-40 pb-32 text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0 z-10">
+                <span class="inline-block px-4 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-black uppercase tracking-widest mb-6 border border-blue-500/30">
+                    Proptech & Gestión de Activos
+                </span>
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
+                    Inversión con <span class="text-blue-400">visión</span> de mercado.
+                </h1>
+                <p class="text-xl text-slate-300 mb-10 max-w-lg leading-relaxed">
+                    Transformo metros cuadrados en rentabilidad. Asesoría experta en la Quinta Región para propietarios e inversionistas exigentes.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#propiedades" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl font-bold transition text-center shadow-lg shadow-blue-900/40 text-sm uppercase tracking-wider">Ver Inventario</a>
+                    <a href="#contacto" class="border border-slate-500 hover:bg-white/10 px-8 py-4 rounded-xl font-bold transition text-center text-sm uppercase tracking-wider">Agendar Consultoría</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center relative">
+                <div class="relative z-10">
+                    <div class="w-72 h-96 bg-slate-800 rounded-[2.5rem] overflow-hidden border-4 border-slate-700 shadow-2xl">
+                        <!-- Reemplaza con tu foto oficial -->
+                        <img src="https://via.placeholder.com/600x800" alt="Sebastian Jimenez" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">
+                    </div>
+                </div>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-600/10 blur-[120px] -z-0"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Propiedades -->
+    <section id="propiedades" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16">
+                <h2 class="text-4xl font-bold text-slate-900 mb-4">Oportunidades Destacadas</h2>
+                <p class="text-lg text-slate-500 italic">Haz clic en una propiedad para analizar su potencial técnico y comercial.</p>
+            </div>
+            <div id="propiedadesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Generado dinámicamente por JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Mi Método -->
+    <section id="metodo" class="py-32 bg-slate-950 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl mb-24">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Análisis de datos para <span class="text-blue-500">decisiones seguras</span>.</h2>
+                <p class="text-xl text-slate-400 leading-relaxed">No solo publico propiedades, gestiono el riesgo y maximizo la rentabilidad a través de tres pilares fundamentales.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="glass-card p-10 rounded-[2.5rem] hover:bg-blue-600/5 transition duration-500">
+                    <div class="text-blue-500 text-4xl mb-8"><i class="fas fa-chart-pie"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">Valoración Real</h3>
+                    <p class="text-slate-400 leading-relaxed">Cálculo de plusvalía y escenarios de salida basados en el comportamiento histórico de la zona.</p>
+                </div>
+                <div class="glass-card p-10 rounded-[2.5rem] border-blue-500/30 bg-blue-600/5 scale-105">
+                    <div class="text-blue-500 text-4xl mb-8"><i class="fas fa-robot"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">Automatización</h3>
+                    <p class="text-slate-400 leading-relaxed">Uso de IA para filtrar leads y responder consultas 24/7, acelerando los tiempos de cierre en un 40%.</p>
+                </div>
+                <div class="glass-card p-10 rounded-[2.5rem] hover:bg-blue-600/5 transition duration-500">
+                    <div class="text-blue-500 text-4xl mb-8"><i class="fas fa-gavel"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">Seguridad Legal</h3>
+                    <p class="text-slate-400 leading-relaxed">Supervisión técnica de títulos y contratos para blindar tu patrimonio ante cualquier contingencia.</p>
+                </div>
+            </div>
+        </div>
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/10 blur-[120px]"></div>
+    </section>
+
+    <!-- Formulario de Contacto -->
+    <section id="contacto" class="py-32 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-slate-100">
+                <div class="lg:w-1/3 bg-blue-600 p-12 text-white">
+                    <h2 class="text-3xl font-bold mb-8">Comencemos.</h2>
+                    <p class="text-blue-100 mb-12">Agenda una reunión para evaluar tu caso o resolver dudas sobre el mercado de la Quinta Región.</p>
+                    <div class="space-y-8">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4"><i class="fas fa-phone-alt"></i></div>
+                            <span class="font-bold">+56 9 5113 4778</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4"><i class="far fa-envelope"></i></div>
+                            <span class="font-bold text-sm">sebastian@sebastianjimenez.cl</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-2/3 p-12 md:p-16">
+                    <form action="#" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <input type="text" placeholder="Nombre completo" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none transition">
+                            <input type="email" placeholder="Correo electrónico" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none transition">
+                        </div>
+                        <select class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none transition appearance-none">
+                            <option>Deseo vender una propiedad</option>
+                            <option>Deseo comprar para inversión</option>
+                            <option>Servicio de administración</option>
+                            <option>Otros requerimientos</option>
+                        </select>
+                        <textarea rows="4" placeholder="Cuéntame sobre tu proyecto..." class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none transition"></textarea>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-200">
+                            Enviar Solicitud
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Propiedad -->
+    <div id="propertyModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-5xl max-h-[90vh] rounded-[3.5rem] overflow-hidden flex flex-col md:flex-row relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-6 right-6 z-20 bg-slate-100 hover:bg-red-500 hover:text-white text-slate-900 p-2 w-10 h-10 rounded-full transition flex items-center justify-center">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="md:w-3/5 h-[300px] md:h-auto bg-slate-200 relative">
+                <img id="modalImg" src="" class="w-full h-full object-cover" alt="Vista Propiedad">
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
+                    <button onclick="prevImg()" class="bg-white/90 p-3 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition"><i class="fas fa-chevron-left"></i></button>
+                    <button onclick="nextImg()" class="bg-white/90 p-3 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div class="md:w-2/5 p-8 md:p-12 overflow-y-auto">
+                <div id="modalBadge" class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 mb-4"></div>
+                <h2 id="modalTitle" class="text-3xl font-bold text-slate-900 mb-2 leading-tight"></h2>
+                <p id="modalPrice" class="text-2xl font-black text-blue-600 mb-6"></p>
+                <div id="modalSpecs" class="grid grid-cols-2 gap-4 text-sm font-medium mb-8"></div>
+                <div class="pt-6 border-t border-slate-100">
+                    <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Resumen de Inversión</h4>
+                    <p id="modalDesc" class="text-slate-600 leading-relaxed italic text-sm"></p>
+                </div>
+                <div class="pt-8">
+                    <a id="modalWaLink" href="#" target="_blank" class="block w-full bg-green-500 text-white text-center py-4 rounded-2xl font-bold hover:bg-green-600 transition shadow-lg flex items-center justify-center space-x-3 text-lg">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                        <span>Solicitar Información</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-12 bg-white text-center border-t border-slate-100">
+        <p class="font-bold text-[11px] text-slate-400 tracking-[0.2em] uppercase">© 2026 SEBASTIANJIMENEZ.CL | Inteligencia Inmobiliaria aplicada</p>
+    </footer>
+
+    <!-- WhatsApp Flotante -->
+    <a href="https://wa.me/56951134778" target="_blank" class="fixed bottom-10 right-10 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition z-50">
+        <i class="fab fa-whatsapp text-4xl"></i>
+    </a>
+
+    <script>
+        // Data de ejemplo (esto podrías cambiarlo a una API o archivo JSON luego)
+        const propiedades = [
+            {
+                id: 1,
+                titulo: "Depto Inversión - Reñaca",
+                descripcion: "Alto flujo de arriendo estacional. Rentabilidad neta proyectada anual del 6.2%. Se entrega con estudio de mercado actualizado.",
+                precio: "UF 3.900",
+                etiqueta: "Alta Rentabilidad",
+                imagenes: ["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800"],
+                especificaciones: { "Mts2": "60", "Hab": "2", "Baños": "2", "Bodega": "1" }
+            },
+            {
+                id: 2,
+                titulo: "Casa Mirador - Curauma",
+                descripcion: "Zona de alta plusvalía por desarrollo universitario. Ideal para familias o arriendo a estudiantes de postgrado.",
+                precio: "UF 5.100",
+                etiqueta: "Plusvalía",
+                imagenes: ["https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&q=80&w=800"],
+                especificaciones: { "Terreno": "250", "Const": "120", "Hab": "3", "Patio": "Si" }
+            },
+            {
+                id: 3,
+                titulo: "Oficina Técnica - Valparaíso",
+                descripcion: "Emplazada en sector patrimonial recuperado. Ideal para estudios de arquitectura, ingeniería o coworking privado.",
+                precio: "UF 7.800",
+                etiqueta: "Comercial",
+                imagenes: ["https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800"],
+                especificaciones: { "Privados": "4", "Baños": "2", "Planta": "Abierta", "Ascensor": "Si" }
+            }
+        ];
+
+        let currentProp = null;
+        let currentImgIndex = 0;
+
+        // Renderizar tarjetas
+        function renderPropiedades() {
+            const container = document.getElementById('propiedadesContainer');
+            container.innerHTML = '';
+            propiedades.forEach(prop => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group";
+                card.onclick = () => openModal(prop.id);
+                card.innerHTML = `
+                    <div class="h-64 bg-slate-200 relative overflow-hidden">
+                        <img src="${prop.imagenes[0]}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-black uppercase text-blue-600 tracking-widest shadow-sm">
+                            ${prop.etiqueta}
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-bold text-xl mb-2 text-slate-900">${prop.titulo}</h3>
+                        <p class="text-blue-600 font-black text-xl mb-4">${prop.precio}</p>
+                        <div class="text-[11px] font-black text-slate-400 group-hover:text-blue-600 transition flex items-center tracking-widest">
+                            VER FICHA TÉCNICA <i class="fas fa-chevron-right ml-2"></i>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Control del Modal
+        function openModal(id) {
+            currentProp = propiedades.find(p => p.id === id);
+            currentImgIndex = 0;
+            document.getElementById('modalImg').src = currentProp.imagenes[0];
+            document.getElementById('modalTitle').innerText = currentProp.titulo;
+            document.getElementById('modalPrice').innerText = currentProp.precio;
+            document.getElementById('modalDesc').innerText = currentProp.descripcion;
+            document.getElementById('modalBadge').innerText = currentProp.etiqueta;
+            document.getElementById('modalWaLink').href = `https://wa.me/56951134778?text=Hola Sebastian, me interesa información técnica sobre: ${currentProp.titulo}`;
+            
+            const specsGrid = document.getElementById('modalSpecs');
+            specsGrid.innerHTML = '';
+            for (const [key, value] of Object.entries(currentProp.especificaciones)) {
+                specsGrid.innerHTML += `
+                    <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+                        <span class="block text-slate-400 text-[9px] uppercase font-black mb-1">${key}</span>
+                        <span class="text-slate-800 text-sm font-bold">${value}</span>
+                    </div>`;
+            }
+            document.getElementById('propertyModal').classList.remove('hidden');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeModal() {
+            document.getElementById('propertyModal').classList.add('hidden');
+            document.body.classList.remove('no-scroll');
+        }
+
+        // Modal de Bienvenida
+        function closeWelcome(interes) {
+            const modal = document.getElementById('welcomeModal');
+            modal.style.opacity = '0';
+            setTimeout(() => { modal.style.display = 'none'; }, 500);
+
+            if(interes === 'vender') {
+                document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+            } else if(interes === 'invertir') {
+                document.getElementById('propiedades').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Efecto Scroll Navbar
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            const logo = document.getElementById('navLogo');
+            const links = document.getElementById('navLinks');
+            const navContainer = document.getElementById('navContainer');
+
+            if (window.scrollY > 50) {
+                nav.classList.add('nav-scrolled');
+                navContainer.classList.replace('h-24', 'h-20');
+                logo.classList.replace('text-white', 'text-slate-900');
+                links.classList.replace('text-white', 'text-slate-600');
+            } else {
+                nav.classList.remove('nav-scrolled');
+                navContainer.classList.replace('h-20', 'h-24');
+                logo.classList.replace('text-slate-900', 'text-white');
+                links.classList.replace('text-slate-600', 'text-white');
+            }
+        });
+
+        // Inicio
+        renderPropiedades();
+    </script>
+</body>
+</html>
