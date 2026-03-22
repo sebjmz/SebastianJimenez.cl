@@ -174,13 +174,13 @@
                             <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4">
                                 <i class="fas fa-phone-alt"></i>
                             </div>
-                            <span>+56 9 XXXX XXXX</span>
+                            <span>+56 9 5113 4778</span>
                         </div>
                         <div class="flex items-center">
                             <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4">
                                 <i class="far fa-envelope"></i>
                             </div>
-                            <span>sjimenez@sebastianjimenez.cl</span>
+                            <span>sebastian@sebastianjimenez.cl</span>
                         </div>
                         <div class="flex items-center">
                             <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4">
@@ -198,34 +198,48 @@
 
                 <!-- Formulario -->
                 <div class="lg:w-2/3 p-12 md:p-16">
-                    <form id="contactForm" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label class="text-sm font-bold text-slate-700">Tu Nombre</label>
-                                <input type="text" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="Juan Pérez">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-sm font-bold text-slate-700">Tu Email</label>
-                                <input type="email" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="juan@ejemplo.cl">
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-sm font-bold text-slate-700">Tipo de Requerimiento</label>
-                            <select class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition cursor-pointer appearance-none">
-                                <option>Quiero vender mi propiedad</option>
-                                <option>Busco invertir con plusvalía</option>
-                                <option>Administración de arriendos</option>
-                                <option>Tasación estratégica</option>
-                            </select>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-sm font-bold text-slate-700">Mensaje / Contexto</label>
-                            <textarea rows="4" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="Cuéntame brevemente sobre tu propiedad o inversión deseada..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-200">
-                            Enviar Solicitud Estratégica
-                        </button>
-                    </form>
+                   <!-- Formulario Conectado a FormSubmit -->
+<form action="https://formsubmit.co/sebastian@sebastianjimenez.cl" method="POST" class="space-y-6">
+    
+    <!-- Configuración extra de FormSubmit -->
+    <input type="hidden" name="_subject" value="Nueva Solicitud Estratégica - Web Inmobiliaria">
+    <input type="hidden" name="_next" value="https://sebastianjimenez.cl/gracias.html">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+            <label class="text-sm font-bold text-slate-700">Tu Nombre</label>
+            <!-- Importante: el atributo 'name' es lo que verás en el correo -->
+            <input type="text" name="nombre" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="Juan Pérez">
+        </div>
+        <div class="space-y-2">
+            <label class="text-sm font-bold text-slate-700">Tu Email</label>
+            <input type="email" name="email" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="juan@ejemplo.cl">
+        </div>
+    </div>
+    
+    <div class="space-y-2">
+        <label class="text-sm font-bold text-slate-700">Tipo de Requerimiento</label>
+        <select name="requerimiento" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition cursor-pointer appearance-none">
+            <option>Quiero vender mi propiedad</option>
+            <option>Quiero arrendar mi propiedad</option>
+            <option>Busco Arriendo</option>
+            <option>Busco invertir con plusvalía</option>
+            <option>Administración de arriendos</option>
+            <option>Tasación comercial gratuita</option>
+        </select>
+    </div>
+    
+    <div class="space-y-2">
+        <label class="text-sm font-bold text-slate-700">Mensaje / Contexto</label>
+        <textarea name="mensaje" rows="4" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="Cuéntame brevemente sobre tu propiedad o inversión deseada..."></textarea>
+    </div>
+    
+    <button type="submit" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-200">
+        Enviar Solicitud Estratégica
+    </button>
+</form>
                 </div>
             </div>
         </div>
