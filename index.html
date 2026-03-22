@@ -71,21 +71,25 @@
         </div>
     </div>
     <!-- Navegación -->
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="text-xl font-bold tracking-tight text-slate-900">
-                    SEBASTIAN<span class="text-blue-600">JIMENEZ</span>
-                </div>
-                <div class="hidden md:flex space-x-8 text-sm font-medium items-center">
-    <a href="#inicio" class="hover:text-blue-600 transition">Inicio</a>
-    <a href="#propiedades" class="hover:text-blue-600 transition">Propiedades</a>
-    <a href="#metodo" class="hover:text-blue-600 transition">Mi Método</a>
-    <a href="#contacto" class="bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-200">Contactar</a>
-</div>
+    <nav id="mainNav" class="fixed w-full z-50 transition-all duration-300 bg-white/0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+            
+            <!-- Logo con enlace al inicio -->
+            <a href="#inicio" class="text-xl font-bold tracking-tighter text-slate-900 hover:opacity-80 transition cursor-pointer">
+                SEBASTIAN<span class="text-blue-600">JIMENEZ</span>.CL
+            </a>
+
+            <!-- Menú nivelado al centro -->
+            <div class="hidden md:flex space-x-8 text-sm font-semibold items-center">
+                <a href="#inicio" class="text-slate-700 hover:text-blue-600 transition">Inicio</a>
+                <a href="#propiedades" class="text-slate-700 hover:text-blue-600 transition">Propiedades</a>
+                <a href="#metodo" class="text-slate-700 hover:text-blue-600 transition">Mi Método</a>
+                <a href="#contacto" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-200">Contactar</a>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Hero Section -->
     <section id="inicio" class="hero-gradient pt-40 pb-32 text-white overflow-hidden">
