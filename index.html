@@ -6,31 +6,11 @@
 <!-- Librería para el efecto de papelitos (Confetti) -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sebastian Jimenez | Agente Inmobiliario Estratégico</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @media (max-width: 768px) {
-    /* Bajamos la escala general de fuentes */
-    html {
-        font-size: 14px; 
-    }
-    /* Compactamos los espacios entre secciones */
-    section {
-        padding-top: 3rem !important;
-        padding-bottom: 3rem !important;
-    }
-    /* Ajustamos los títulos para que no ocupen toda la pantalla */
-    h1 { font-size: 2.5rem !important; }
-    h2 { font-size: 2rem !important; }
-    
-    /* Evitamos que los contenedores toquen los bordes del teléfono */
-    .max-w-7xl {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
-    }
-}
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         
         body {
@@ -111,7 +91,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="inicio" class="hero-gradient pt-28 pb-16 md:pt-48 md:pb-32 text-white overflow-hidden">
+    <section id="inicio" class="hero-gradient pt-40 pb-32 text-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 mb-12 md:mb-0 z-10">
                 <span class="inline-block px-4 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-black uppercase tracking-widest mb-6 border border-blue-500/30">
@@ -416,17 +396,13 @@
         const mostrar = catalogoExpandido ? propiedades : propiedades.slice(0, 3);
 
         let html = mostrar.map(prop => `
-            // Cambia las clases de la card por estas:
-`<div onclick="openModal(${prop.id})" class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 card-hover group cursor-pointer transition-all">
-    <div class="h-56 md:h-80 bg-slate-200 relative overflow-hidden"> 
-        <!-- Bajamos de h-80 a h-56 en móvil para que quepa más contenido -->
-        <img src="${prop.imagenes[0]}" class="w-full h-full object-cover">
-    </div>
-    <div class="p-6 md:p-10"> <!-- Reducimos el padding de 10 a 6 en móvil -->
-        <h3 class="font-bold text-lg md:text-2xl mb-2 text-slate-900">${prop.titulo}</h3>
-        <p class="text-blue-600 font-black text-lg mb-3">${prop.precio}</p>
-    </div>
-</div>`
+            <div onclick="openModal(${prop.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group cursor-pointer transition-all duration-500">
+                <div class="h-72 bg-slate-200 relative overflow-hidden">
+                    <img src="${prop.imagenes[0]}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-[10px] font-black uppercase text-blue-600 tracking-widest shadow-sm">
+                        ${prop.etiqueta}
+                    </div>
+                </div>
                 <div class="p-8">
                     <h3 class="font-bold text-xl mb-3 text-slate-900">${prop.titulo}</h3>
                     <p class="text-blue-600 font-black text-xl mb-4">${prop.precio}</p>
