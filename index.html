@@ -432,6 +432,59 @@
         };
 
         render();
+        // --- LÓGICA DE LA CALCULADORA Y POP-UP ---
+let popupMostrado = false;
+
+// Detectar cuando el usuario intenta salir (mueve el mouse arriba)
+document.addEventListener("mouseleave", (e) => {
+    if (e.clientY < 0 && !popupMostrado) {
+        document.getElementById('exitPopup').classList.remove('hidden');
+        popupMostrado = true; 
+    }
+});
+
+function closeExitPopup() {
+    document.getElementById('exitPopup').classList.add('hidden');
+}
+
+function calcularTodo() {
+    const valor = parseFloat(document.getElementById('calcValor').value);
+    const pie = parseFloat(document.getElementById('calcPie').value) / 100;
+    const anios = parseInt(document.getElementById('calcAnios').value);
+    const mejoraPct = parseFloat(document.getElementById('calcMejora').value);
+
+    if (!valor || !anios) return alert("Por favor ingresa el valor de la propiedad");
+
+    // Lógica Financiera (Tasa aprox 5% anual en UF)
+    const montoCredito = valor * (1 - pie);
+    const tasaMensual = 0.0041; 
+    const numPagos = anios * 12;
+    
+    // Fórmula Dividendo Francés
+    const dividendo = montoCredito * (tasaMensual * Math.pow(1 + tasaMensual, numPagos)) / (Math.pow(1 + tasaMensual, numPagos) - 1);
+    
+    // Proyección
+    const valorFuturo = valor * (1 + mejoraPct);
+    const cashbackEstimado = (valorFuturo - valor) * 0.75; 
+
+    // Mostrar Resultados
+    document.getElementById('resultadoInicial').classList.add('hidden');
+    document.getElementById('resultadoFinal').classList.remove('hidden');
+    
+    document.getElementById('resDividendo').innerText = dividendo.toFixed(2) + " UF";
+    document.getElementById('resValorFuturo').innerText = valorFuturo.toFixed(0) + " UF";
+    document.getElementById('resCashback').innerText = (mejoraPct > 0) ? `+${cashbackEstimado.toFixed(1)} UF` : "0 UF";
+}
+
+function enviarLead() {
+    const email = document.getElementById('emailLead').value;
+    if(email) {
+        alert("¡Informe solicitado! Te enviaré el desglose técnico a " + email);
+        closeExitPopup();
+    } else {
+        alert("Por favor ingresa tu correo");
+    }
+}
     </script>
     <!-- Pop-up Calculadora de Rentabilidad & Cashback -->
 <div id="exitPopup" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-sm">
