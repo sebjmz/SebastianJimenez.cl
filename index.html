@@ -313,6 +313,7 @@
             welcome.style.opacity = '0';
             setTimeout(() => {
                 welcome.style.display = 'none';
+                document.querySelector('a[href*="wa.me"]').classList.remove('hidden');
                 document.body.classList.remove('no-scroll');
                 
                 if (interes === 'vender') {
