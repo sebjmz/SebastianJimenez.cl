@@ -467,5 +467,15 @@
     // Iniciar el renderizado al cargar
     document.addEventListener('DOMContentLoaded', render);
 </script>
+    <!-- Botón WhatsApp Flotante -->
+    <a href="https://wa.me/56951134778?text=Hola%20Sebastián,%20necesito%20asesoría%20inmobiliaria" 
+       target="_blank" 
+       class="fixed bottom-8 right-8 z-[500] bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 group">
+        <i class="fab fa-whatsapp text-3xl"></i>
+        <!-- Tooltip opcional que aparece al pasar el mouse -->
+        <span class="absolute right-20 bg-white text-slate-900 px-4 py-2 rounded-xl text-sm font-bold shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            ¿Hablamos por WhatsApp?
+        </span>
+    </a>
 </body>
 </html>
