@@ -7,120 +7,88 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
         
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+
+        .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+
+        /* Corregimos el Nav y el scroll */
+        section { scroll-margin-top: 100px; }
+        #propiedades { padding-top: 120px; }
+
+        .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+
+        .no-scroll { overflow: hidden; }
+
+        /* Animación suave para el catálogo */
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
         }
 
-        .hero-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .no-scroll {
-            overflow: hidden;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 no-scroll">
 
     <!-- Modal de Bienvenida -->
-    <div id="welcomeModal" class="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-xl transition-opacity duration-500">
-        <div class="bg-white w-full max-w-xl rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100">
-            <div class="p-12 text-center">
-                <div class="text-2xl font-bold tracking-tighter text-slate-900 mb-2">
-                    SEBASTIAN<span class="text-blue-600">JIMENEZ</span>
-                </div>
-                <p class="text-slate-400 uppercase text-[10px] font-black tracking-[0.2em] mb-8">Consultor Inmobiliario de la Quinta Región</p>
-                <h2 class="text-3xl font-bold text-slate-900 mb-6">Acceso Directo</h2>
-                <div class="space-y-4">
-                    <button onclick="closeWelcome('vender')" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold hover:bg-blue-600 transition duration-300 flex items-center justify-center space-x-3">
-                        <i class="fas fa-home"></i>
-                        <span>Quiero una asesoría</span>
-                    </button>
-                    <button onclick="closeWelcome('invertir')" class="w-full border-2 border-slate-200 text-slate-700 py-5 rounded-2xl font-bold hover:border-blue-600 hover:text-blue-600 transition duration-300 flex items-center justify-center space-x-3">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Ver propiedades</span>
-                    </button>
-                </div>
-                <button onclick="closeWelcome('nada')" class="mt-8 text-slate-400 text-sm font-medium hover:text-slate-600 underline underline-offset-4">
-                    Solo estoy explorando
+    <div id="welcomeModal" class="fixed inset-0 z-[600] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-xl">
+        <div class="bg-white w-full max-w-xl rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 p-12 text-center">
+            <div class="text-2xl font-bold tracking-tighter text-slate-900 mb-2">
+                SEBASTIAN<span class="text-blue-600">JIMENEZ</span>
+            </div>
+            <p class="text-slate-400 uppercase text-[10px] font-black tracking-[0.2em] mb-8">Consultor Inmobiliario</p>
+            <h2 class="text-3xl font-bold text-slate-900 mb-6">Acceso Directo</h2>
+            <div class="space-y-4">
+                <button onclick="closeWelcome('vender')" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold hover:bg-blue-600 transition flex items-center justify-center space-x-3">
+                    <i class="fas fa-home"></i> <span>Quiero una asesoría</span>
+                </button>
+                <button onclick="closeWelcome('invertir')" class="w-full border-2 border-slate-200 text-slate-700 py-5 rounded-2xl font-bold hover:border-blue-600 hover:text-blue-600 transition flex items-center justify-center space-x-3">
+                    <i class="fas fa-chart-line"></i> <span>Ver propiedades</span>
                 </button>
             </div>
         </div>
     </div>
 
     <!-- Navegación -->
-    <nav id="mainNav" class="fixed w-full z-50 transition-all duration-500 bg-transparent">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="flex justify-between h-24 items-center">
-                <a href="#inicio" id="navLogo" class="text-xl font-bold tracking-tight text-white hover:opacity-80 transition-all duration-300">
-                    SEBASTIAN<span class="text-blue-500">JIMENEZ</span>.CL
-                </a>
-                <div id="navLinks" class="hidden md:flex items-center gap-10 text-[13px] font-semibold uppercase tracking-widest text-white">
-                    <a href="#inicio" class="hover:text-blue-400 transition-colors">Inicio</a>
-                    <a href="#propiedades" class="hover:text-blue-400 transition-colors">Propiedades</a>
-                    <a href="#metodo" class="hover:text-blue-400 transition-colors">Mi Método</a>
-                    <a href="#contacto" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-blue-900/20 ring-1 ring-white/10">
-                        Contactar
-                    </a>
-                </div>
+    <nav id="mainNav" class="fixed w-full z-50 transition-all duration-500 bg-transparent h-24 flex items-center">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full flex justify-between items-center">
+            <a href="#inicio" id="navLogo" class="text-xl font-bold tracking-tight text-white transition-colors duration-300">
+                SEBASTIAN<span class="text-blue-500">JIMENEZ</span>
+            </a>
+            <div id="navLinks" class="hidden md:flex items-center gap-10 text-[13px] font-semibold uppercase tracking-widest text-white">
+                <a href="#inicio" class="hover:text-blue-400">Inicio</a>
+                <a href="#propiedades" class="hover:text-blue-400">Propiedades</a>
+                <a href="#contacto" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 shadow-lg shadow-blue-900/20">Contactar</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="inicio" class="hero-gradient pt-40 pb-32 text-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-12 md:mb-0 z-10">
-                <span class="inline-block px-4 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-black uppercase tracking-widest mb-6 border border-blue-500/30">
-                    Corretaje 3.0: Datos & Resultados
-                </span>
-                <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
-                    Anticípate al <span class="text-blue-400">futuro</span>.
-                </h1>
-                <p class="text-xl text-slate-300 mb-10 max-w-lg leading-relaxed">
-                    Uso inteligencia de mercado para encontrar valor donde otros solo ven m². El corretaje ya no es solo mostrar casas, es gestionar activos.
-                </p>
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#propiedades" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl font-bold transition text-center shadow-lg shadow-blue-900/40 text-sm uppercase tracking-wider">Explorar Propiedades</a>
-                    <a href="#contacto" class="border border-slate-500 hover:bg-white/10 px-8 py-4 rounded-xl font-bold transition text-center text-sm uppercase tracking-wider">Agendar Consultoría</a>
+    <!-- Hero -->
+    <section id="inicio" class="hero-gradient pt-48 pb-32 text-white">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12">
+                <span class="inline-block px-4 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-black uppercase mb-6 border border-blue-500/30">Agente Inmobiliario 3.0</span>
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6">Anticípate al <span class="text-blue-400">futuro</span>.</h1>
+                <p class="text-xl text-slate-300 mb-10 max-w-lg">Gestión de activos con inteligencia de mercado en la Quinta Región.</p>
+                <div class="flex space-x-4">
+                    <a href="#propiedades" class="bg-blue-600 px-8 py-4 rounded-xl font-bold text-sm uppercase">Explorar Catálogo</a>
                 </div>
-            </div>
-            <div class="md:w-1/2 flex justify-center relative">
-                <div class="relative z-10 group">
-                    <div class="w-72 h-96 bg-slate-800 rounded-[2.5rem] overflow-hidden border-4 border-slate-700 shadow-2xl">
-                        <img src="img/bf7832b6-a40e-44a8-ba20-33b0a42772de.png" alt="Sebastian Jimenez" class="w-full h-full object-cover">
-                    </div>
-                </div>
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-600/10 blur-[120px] -z-0"></div>
             </div>
         </div>
     </section>
 
     <!-- Propiedades -->
-    <section id="propiedades" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="propiedades" class="bg-white pb-24">
+        <div class="max-w-7xl mx-auto px-6">
             <div class="mb-16">
                 <h2 class="text-4xl font-bold text-slate-900 mb-4">Oportunidades de Inversión</h2>
-                <p class="text-lg text-slate-500 italic">Haz clic en una propiedad para ver detalles técnicos y proyección de valor.</p>
+                <p class="text-lg text-slate-500 italic">Haz clic para ver detalles técnicos y galería completa.</p>
             </div>
             <div id="propiedadesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <!-- Inyectado por JS -->
@@ -128,344 +96,230 @@
         </div>
     </section>
 
-    <!-- Mi Método -->
-    <section id="metodo" class="py-32 bg-slate-950 text-white relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="max-w-3xl mb-24">
-                <h2 class="text-4xl md:text-5xl font-bold mb-8">El método que va <span class="text-blue-500">un paso adelante</span>.</h2>
-                <p class="text-xl text-slate-400">Mientras el mercado tradicional reacciona, nosotros proyectamos. Mi enfoque combina análisis de datos con gestión humana de alto nivel.</p>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Cards de método omitidas por brevedad pero mantenidas en estructura -->
-                <div class="glass-card p-10 rounded-[2.5rem] border-blue-500/30 bg-blue-600/5 hover:bg-blue-600/10 transition duration-500">
-                    <div class="text-blue-500 text-4xl mb-8"><i class="fas fa-microchip"></i></div>
-                    <h3 class="text-2xl font-bold mb-4">PropTech & IA</h3>
-                    <p class="text-slate-400 leading-relaxed">Identifico zonas de alta plusvalía antes de que los precios suban exponencialmente.</p>
-                </div>
-                <div class="glass-card p-10 rounded-[2.5rem] border-blue-500/30 bg-blue-600/5 hover:bg-blue-600/10 transition duration-500">
-                    <div class="text-blue-500 text-4xl mb-8"><i class="fas fa-bullseye"></i></div>
-                    <h3 class="text-2xl font-bold mb-4">Targeting Quirúrgico</h3>
-                    <p class="text-slate-400 leading-relaxed">Segmentación avanzada para conectar con el inversionista ideal de forma directa.</p>
-                </div>
-                <div class="glass-card p-10 rounded-[2.5rem] border-blue-500/30 bg-blue-600/5 hover:bg-blue-600/10 transition duration-500">
-                    <div class="text-blue-500 text-4xl mb-8"><i class="fas fa-shield-alt"></i></div>
-                    <h3 class="text-2xl font-bold mb-4">Blindaje Total</h3>
-                    <p class="text-slate-400 leading-relaxed">Gestión legal y contractual de alto estándar para proteger cada peso de tu inversión.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contacto -->
-    <section id="contacto" class="py-32 bg-slate-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-slate-100">
-                <div class="lg:w-1/3 bg-blue-600 p-12 text-white">
-                    <h2 class="text-3xl font-bold mb-8">Hablemos de negocios.</h2>
-                    <div class="space-y-8">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4"><i class="fas fa-phone-alt"></i></div>
-                            <a href="tel:+56951134778" class="font-bold">+56 9 5113 4778</a>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4"><i class="far fa-envelope"></i></div>
-                            <a href="mailto:sebastian@sebastianjimenez.cl" class="font-bold">Escríbeme Directo</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="lg:w-2/3 p-12 md:p-16">
-                    <form id="contactForm" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <input type="text" name="nombre" placeholder="Tu Nombre" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none">
-                            <input type="email" name="email" placeholder="Tu Email" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none">
-                        </div>
-                        <select name="requerimiento" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none">
-                            <option>Quiero vender mi propiedad</option>
-                            <option>Busco invertir con plusvalía</option>
-                            <option>Tasación comercial</option>
-                        </select>
-                        <textarea name="mensaje" rows="4" placeholder="Mensaje..." class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none"></textarea>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-200">
-                            Enviar Solicitud Estratégica
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal de Propiedad -->
-    <div id="propertyModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-sm">
+    <!-- Modal Propiedad -->
+    <div id="propertyModal" class="fixed inset-0 z-[700] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-sm">
         <div class="bg-white w-full max-w-5xl max-h-[90vh] rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row relative shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-6 right-6 z-20 bg-white/10 text-white md:text-slate-900 p-2 rounded-full"><i class="fas fa-times"></i></button>
-            <div class="md:w-3/5 h-[300px] md:h-auto bg-slate-200">
-                <img id="modalImg" src="" class="w-full h-full object-cover">
+            <button onclick="closeModal()" class="absolute top-6 right-6 z-50 bg-white/20 text-white md:text-slate-900 p-2 rounded-full hover:bg-white/40"><i class="fas fa-times"></i></button>
+            
+            <!-- Galería -->
+            <div class="md:w-3/5 h-[350px] md:h-auto bg-slate-900 relative group">
+                <img id="modalImg" src="" class="w-full h-full object-cover transition-opacity duration-300">
+                <div class="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button onclick="changeImg(-1)" class="w-10 h-10 bg-white/20 backdrop-blur text-white rounded-full"><i class="fas fa-chevron-left"></i></button>
+                    <button onclick="changeImg(1)" class="w-10 h-10 bg-white/20 backdrop-blur text-white rounded-full"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div id="imgCounter" class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-1 rounded-full text-xs font-bold">1 / 1</div>
             </div>
+
+            <!-- Info -->
             <div class="md:w-2/5 p-8 md:p-12 overflow-y-auto">
-                <div id="modalBadge" class="text-blue-600 bg-blue-50 px-3 py-1 inline-block rounded-full text-xs font-black uppercase mb-4"></div>
+                <div id="modalBadge" class="text-blue-600 bg-blue-50 px-3 py-1 inline-block rounded-full text-[10px] font-black uppercase mb-4 tracking-widest"></div>
                 <h2 id="modalTitle" class="text-3xl font-bold mb-2"></h2>
                 <p id="modalPrice" class="text-2xl font-black text-blue-600 mb-6"></p>
                 <div id="modalSpecs" class="grid grid-cols-2 gap-4 text-sm mb-8"></div>
-                <p id="modalDesc" class="text-slate-600 italic"></p>
-                <a id="modalWaLink" href="#" target="_blank" class="mt-8 block w-full bg-green-500 text-white text-center py-4 rounded-2xl font-bold flex items-center justify-center space-x-3">
-                    <i class="fab fa-whatsapp"></i> <span>Solicitar Dossier</span>
+                <p id="modalDesc" class="text-slate-600 text-sm leading-relaxed"></p>
+                <a id="modalWaLink" href="#" target="_blank" class="mt-8 block w-full bg-green-500 text-white text-center py-4 rounded-2xl font-bold hover:bg-green-600 transition flex items-center justify-center space-x-3">
+                    <i class="fab fa-whatsapp text-xl"></i> <span>Solicitar Dossier Técnico</span>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Exit Popup -->
-    <div id="exitPopup" class="fixed inset-0 z-[500] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-md">
-        <div class="bg-white w-full max-w-2xl rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 relative flex flex-col md:flex-row">
-            <button onclick="closeExitPopup()" class="absolute top-6 right-6 text-slate-300"><i class="fas fa-times"></i></button>
-            <div class="md:w-1/3 bg-slate-900 p-8 text-white flex flex-col justify-center">
-                <h3 class="font-bold text-2xl mb-4">Activa tu búsqueda.</h3>
-                <p class="text-slate-400 text-sm">Activaré mi red para encontrar lo que buscas.</p>
-            </div>
-            <div class="md:w-2/3 p-10 bg-white">
-                <div id="step1">
-                    <h2 class="text-xl font-bold mb-6">¿Cuál es tu objetivo?</h2>
-                    <div class="space-y-3">
-                        <button onclick="nextStep('Inversión')" class="w-full p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-600 transition text-left font-bold">Inversión</button>
-                        <button onclick="nextStep('Vivienda')" class="w-full p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-600 transition text-left font-bold">Vivienda Personal</button>
-                    </div>
-                </div>
-                <div id="step2" class="hidden">
-                    <input type="text" id="quizZona" placeholder="¿En qué zona?" class="w-full p-4 rounded-xl bg-slate-50 mb-4 outline-none border">
-                    <input type="email" id="quizEmail" placeholder="Tu correo" class="w-full p-4 rounded-xl bg-slate-50 mb-4 outline-none border">
-                    <button onclick="finishQuiz()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold">Activar Búsqueda</button>
-                </div>
-                <div id="stepFinal" class="hidden text-center py-10">
-                    <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
-                    <h2 class="text-2xl font-bold">¡Recibido!</h2>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Contacto (Placeholder para scroll) -->
+    <section id="contacto" class="py-32 bg-slate-50 text-center">
+        <h2 class="text-3xl font-bold">Sección de Contacto</h2>
+        <p class="text-slate-500">Aquí va tu formulario actual...</p>
+    </section>
 
     <script>
-    // --- 1. CONFIGURACIÓN Y DATOS (6 PROPIEDADES) ---
-    const propiedades = [
-        {
-            id: 1,
-            titulo: "Depto Proyección Plusvalía - Concón",
-            descripcion: "Activo ubicado en zona de expansión vial. Proyectamos captura de valor del 12% en 18 meses debido al nuevo plan regulador.",
-            precio: "UF 4.200",
-            etiqueta: "Smart Investment",
-            imagenes: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800"],
-            especificaciones: { "Superficie": "75 m²", "Dormitorios": "2", "Baños": "2", "Rentabilidad": "5.5% Est." }
-        },
-        {
-            id: 2,
-            titulo: "Casa Consolidada - Bosques Montemar",
-            descripcion: "Zona de alta demanda y nula vacancia. Ideal para resguardo patrimonial familiar en el sector de mayor plusvalía de la región.",
-            precio: "UF 12.800",
-            etiqueta: "Patrimonio",
-            imagenes: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"],
-            especificaciones: { "Terreno": "450 m²", "Construidos": "180 m²", "Baños": "4", "Seguridad": "Máxima" }
-        },
-        {
-            id: 3,
-            titulo: "Loft Ejecutivo - Barrio El Golf",
-            descripcion: "Alta rotación de arriendo corporativo. Se entrega amoblado y con contrato de arriendo vigente para retorno inmediato.",
-            precio: "UF 5.100",
-            etiqueta: "Cash Flow",
-            imagenes: ["https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800"],
-            especificaciones: { "Superficie": "55 m²", "Dormitorios": "1", "Baños": "1", "Gto. Común": "Bajo" }
-        },
-        {
-            id: 4,
-            titulo: "Parcela de Agrado - Valle del Marga Marga",
-            descripcion: "Terreno con factibilidad de agua y luz. Excelente oportunidad para desarrollo de segunda vivienda en entorno natural.",
-            precio: "UF 2.900",
-            etiqueta: "Oportunidad",
-            imagenes: ["https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800"],
-            especificaciones: { "Terreno": "5.000 m²", "Rol": "Propio", "Pendiente": "Suave", "Vista": "Despejada" }
-        },
-        {
-            id: 5,
-            titulo: "Penthouse Vista Mar - Reñaca",
-            descripcion: "Propiedad de lujo en primera línea. Terminaciones de alto estándar, terraza panorámica y acceso privado.",
-            precio: "UF 18.500",
-            etiqueta: "Exclusivo",
-            imagenes: ["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800"],
-            especificaciones: { "Superficie": "210 m²", "Terraza": "40 m²", "Dormitorios": "4", "Estacionamientos": "3" }
-        },
-        {
-            id: 6,
-            titulo: "Local Comercial - Centro Viña",
-            descripcion: "Ubicación estratégica con alto flujo peatonal. Ideal para franquicias, servicios médicos o retail de alto impacto.",
-            precio: "UF 9.400",
-            etiqueta: "Comercial",
-            imagenes: ["https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800"],
-            especificaciones: { "Superficie": "120 m²", "Baños": "2", "Frente": "8 mt", "Patente": "Comercial" }
-        }
-    ];
+        const propiedades = [
+            {
+                id: 1,
+                titulo: "Depto Plusvalía - Concón",
+                precio: "UF 4.200",
+                etiqueta: "Smart Investment",
+                descripcion: "Ubicado en el epicentro del nuevo desarrollo vial. Alta demanda de arriendo y proyección de captura de valor en corto plazo debido al nuevo plano regulador de la zona.",
+                imagenes: [
+                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800"
+                ],
+                especificaciones: { "Superficie": "75m²", "Dorm": "2", "Baños": "2", "Rentabilidad": "5.5%" }
+            },
+            {
+                id: 2,
+                titulo: "Casa Bosques Montemar",
+                precio: "UF 12.800",
+                etiqueta: "Patrimonio",
+                descripcion: "Propiedad de alta gama en sector consolidado. Seguridad, exclusividad y resguardo de capital garantizado en uno de los barrios con mayor demanda de la región.",
+                imagenes: [
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&q=80&w=800"
+                ],
+                especificaciones: { "Terreno": "450m²", "Const": "180m²", "Dorm": "4", "Seguridad": "Alta" }
+            },
+            {
+                id: 3,
+                titulo: "Loft Ejecutivo - El Golf",
+                precio: "UF 5.100",
+                etiqueta: "Cash Flow",
+                descripcion: "Ideal para inversión corporativa. Se vende amoblado y con arrendatario vigente. Ubicación estratégica cerca de centros financieros.",
+                imagenes: [
+                    "https://images.unsplash.com/photo-1536376074432-8d240d71b675?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1502672023488-70e25813eb80?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=800"
+                ],
+                especificaciones: { "Superficie": "55m²", "Dorm": "1", "Baño": "1", "Estado": "Nuevo" }
+            },
+            {
+                id: 4,
+                titulo: "Parcela Marga Marga",
+                precio: "UF 2.950",
+                etiqueta: "Oportunidad",
+                descripcion: "Terreno con rol propio y factibilidad eléctrica. Ideal para proyecto de autoconstrucción, segunda vivienda o subdivisión futura por crecimiento urbano.",
+                imagenes: [
+                    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&q=80&w=800"
+                ],
+                especificaciones: { "Superficie": "5000m²", "Rol": "Propio", "Agua": "Pozo", "Luz": "Factible" }
+            },
+            {
+                id: 5,
+                titulo: "Penthouse Reñaca",
+                precio: "UF 18.500",
+                etiqueta: "Exclusivo",
+                descripcion: "Primera línea frente al mar. Terminaciones italianas, gran terraza con vista panorámica y ascensor privado directo al departamento.",
+                imagenes: [
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1499916078039-922301b0eb9b?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800"
+                ],
+                especificaciones: { "Superficie": "220m²", "Terraza": "45m²", "Dorm": "4", "Baños": "4" }
+            },
+            {
+                id: 6,
+                titulo: "Local Comercial Viña",
+                precio: "UF 9.400",
+                etiqueta: "Comercial",
+                descripcion: "Ubicación estratégica con alto tráfico peatonal en zona comercial activa. Ideal para servicios profesionales, sucursales bancarias o retail de lujo.",
+                imagenes: [
+                    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800"
+                ],
+                especificaciones: { "Superficie": "110m²", "Frente": "8mt", "Niveles": "2", "Patente": "Ok" }
+            }
+        ];
 
-    let currentProp = null;
-    let catalogoExpandido = false;
-    let popupMostrado = false;
+        let currentProp = null;
+        let currentImgIndex = 0;
+        let catalogoExpandido = false;
 
-    // --- 2. FUNCIONES DE BIENVENIDA Y NAVEGACIÓN ---
-    function closeWelcome(interes) {
-        const welcome = document.getElementById('welcomeModal');
-        if (welcome) {
-            welcome.style.opacity = '0';
+        function closeWelcome(interes) {
+            document.getElementById('welcomeModal').style.opacity = '0';
             setTimeout(() => {
-                welcome.style.display = 'none';
+                document.getElementById('welcomeModal').style.display = 'none';
                 document.body.classList.remove('no-scroll');
-                
-                if (interes === 'vender') {
-                    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-                } else if (interes === 'invertir') {
-                    document.getElementById('propiedades').scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 500);
+                const target = interes === 'vender' ? 'contacto' : 'propiedades';
+                document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+            }, 400);
         }
-    }
 
-    window.addEventListener('scroll', function() {
-    const nav = document.getElementById('mainNav');
-    const links = document.getElementById('navLinks');
-    const logo = document.getElementById('navLogo');
-    
-    if (window.scrollY > 20) {
-        nav.classList.add('bg-white/95', 'backdrop-blur-xl', 'shadow-sm', 'h-20');
-        nav.classList.remove('bg-transparent', 'h-24', 'text-white');
-        
-        // Forzamos el color oscuro para que sea legible sobre el blanco
-        if(links) {
-            links.classList.remove('text-white');
-            links.classList.add('text-slate-900');
-        }
-        if(logo) {
-            logo.classList.remove('text-white');
-            logo.classList.add('text-slate-900');
-        }
-    } else {
-        nav.classList.remove('bg-white/95', 'backdrop-blur-xl', 'shadow-sm', 'h-20');
-        nav.classList.add('bg-transparent', 'h-24');
-        
-        if(links) {
-            links.classList.add('text-white');
-            links.classList.remove('text-slate-900');
-        }
-        if(logo) {
-            logo.classList.add('text-white');
-            logo.classList.remove('text-slate-900');
-        }
-    }
-});
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            const logo = document.getElementById('navLogo');
+            const links = document.getElementById('navLinks');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/95', 'backdrop-blur-xl', 'shadow-md', 'h-20');
+                nav.classList.remove('bg-transparent', 'h-24');
+                logo.classList.add('text-slate-900');
+                links.classList.add('text-slate-900');
+            } else {
+                nav.classList.remove('bg-white/95', 'backdrop-blur-xl', 'shadow-md', 'h-20');
+                nav.classList.add('bg-transparent', 'h-24');
+                logo.classList.remove('text-slate-900');
+                links.classList.remove('text-slate-900');
+            }
+        });
 
-    // --- 3. RENDERIZADO DE PROPIEDADES (LÓGICA 3 + 3) ---
-    function render() {
-        const container = document.getElementById('propiedadesContainer');
-        if(!container) return;
-
-        const mostrar = catalogoExpandido ? propiedades : propiedades.slice(0, 3);
-
-        let html = mostrar.map(prop => `
-            <div onclick="openModal(${prop.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group cursor-pointer transition-all duration-500">
-                <div class="h-72 bg-slate-200 relative overflow-hidden">
-                    <img src="${prop.imagenes[0]}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-[10px] font-black uppercase text-blue-600 tracking-widest shadow-sm">
-                        ${prop.etiqueta}
+        function render() {
+            const container = document.getElementById('propiedadesContainer');
+            const mostrar = catalogoExpandido ? propiedades : propiedades.slice(0, 3);
+            
+            let html = mostrar.map((prop, i) => `
+                <div onclick="openModal(${prop.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group cursor-pointer ${catalogoExpandido && i >= 3 ? 'fade-in-up' : ''}" style="animation-delay: ${(i-3)*0.1}s">
+                    <div class="h-72 bg-slate-200 overflow-hidden relative">
+                        <img src="${prop.imagenes[0]}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-[10px] font-black uppercase text-blue-600 tracking-widest">${prop.etiqueta}</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-bold text-xl mb-3">${prop.titulo}</h3>
+                        <p class="text-blue-600 font-black text-xl mb-4">${prop.precio}</p>
+                        <div class="text-sm font-bold text-slate-400 group-hover:text-blue-600 flex items-center">ANALIZAR ACTIVO <i class="fas fa-chevron-right ml-2"></i></div>
                     </div>
                 </div>
-                <div class="p-8">
-                    <h3 class="font-bold text-xl mb-3 text-slate-900">${prop.titulo}</h3>
-                    <p class="text-blue-600 font-black text-xl mb-4">${prop.precio}</p>
-                    <div class="text-sm font-bold text-slate-400 group-hover:text-blue-600 transition flex items-center uppercase">
-                        Analizar Activo <i class="fas fa-chevron-right ml-2 text-xs"></i>
-                    </div>
-                </div>
-            </div>
-        `).join('');
+            `).join('');
 
-        if (!catalogoExpandido && propiedades.length > 3) {
-            html += `
-                <div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center mt-12">
-                    <button onclick="toggleCatalogo()" class="bg-white border-2 border-blue-600 text-blue-600 px-10 py-4 rounded-2xl font-bold hover:bg-blue-600 hover:text-white transition duration-300 shadow-lg">
-                        Ver catálogo completo (${propiedades.length} propiedades)
-                    </button>
-                </div>
-            `;
-        } else if (catalogoExpandido) {
-            html += `
-                <div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center mt-12">
-                    <button onclick="toggleCatalogo()" class="text-slate-400 font-bold hover:text-blue-600 transition underline">
-                        Ver menos
-                    </button>
-                </div>
-            `;
+            if (!catalogoExpandido) {
+                html += `<div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center mt-12">
+                    <button onclick="toggleCatalogo()" class="bg-white border-2 border-blue-600 text-blue-600 px-10 py-4 rounded-2xl font-bold hover:bg-blue-600 hover:text-white transition shadow-lg">Ver catálogo completo (6)</button>
+                </div>`;
+            } else {
+                html += `<div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center mt-12">
+                    <button onclick="toggleCatalogo()" class="text-slate-400 font-bold hover:text-blue-600 underline">Ver menos</button>
+                </div>`;
+            }
+            container.innerHTML = html;
         }
 
-        container.innerHTML = html;
-    }
-
-    function toggleCatalogo() {
-        catalogoExpandido = !catalogoExpandido;
-        render();
-        if(catalogoExpandido) {
-            window.scrollBy({ top: 400, behavior: 'smooth' });
+        function toggleCatalogo() {
+            catalogoExpandido = !catalogoExpandido;
+            render();
+            if(catalogoExpandido) window.scrollBy({ top: 300, behavior: 'smooth' });
         }
-    }
 
-    // --- 4. MODAL DE PROPIEDAD ---
-    function openModal(id) {
-        currentProp = propiedades.find(p => p.id === id);
-        const modal = document.getElementById('propertyModal');
-        if(!currentProp || !modal) return;
-
-        document.getElementById('modalImg').src = currentProp.imagenes[0];
-        document.getElementById('modalTitle').innerText = currentProp.titulo;
-        document.getElementById('modalPrice').innerText = currentProp.precio;
-        document.getElementById('modalBadge').innerText = currentProp.etiqueta;
-        document.getElementById('modalDesc').innerText = currentProp.descripcion;
-        
-        const specsHtml = Object.entries(currentProp.especificaciones)
-            .map(([key, value]) => `<div><span class="text-slate-400 block">${key}</span><span class="font-bold text-slate-900">${value}</span></div>`)
-            .join('');
-        document.getElementById('modalSpecs').innerHTML = specsHtml;
-        
-        // Link de WhatsApp personalizado por propiedad
-        document.getElementById('modalWaLink').href = `https://wa.me/56951134778?text=Hola%20Sebastián,%20me%20interesa%20analizar%20el%20activo:%20${encodeURIComponent(currentProp.titulo)}`;
-        
-        modal.classList.remove('hidden');
-        document.body.classList.add('no-scroll');
-    }
-
-    function closeModal() {
-        document.getElementById('propertyModal').classList.add('hidden');
-        document.body.classList.remove('no-scroll');
-    }
-
-    // --- 5. EXIT POPUP / QUIZ ---
-    document.addEventListener('mouseleave', (e) => {
-        if (e.clientY < 0 && !popupMostrado) {
-            const exit = document.getElementById('exitPopup');
-            if(exit) exit.classList.remove('hidden');
-            popupMostrado = true;
+        function openModal(id) {
+            currentProp = propiedades.find(p => p.id === id);
+            currentImgIndex = 0;
+            updateModal();
+            document.getElementById('propertyModal').classList.remove('hidden');
+            document.body.classList.add('no-scroll');
         }
-    });
 
-    function closeExitPopup() {
-        document.getElementById('exitPopup').classList.add('hidden');
-    }
+        function closeModal() {
+            document.getElementById('propertyModal').classList.add('hidden');
+            document.body.classList.remove('no-scroll');
+        }
 
-    function nextStep(objetivo) {
-        document.getElementById('step1').classList.add('hidden');
-        document.getElementById('step2').classList.remove('hidden');
-    }
+        function changeImg(dir) {
+            currentImgIndex = (currentImgIndex + dir + currentProp.imagenes.length) % currentProp.imagenes.length;
+            const img = document.getElementById('modalImg');
+            img.style.opacity = '0';
+            setTimeout(() => {
+                img.src = currentProp.imagenes[currentImgIndex];
+                document.getElementById('imgCounter').innerText = `${currentImgIndex + 1} / ${currentProp.imagenes.length}`;
+                img.style.opacity = '1';
+            }, 150);
+        }
 
-    function finishQuiz() {
-        document.getElementById('step2').classList.add('hidden');
-        document.getElementById('stepFinal').classList.remove('hidden');
-        setTimeout(closeExitPopup, 2500);
-    }
+        function updateModal() {
+            document.getElementById('modalImg').src = currentProp.imagenes[0];
+            document.getElementById('modalTitle').innerText = currentProp.titulo;
+            document.getElementById('modalPrice').innerText = currentProp.precio;
+            document.getElementById('modalBadge').innerText = currentProp.etiqueta;
+            document.getElementById('modalDesc').innerText = currentProp.descripcion;
+            document.getElementById('imgCounter').innerText = `1 / ${currentProp.imagenes.length}`;
+            document.getElementById('modalSpecs').innerHTML = Object.entries(currentProp.especificaciones)
+                .map(([k, v]) => `<div><span class="text-slate-400 block">${k}</span><span class="font-bold">${v}</span></div>`).join('');
+            document.getElementById('modalWaLink').href = `https://wa.me/56951134778?text=Hola%20Sebastián,%20me%20interesa%20analizar%20el%20activo:%20${encodeURIComponent(currentProp.titulo)}`;
+        }
 
-    // Iniciar el renderizado al cargar
-    document.addEventListener('DOMContentLoaded', render);
-</script>
+        document.addEventListener('DOMContentLoaded', render);
+    </script>
 </body>
 </html>
