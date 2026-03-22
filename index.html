@@ -450,6 +450,27 @@
 
     // Iniciar el renderizado al cargar
     document.addEventListener('DOMContentLoaded', render);
+        /* Animación de entrada para las nuevas propiedades */
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Transición suave para el contenedor */
+#propiedadesContainer {
+    transition: all 0.5s ease-in-out;
+}
 </script>
 </body>
 </html>
