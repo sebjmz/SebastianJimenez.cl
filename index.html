@@ -184,7 +184,7 @@
                                 <i class="far fa-envelope"></i>
                             </div>
                             <span><a href="mailto:sebastian@sebastianjimenez.cl?subject=Consulta%20Inmobiliaria&body=Hola%20Sebastián," class="flex items-center space-x-3 hover:text-blue-700 transition">
-    <span class="font-bold">sebastian@sebastianjimenez.cl</span>
+    <span class="font-bold">Escribeme directo</span>
 </a></span>
                         </div>
                         <div class="flex items-center">
@@ -275,7 +275,7 @@
                     <p id="modalDesc" class="text-slate-600 leading-relaxed italic"></p>
                 </div>
                 <div class="pt-8">
-                    <a id="modalWaLink" href="#" class="block w-full bg-green-500 text-white text-center py-4 rounded-2xl font-bold hover:bg-green-600 transition">
+                    <a id="modalWaLink" href="#" target="_blank" class="block w-full bg-green-500 text-white text-center py-4 rounded-2xl font-bold hover:bg-green-600 transition">
                         <i class="fab fa-whatsapp mr-2"></i> Solicitar Dossier Técnico
                     </a>
                 </div>
@@ -387,26 +387,21 @@
         }
 
         function openModal(id) {
-            currentProp = propiedades.find(p => p.id === id);
-            currentImgIndex = 0;
-            document.getElementById('modalImg').src = currentProp.imagenes[0];
-            document.getElementById('modalTitle').innerText = currentProp.titulo;
-            document.getElementById('modalPrice').innerText = currentProp.precio;
-            document.getElementById('modalDesc').innerText = currentProp.descripcion;
-            document.getElementById('modalBadge').innerText = currentProp.etiqueta;
-            const specsGrid = document.getElementById('modalSpecs');
-            specsGrid.innerHTML = '';
-            for (const [key, value] of Object.entries(currentProp.especificaciones)) {
-                specsGrid.innerHTML += `
-                    <div class="p-3 bg-slate-50 rounded-xl">
-                        <span class="block text-slate-400 text-[9px] uppercase font-black mb-1">${key}</span>
-                        <span class="text-slate-800 text-sm font-semibold">${value}</span>
-                    </div>
-                `;
-            }
-            modal.classList.remove('hidden');
-            document.body.classList.add('no-scroll');
-        }
+    currentProp = propiedades.find(p => p.id === id);
+    currentImgIndex = 0;
+    
+    // ... (mantén el código que ya tienes arriba)
+    
+    document.getElementById('modalBadge').innerText = currentProp.etiqueta;
+
+    // --- AÑADE ESTO AQUÍ ---
+    const mensajeWa = encodeURIComponent(`Hola Sebastián, solicito el Dossier Técnico de la propiedad: ${currentProp.titulo}`);
+    document.getElementById('modalWaLink').href = `https://wa.me/56951134778?text=${mensajeWa}`;
+    // -----------------------
+
+    const specsGrid = document.getElementById('modalSpecs');
+    // ... (el resto de tu función render de specs)
+}
 
         function closeModal() {
             modal.classList.add('hidden');
