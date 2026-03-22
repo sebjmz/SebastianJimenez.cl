@@ -416,13 +416,17 @@
         const mostrar = catalogoExpandido ? propiedades : propiedades.slice(0, 3);
 
         let html = mostrar.map(prop => `
-            <div onclick="openModal(${prop.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group cursor-pointer transition-all duration-500">
-                <div class="h-72 bg-slate-200 relative overflow-hidden">
-                    <img src="${prop.imagenes[0]}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-[10px] font-black uppercase text-blue-600 tracking-widest shadow-sm">
-                        ${prop.etiqueta}
-                    </div>
-                </div>
+            // Cambia las clases de la card por estas:
+`<div onclick="openModal(${prop.id})" class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 card-hover group cursor-pointer transition-all">
+    <div class="h-56 md:h-80 bg-slate-200 relative overflow-hidden"> 
+        <!-- Bajamos de h-80 a h-56 en móvil para que quepa más contenido -->
+        <img src="${prop.imagenes[0]}" class="w-full h-full object-cover">
+    </div>
+    <div class="p-6 md:p-10"> <!-- Reducimos el padding de 10 a 6 en móvil -->
+        <h3 class="font-bold text-lg md:text-2xl mb-2 text-slate-900">${prop.titulo}</h3>
+        <p class="text-blue-600 font-black text-lg mb-3">${prop.precio}</p>
+    </div>
+</div>`
                 <div class="p-8">
                     <h3 class="font-bold text-xl mb-3 text-slate-900">${prop.titulo}</h3>
                     <p class="text-blue-600 font-black text-xl mb-4">${prop.precio}</p>
