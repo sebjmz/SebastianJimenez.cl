@@ -42,6 +42,21 @@
             overflow: hidden;
         }
     </style>
+    <style>
+    /* Evita el desplazamiento lateral y ajusta escala en móviles */
+    @media (max-width: 768px) {
+        body {
+            font-size: 0.95rem;
+            overflow-x: hidden;
+        }
+        section {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+        /* Ajusta las cards para que no sean tan altas */
+        .h-80 { height: 14rem !important; }
+    }
+</style>
 </head>
 <body class="bg-slate-50 text-slate-900 no-scroll">
 
@@ -166,38 +181,43 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
             <!-- Datos de contacto directo -->
-            <div class="space-y-8">
-                <div>
-                    <h2 class="text-5xl font-extrabold text-slate-900 mb-6 leading-tight">¿Hablemos de tu <br><span class="text-blue-600">próxima inversión?</span></h2>
-                    <p class="text-xl text-slate-500">Analicemos la rentabilidad de tu patrimonio con datos reales.</p>
-                </div>
+            <!-- Sección de Información y Contacto -->
+<div class="space-y-8">
+    <div>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
+            Analicemos tu <br><span class="text-blue-600">próxima inversión</span>
+        </h2>
+        <p class="text-lg text-slate-500 max-w-md">
+            No busco clientes, busco socios estratégicos para maximizar rentabilidad en la Quinta Región.
+        </p>
+    </div>
 
-                <div class="space-y-6">
-                    <!-- WhatsApp -->
-                    <a href="https://wa.me/56951134778?text=Hola%20Sebastián,%20necesito%20asesoría" 
-                       class="flex items-center space-x-4 p-6 bg-white rounded-3xl shadow-sm hover:shadow-md transition group">
-                        <div class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-slate-400 font-bold uppercase tracking-wider">Escríbeme directo</p>
-                            <p class="text-xl font-bold text-slate-900">+56 9 5113 4778</p>
-                        </div>
-                    </a>
-
-                    <!-- Correo Activo (MAILTO) -->
-                    <a href="mailto:sebastian@sebastianjimenez.cl?subject=Consulta%20Inmobiliaria&body=Hola%20Sebastián,%20me%20gustaría%20solicitar%20asesoría%20sobre:" 
-                       class="flex items-center space-x-4 p-6 bg-white rounded-3xl shadow-sm hover:shadow-md transition group">
-                        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
-                            <i class="far fa-envelope"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-slate-400 font-bold uppercase tracking-wider">Email Profesional</p>
-                            <p class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition">sebastian@sebastianjimenez.cl</p>
-                        </div>
-                    </a>
-                </div>
+    <div class="space-y-4">
+        <!-- Llamada Directa -->
+        <a href="tel:+56951134778" 
+           class="flex items-center space-x-5 p-6 bg-white rounded-[2rem] shadow-sm hover:shadow-md transition group border border-slate-100">
+            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                <i class="fas fa-phone-alt"></i>
             </div>
+            <div>
+                <p class="text-[10px] text-slate-400 font-black uppercase tracking-widest">Contacto Telefónico</p>
+                <p class="text-lg font-bold text-slate-900">Llamame directo</p>
+            </div>
+        </a>
+
+        <!-- Email Directo -->
+        <a href="mailto:sebastian@sebastianjimenez.cl?subject=Consulta%20Desde%20Landing" 
+           class="flex items-center space-x-5 p-6 bg-white rounded-[2rem] shadow-sm hover:shadow-md transition group border border-slate-100">
+            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                <i class="far fa-envelope"></i>
+            </div>
+            <div>
+                <p class="text-[10px] text-slate-400 font-black uppercase tracking-widest">Correo Electrónico</p>
+                <p class="text-lg font-bold text-slate-900">Escribeme directo</p>
+            </div>
+        </a>
+    </div>
+</div>
 
             <!-- Formulario AJAX con FormSubmit -->
             <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 relative">
