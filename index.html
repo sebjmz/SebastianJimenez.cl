@@ -76,12 +76,11 @@
         <div class="flex justify-between h-20 items-center">
             
             <!-- Logo Blanco al inicio -->
-            <a href="#inicio" id="navLogo" class="text-xl font-bold tracking-tighter text-white hover:opacity-80 transition cursor-pointer">
-                SEBASTIAN<span class="text-blue-400">JIMENEZ</span>.CL
-            </a>
+            <a href="#inicio" id="navLogo" class="text-xl font-bold ... text-white">
+    SEBASTIAN<span class="text-blue-600">JIMENEZ</span>.CL
+</a>
 
-            <!-- Enlaces Blancos al inicio -->
-            <div id="navLinks" class="hidden md:flex space-x-8 text-sm font-semibold items-center text-white">
+<div id="navLinks" class="hidden md:flex ... text-white">
                 <a href="#inicio" class="hover:text-blue-400 transition">Inicio</a>
                 <a href="#propiedades" class="hover:text-blue-400 transition">Propiedades</a>
                 <a href="#metodo" class="hover:text-blue-400 transition">Mi Método</a>
@@ -476,14 +475,32 @@ function closeWelcome(interes) {
         // Efecto de Menú Inteligente (Transparente -> Vidrio)
 window.addEventListener('scroll', function() {
     const nav = document.getElementById('mainNav');
-    if (window.scrollY > 10) {
-        // Al bajar: Fondo blanco traslúcido + Desenfoque + Sombra fina
-        nav.classList.remove('bg-white/0');
-        nav.classList.add('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-slate-100', 'shadow-sm');
+    const logo = document.getElementById('navLogo');
+    const links = document.getElementById('navLinks');
+
+    if (window.scrollY > 50) {
+        // --- ESTADO AL BAJAR (Fondo Blanco) ---
+        nav.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-slate-100');
+        
+        // Cambiamos el logo a Negro/Azul oscuro
+        logo.classList.remove('text-white');
+        logo.classList.add('text-slate-900');
+        
+        // Cambiamos los links del menú a Gris oscuro
+        links.classList.remove('text-white');
+        links.classList.add('text-slate-600');
+        
     } else {
-        // Al estar arriba: Totalmente transparente
-        nav.classList.remove('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-slate-100', 'shadow-sm');
-        nav.classList.add('bg-white/0');
+        // --- ESTADO ARRIBA (Transparente / Hero Oscuro) ---
+        nav.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-slate-100');
+        
+        // Volvemos el logo a Blanco para que se vea sobre el azul marino
+        logo.classList.remove('text-slate-900');
+        logo.classList.add('text-white');
+        
+        // Volvemos los links a Blanco
+        links.classList.remove('text-slate-600');
+        links.classList.add('text-white');
     }
 });
         render();
