@@ -494,7 +494,56 @@
         document.getElementById('stepFinal').classList.remove('hidden');
         setTimeout(closeExitPopup, 2500);
     }
+// --- COPIAR DESDE AQUÍ ---
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Ejecutar el renderizado de propiedades (que ya tenías)
+    render();
 
+    const contactForm = document.getElementById('contact-form');
+    const successMsg = document.getElementById('success-msg');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita la página blanca de FormSubmit
+
+            submitBtn.innerText = 'Enviando...';
+            submitBtn.disabled = true;
+
+            const formData = new FormData(this);
+
+            // Enviamos los datos vía AJAX
+            fetch("https://formsubmit.co/ajax/sebastian@sebastianjimenez.cl", {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === "true" || data.success === true) {
+                    // Ocultamos formulario y mostramos mensaje de éxito
+                    contactForm.classList.add('hidden');
+                    successMsg.classList.remove('hidden');
+
+                    // ¡Lanzar el confeti!
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#2563eb', '#1e293b', '#22c55e', '#ffffff']
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Hubo un problema. Por favor, intenta por WhatsApp.");
+                submitBtn.innerText = 'Enviar Mensaje';
+                submitBtn.disabled = false;
+            });
+        });
+    }
+});
+// --- HASTA AQUÍ ---
     // Iniciar el renderizado al cargar
     document.addEventListener('DOMContentLoaded', render);
 </script>
