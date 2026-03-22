@@ -198,19 +198,16 @@
 
                 <!-- Formulario -->
                 <div class="lg:w-2/3 p-12 md:p-16">
-                   <!-- Formulario Conectado a FormSubmit -->
-<form action="https://formsubmit.co/sebastian@sebastianjimenez.cl" method="POST" class="space-y-6">
-    
-    <!-- Configuración extra de FormSubmit -->
+                   <form id="contactForm" class="space-y-6">
+    <!-- Configuración para FormSubmit (esto se queda) -->
     <input type="hidden" name="_subject" value="Nueva Solicitud Estratégica - Web Inmobiliaria">
-    <input type="hidden" name="_next" value="https://sebastianjimenez.cl/gracias.html">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="false">
 
+    <!-- Campos del formulario (asegúrate de que tengan el atributo 'name') -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="space-y-2">
             <label class="text-sm font-bold text-slate-700">Tu Nombre</label>
-            <!-- Importante: el atributo 'name' es lo que verás en el correo -->
             <input type="text" name="nombre" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="Juan Pérez">
         </div>
         <div class="space-y-2">
@@ -236,9 +233,14 @@
         <textarea name="mensaje" rows="4" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="Cuéntame brevemente sobre tu propiedad o inversión deseada..."></textarea>
     </div>
     
-    <button type="submit" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-200">
+    <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-200">
         Enviar Solicitud Estratégica
     </button>
+    
+    <!-- Este mensaje aparecerá solo después de enviar -->
+    <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded-2xl text-center font-bold">
+        ¡Gracias! Tu solicitud ha sido enviada con éxito. Me pondré en contacto contigo a la brevedad.
+    </div>
 </form>
                 </div>
             </div>
