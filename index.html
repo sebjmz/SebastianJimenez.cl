@@ -325,21 +325,37 @@
     }
 
     window.addEventListener('scroll', function() {
-        const nav = document.getElementById('mainNav');
-        const links = document.getElementById('navLinks');
-        const logo = document.getElementById('navLogo');
-        if (window.scrollY > 50) {
-            nav.classList.add('bg-white/95', 'backdrop-blur-xl', 'shadow-md', 'h-20');
-            nav.classList.remove('bg-transparent', 'h-24');
-            if(links) links.classList.add('text-slate-900');
-            if(logo) logo.classList.add('text-slate-900');
-        } else {
-            nav.classList.remove('bg-white/95', 'backdrop-blur-xl', 'shadow-md', 'h-20');
-            nav.classList.add('bg-transparent', 'h-24');
-            if(links) links.classList.remove('text-slate-900');
-            if(logo) logo.classList.remove('text-slate-900');
+    const nav = document.getElementById('mainNav');
+    const links = document.getElementById('navLinks');
+    const logo = document.getElementById('navLogo');
+    
+    if (window.scrollY > 20) {
+        nav.classList.add('bg-white/95', 'backdrop-blur-xl', 'shadow-sm', 'h-20');
+        nav.classList.remove('bg-transparent', 'h-24', 'text-white');
+        
+        // Forzamos el color oscuro para que sea legible sobre el blanco
+        if(links) {
+            links.classList.remove('text-white');
+            links.classList.add('text-slate-900');
         }
-    });
+        if(logo) {
+            logo.classList.remove('text-white');
+            logo.classList.add('text-slate-900');
+        }
+    } else {
+        nav.classList.remove('bg-white/95', 'backdrop-blur-xl', 'shadow-sm', 'h-20');
+        nav.classList.add('bg-transparent', 'h-24');
+        
+        if(links) {
+            links.classList.add('text-white');
+            links.classList.remove('text-slate-900');
+        }
+        if(logo) {
+            logo.classList.add('text-white');
+            logo.classList.remove('text-slate-900');
+        }
+    }
+});
 
     // --- 3. RENDERIZADO DE PROPIEDADES (LÓGICA 3 + 3) ---
     function render() {
