@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Librería para el efecto de papelitos (Confetti) -->
+    <!-- Iconos de FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- Librería para el efecto de papelitos (Confetti) -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -163,16 +165,16 @@
     <div class="max-w-6xl mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
-            <!-- Información de Contacto Directa -->
+            <!-- Datos de contacto directo -->
             <div class="space-y-8">
                 <div>
                     <h2 class="text-5xl font-extrabold text-slate-900 mb-6 leading-tight">¿Hablemos de tu <br><span class="text-blue-600">próxima inversión?</span></h2>
-                    <p class="text-xl text-slate-500">Analicemos juntos la rentabilidad y el resguardo de tu patrimonio con datos reales del mercado en la zona.</p>
+                    <p class="text-xl text-slate-500">Analicemos la rentabilidad de tu patrimonio con datos reales.</p>
                 </div>
 
                 <div class="space-y-6">
-                    <!-- WhatsApp Directo -->
-                    <a href="https://wa.me/56951134778?text=Hola%20Sebastián,%20necesito%20asesoría%20inmobiliaria" 
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/56951134778?text=Hola%20Sebastián,%20necesito%20asesoría" 
                        class="flex items-center space-x-4 p-6 bg-white rounded-3xl shadow-sm hover:shadow-md transition group">
                         <div class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
                             <i class="fab fa-whatsapp"></i>
@@ -183,42 +185,36 @@
                         </div>
                     </a>
 
-                    <!-- Email Profesional -->
-                    <div class="flex items-center space-x-4 p-6 bg-white rounded-3xl shadow-sm">
-                        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl">
+                    <!-- Correo Activo (MAILTO) -->
+                    <a href="mailto:sebastian@sebastianjimenez.cl?subject=Consulta%20Inmobiliaria&body=Hola%20Sebastián,%20me%20gustaría%20solicitar%20asesoría%20sobre:" 
+                       class="flex items-center space-x-4 p-6 bg-white rounded-3xl shadow-sm hover:shadow-md transition group">
+                        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition">
                             <i class="far fa-envelope"></i>
                         </div>
                         <div>
                             <p class="text-sm text-slate-400 font-bold uppercase tracking-wider">Email Profesional</p>
-                            <p class="text-xl font-bold text-slate-900">sebastian@sebastianjimenez.cl</p>
+                            <p class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition">sebastian@sebastianjimenez.cl</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
 
-            <!-- Formulario con FormSubmit -->
-            <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100">
+            <!-- Formulario AJAX con FormSubmit -->
+            <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 relative">
                 <form id="contact-form" action="https://formsubmit.co/ajax/sebastian@sebastianjimenez.cl" method="POST" class="space-y-6">
-                    <input type="hidden" name="_subject" value="Nueva consulta desde la Web">
                     <input type="hidden" name="_captcha" value="false">
-                    
                     <div class="space-y-4">
-                        <input type="text" name="Nombre" placeholder="Tu nombre" required 
-                               class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition">
-                        <input type="email" name="Email" placeholder="Tu correo" required 
-                               class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition">
-                        <textarea name="Mensaje" placeholder="¿En qué puedo ayudarte?" rows="4" required 
-                                  class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition"></textarea>
+                        <input type="text" name="Nombre" placeholder="Tu nombre" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition">
+                        <input type="email" name="Email" placeholder="Tu correo" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition">
+                        <textarea name="Mensaje" placeholder="¿En qué puedo ayudarte?" rows="4" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition"></textarea>
                     </div>
-
-                    <button type="submit" id="submit-btn" 
-                            class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold hover:bg-blue-600 transition-all shadow-lg flex items-center justify-center space-x-3">
+                    <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold hover:bg-blue-600 transition-all shadow-lg flex items-center justify-center space-x-3">
                         <span>Enviar Mensaje</span>
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
 
-                <!-- Mensaje de éxito (Oculto) -->
+                <!-- Mensaje de éxito oculto -->
                 <div id="success-msg" class="hidden text-center py-10">
                     <div class="text-6xl mb-4">🚀</div>
                     <h3 class="text-2xl font-bold text-slate-900">¡Mensaje Recibido!</h3>
