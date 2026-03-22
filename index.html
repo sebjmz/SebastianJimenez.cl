@@ -244,139 +244,212 @@
     </div>
 
     <script>
-        // --- DATA ---
-        const propiedades = [
-            {
-                id: 1,
-                titulo: "Depto Proyección Plusvalía - Concón",
-                descripcion: "Este activo se encuentra en el radio de influencia del nuevo plan maestro vial. Proyectamos una captura de valor por sobre el mercado local en 18 meses.",
-                precio: "UF 4.200",
-                etiqueta: "Smart Investment",
-                imagenes: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800"],
-                especificaciones: { "Superficie": "75 m²", "Dormitorios": "2", "Baños": "2", "Rentabilidad": "5.5% Est." }
-            },
-            {
-                id: 2,
-                titulo: "Casa Consolidada - Bosques Montemar",
-                descripcion: "Zona de alta demanda y nula vacancia. Ideal para quienes buscan resguardo patrimonial en un entorno de máxima seguridad.",
-                precio: "UF 12.800",
-                etiqueta: "Patrimonio",
-                imagenes: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"],
-                especificaciones: { "Terreno": "450 m²", "Construidos": "180 m²", "Baños": "4", "Seguridad": "Máxima" }
-            }
-        ];
-
-        let currentProp = null;
-        let popupMostrado = false;
-
-        // --- FUNCIONES DE NAVEGACIÓN Y BIENVENIDA ---
-        function closeWelcome(interes) {
-            const welcome = document.getElementById('welcomeModal');
-            if (welcome) {
-                welcome.style.opacity = '0';
-                setTimeout(() => {
-                    welcome.style.display = 'none';
-                    // IMPORTANTE: Primero quitar la clase que bloquea el scroll
-                    document.body.classList.remove('no-scroll');
-                    
-                    // Luego, si el usuario eligió algo, hacer el scroll
-                    if (interes === 'vender') {
-                        document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-                    } else if (interes === 'invertir') {
-                        document.getElementById('propiedades').scrollIntoView({ behavior: 'smooth' });
-                    }
-                }, 500);
-            }
+    // --- 1. CONFIGURACIÓN Y DATOS (6 PROPIEDADES) ---
+    const propiedades = [
+        {
+            id: 1,
+            titulo: "Depto Proyección Plusvalía - Concón",
+            descripcion: "Activo ubicado en zona de expansión vial. Proyectamos captura de valor del 12% en 18 meses debido al nuevo plan regulador.",
+            precio: "UF 4.200",
+            etiqueta: "Smart Investment",
+            imagenes: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800"],
+            especificaciones: { "Superficie": "75 m²", "Dormitorios": "2", "Baños": "2", "Rentabilidad": "5.5% Est." }
+        },
+        {
+            id: 2,
+            titulo: "Casa Consolidada - Bosques Montemar",
+            descripcion: "Zona de alta demanda y nula vacancia. Ideal para resguardo patrimonial familiar en el sector de mayor plusvalía de la región.",
+            precio: "UF 12.800",
+            etiqueta: "Patrimonio",
+            imagenes: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"],
+            especificaciones: { "Terreno": "450 m²", "Construidos": "180 m²", "Baños": "4", "Seguridad": "Máxima" }
+        },
+        {
+            id: 3,
+            titulo: "Loft Ejecutivo - Barrio El Golf",
+            descripcion: "Alta rotación de arriendo corporativo. Se entrega amoblado y con contrato de arriendo vigente para retorno inmediato.",
+            precio: "UF 5.100",
+            etiqueta: "Cash Flow",
+            imagenes: ["https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800"],
+            especificaciones: { "Superficie": "55 m²", "Dormitorios": "1", "Baños": "1", "Gto. Común": "Bajo" }
+        },
+        {
+            id: 4,
+            titulo: "Parcela de Agrado - Valle del Marga Marga",
+            descripcion: "Terreno con factibilidad de agua y luz. Excelente oportunidad para desarrollo de segunda vivienda en entorno natural.",
+            precio: "UF 2.900",
+            etiqueta: "Oportunidad",
+            imagenes: ["https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800"],
+            especificaciones: { "Terreno": "5.000 m²", "Rol": "Propio", "Pendiente": "Suave", "Vista": "Despejada" }
+        },
+        {
+            id: 5,
+            titulo: "Penthouse Vista Mar - Reñaca",
+            descripcion: "Propiedad de lujo en primera línea. Terminaciones de alto estándar, terraza panorámica y acceso privado.",
+            precio: "UF 18.500",
+            etiqueta: "Exclusivo",
+            imagenes: ["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800"],
+            especificaciones: { "Superficie": "210 m²", "Terraza": "40 m²", "Dormitorios": "4", "Estacionamientos": "3" }
+        },
+        {
+            id: 6,
+            titulo: "Local Comercial - Centro Viña",
+            descripcion: "Ubicación estratégica con alto flujo peatonal. Ideal para franquicias, servicios médicos o retail de alto impacto.",
+            precio: "UF 9.400",
+            etiqueta: "Comercial",
+            imagenes: ["https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800"],
+            especificaciones: { "Superficie": "120 m²", "Baños": "2", "Frente": "8 mt", "Patente": "Comercial" }
         }
+    ];
 
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('mainNav');
-            const links = document.getElementById('navLinks');
-            const logo = document.getElementById('navLogo');
-            if (window.scrollY > 50) {
-                nav.classList.add('bg-white/95', 'backdrop-blur-xl', 'shadow-md', 'h-20');
-                nav.classList.remove('bg-transparent', 'h-24');
-                links.classList.add('text-slate-900');
-                links.classList.remove('text-white');
-                logo.classList.add('text-slate-900');
-                logo.classList.remove('text-white');
-            } else {
-                nav.classList.remove('bg-white/95', 'backdrop-blur-xl', 'shadow-md', 'h-20');
-                nav.classList.add('bg-transparent', 'h-24');
-                links.classList.remove('text-slate-900');
-                links.classList.add('text-white');
-                logo.classList.remove('text-slate-900');
-                logo.classList.add('text-white');
-            }
-        });
+    let currentProp = null;
+    let catalogoExpandido = false;
+    let popupMostrado = false;
 
-        // --- MODAL DE PROPIEDADES ---
-        function render() {
-            const container = document.getElementById('propiedadesContainer');
-            if(!container) return;
-            container.innerHTML = propiedades.map(prop => `
-                <div onclick="openModal(${prop.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group">
-                    <div class="h-72 bg-slate-200 relative overflow-hidden">
-                        <img src="${prop.imagenes[0]}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        <div class="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-[10px] font-black uppercase text-blue-600 shadow-sm">${prop.etiqueta}</div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="font-bold text-xl mb-3">${prop.titulo}</h3>
-                        <p class="text-blue-600 font-black text-xl mb-4">${prop.precio}</p>
-                        <div class="text-sm font-bold text-slate-400 group-hover:text-blue-600 transition flex items-center uppercase">Analizar Activo <i class="fas fa-chevron-right ml-2 text-xs"></i></div>
+    // --- 2. FUNCIONES DE BIENVENIDA Y NAVEGACIÓN ---
+    function closeWelcome(interes) {
+        const welcome = document.getElementById('welcomeModal');
+        if (welcome) {
+            welcome.style.opacity = '0';
+            setTimeout(() => {
+                welcome.style.display = 'none';
+                document.body.classList.remove('no-scroll');
+                
+                if (interes === 'vender') {
+                    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+                } else if (interes === 'invertir') {
+                    document.getElementById('propiedades').scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 500);
+        }
+    }
+
+    window.addEventListener('scroll', function() {
+        const nav = document.getElementById('mainNav');
+        const links = document.getElementById('navLinks');
+        const logo = document.getElementById('navLogo');
+        if (window.scrollY > 50) {
+            nav.classList.add('bg-white/95', 'backdrop-blur-xl', 'shadow-md', 'h-20');
+            nav.classList.remove('bg-transparent', 'h-24');
+            if(links) links.classList.add('text-slate-900');
+            if(logo) logo.classList.add('text-slate-900');
+        } else {
+            nav.classList.remove('bg-white/95', 'backdrop-blur-xl', 'shadow-md', 'h-20');
+            nav.classList.add('bg-transparent', 'h-24');
+            if(links) links.classList.remove('text-slate-900');
+            if(logo) logo.classList.remove('text-slate-900');
+        }
+    });
+
+    // --- 3. RENDERIZADO DE PROPIEDADES (LÓGICA 3 + 3) ---
+    function render() {
+        const container = document.getElementById('propiedadesContainer');
+        if(!container) return;
+
+        const mostrar = catalogoExpandido ? propiedades : propiedades.slice(0, 3);
+
+        let html = mostrar.map(prop => `
+            <div onclick="openModal(${prop.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group cursor-pointer transition-all duration-500">
+                <div class="h-72 bg-slate-200 relative overflow-hidden">
+                    <img src="${prop.imagenes[0]}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-[10px] font-black uppercase text-blue-600 tracking-widest shadow-sm">
+                        ${prop.etiqueta}
                     </div>
                 </div>
-            `).join('');
+                <div class="p-8">
+                    <h3 class="font-bold text-xl mb-3 text-slate-900">${prop.titulo}</h3>
+                    <p class="text-blue-600 font-black text-xl mb-4">${prop.precio}</p>
+                    <div class="text-sm font-bold text-slate-400 group-hover:text-blue-600 transition flex items-center uppercase">
+                        Analizar Activo <i class="fas fa-chevron-right ml-2 text-xs"></i>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        if (!catalogoExpandido && propiedades.length > 3) {
+            html += `
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center mt-12">
+                    <button onclick="toggleCatalogo()" class="bg-white border-2 border-blue-600 text-blue-600 px-10 py-4 rounded-2xl font-bold hover:bg-blue-600 hover:text-white transition duration-300 shadow-lg">
+                        Ver catálogo completo (${propiedades.length} propiedades)
+                    </button>
+                </div>
+            `;
+        } else if (catalogoExpandido) {
+            html += `
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center mt-12">
+                    <button onclick="toggleCatalogo()" class="text-slate-400 font-bold hover:text-blue-600 transition underline">
+                        Ver menos
+                    </button>
+                </div>
+            `;
         }
 
-        function openModal(id) {
-            currentProp = propiedades.find(p => p.id === id);
-            document.getElementById('modalImg').src = currentProp.imagenes[0];
-            document.getElementById('modalTitle').innerText = currentProp.titulo;
-            document.getElementById('modalPrice').innerText = currentProp.precio;
-            document.getElementById('modalBadge').innerText = currentProp.etiqueta;
-            document.getElementById('modalDesc').innerText = currentProp.descripcion;
-            
-            const specsHtml = Object.entries(currentProp.especificaciones)
-                .map(([key, value]) => `<div><span class="text-slate-400 block">${key}</span><span class="font-bold">${value}</span></div>`)
-                .join('');
-            document.getElementById('modalSpecs').innerHTML = specsHtml;
-            document.getElementById('modalWaLink').href = `https://wa.me/56951134778?text=Hola, quiero dossier de: ${currentProp.titulo}`;
-            
-            document.getElementById('propertyModal').classList.remove('hidden');
-            document.body.classList.add('no-scroll');
-        }
+        container.innerHTML = html;
+    }
 
-        function closeModal() {
-            document.getElementById('propertyModal').classList.add('hidden');
-            document.body.classList.remove('no-scroll');
-        }
-
-        // --- QUIZ / EXIT POPUP ---
-        document.addEventListener('mouseleave', (e) => {
-            if (e.clientY < 0 && !popupMostrado) {
-                document.getElementById('exitPopup').classList.remove('hidden');
-                popupMostrado = true;
-            }
-        });
-
-        function closeExitPopup() {
-            document.getElementById('exitPopup').classList.add('hidden');
-        }
-
-        function nextStep(objetivo) {
-            document.getElementById('step1').classList.add('hidden');
-            document.getElementById('step2').classList.remove('hidden');
-        }
-
-        function finishQuiz() {
-            document.getElementById('step2').classList.add('hidden');
-            document.getElementById('stepFinal').classList.remove('hidden');
-            setTimeout(closeExitPopup, 2000);
-        }
-
-        // Iniciar
+    function toggleCatalogo() {
+        catalogoExpandido = !catalogoExpandido;
         render();
-    </script>
+        if(catalogoExpandido) {
+            window.scrollBy({ top: 400, behavior: 'smooth' });
+        }
+    }
+
+    // --- 4. MODAL DE PROPIEDAD ---
+    function openModal(id) {
+        currentProp = propiedades.find(p => p.id === id);
+        const modal = document.getElementById('propertyModal');
+        if(!currentProp || !modal) return;
+
+        document.getElementById('modalImg').src = currentProp.imagenes[0];
+        document.getElementById('modalTitle').innerText = currentProp.titulo;
+        document.getElementById('modalPrice').innerText = currentProp.precio;
+        document.getElementById('modalBadge').innerText = currentProp.etiqueta;
+        document.getElementById('modalDesc').innerText = currentProp.descripcion;
+        
+        const specsHtml = Object.entries(currentProp.especificaciones)
+            .map(([key, value]) => `<div><span class="text-slate-400 block">${key}</span><span class="font-bold text-slate-900">${value}</span></div>`)
+            .join('');
+        document.getElementById('modalSpecs').innerHTML = specsHtml;
+        
+        // Link de WhatsApp personalizado por propiedad
+        document.getElementById('modalWaLink').href = `https://wa.me/56951134778?text=Hola%20Sebastián,%20me%20interesa%20analizar%20el%20activo:%20${encodeURIComponent(currentProp.titulo)}`;
+        
+        modal.classList.remove('hidden');
+        document.body.classList.add('no-scroll');
+    }
+
+    function closeModal() {
+        document.getElementById('propertyModal').classList.add('hidden');
+        document.body.classList.remove('no-scroll');
+    }
+
+    // --- 5. EXIT POPUP / QUIZ ---
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY < 0 && !popupMostrado) {
+            const exit = document.getElementById('exitPopup');
+            if(exit) exit.classList.remove('hidden');
+            popupMostrado = true;
+        }
+    });
+
+    function closeExitPopup() {
+        document.getElementById('exitPopup').classList.add('hidden');
+    }
+
+    function nextStep(objetivo) {
+        document.getElementById('step1').classList.add('hidden');
+        document.getElementById('step2').classList.remove('hidden');
+    }
+
+    function finishQuiz() {
+        document.getElementById('step2').classList.add('hidden');
+        document.getElementById('stepFinal').classList.remove('hidden');
+        setTimeout(closeExitPopup, 2500);
+    }
+
+    // Iniciar el renderizado al cargar
+    document.addEventListener('DOMContentLoaded', render);
+</script>
 </body>
 </html>
