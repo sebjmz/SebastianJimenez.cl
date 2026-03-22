@@ -433,5 +433,84 @@
 
         render();
     </script>
+    <!-- Pop-up Calculadora de Rentabilidad & Cashback -->
+<div id="exitPopup" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-sm">
+    <div class="bg-white w-full max-w-4xl rounded-[2.5rem] overflow-hidden relative shadow-2xl flex flex-col md:flex-row border border-blue-100">
+        
+        <!-- Lado Izquierdo: Entradas de datos -->
+        <div class="md:w-1/2 p-8 bg-slate-50 border-r border-slate-100">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 italic"><i class="fas fa-calculator text-blue-600 mr-2"></i>Simulador Estratégico</h2>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="col-span-2">
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Valor Propiedad (UF)</label>
+                    <input type="number" id="calcValor" class="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none" placeholder="Ej: 3500">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Pie (%)</label>
+                    <input type="number" id="calcPie" class="w-full p-3 rounded-xl border border-slate-200" value="20">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Años Crédito</label>
+                    <input type="number" id="calcAnios" class="w-full p-3 rounded-xl border border-slate-200" value="25">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Contrib. (Trimestre)</label>
+                    <input type="number" id="calcContrib" class="w-full p-3 rounded-xl border border-slate-200" placeholder="$">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Gastos Comunes</label>
+                    <input type="number" id="calcGGCC" class="w-full p-3 rounded-xl border border-slate-200" placeholder="$">
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <label class="block text-[10px] font-black uppercase text-slate-400 mb-2">Estrategia de Valor</label>
+                <select id="calcMejora" class="w-full p-3 rounded-xl border border-slate-200 bg-white">
+                    <option value="0">Sin mejoras (Estado actual)</option>
+                    <option value="0.10">Remodelación Cocina/Baños (+10% valor)</option>
+                    <option value="0.15">Ampliación / Terraza (+15% valor)</option>
+                    <option value="0.05">Domótica & Seguridad (+5% valor)</option>
+                </select>
+            </div>
+
+            <button onclick="calcularTodo()" class="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition">Calcular Escenario</button>
+        </div>
+
+        <!-- Lado Derecho: Resultados -->
+        <div class="md:w-1/2 p-10 bg-white relative text-center">
+            <button onclick="closeExitPopup()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-900"><i class="fas fa-times"></i></button>
+            
+            <div id="resultadoInicial" class="py-10">
+                <i class="fas fa-chart-line text-5xl text-slate-200 mb-4"></i>
+                <p class="text-slate-400 italic">Ingresa los datos para proyectar tu rentabilidad y posible Cashback.</p>
+            </div>
+
+            <div id="resultadoFinal" class="hidden space-y-6 text-left">
+                <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100">
+                    <p class="text-[10px] font-black text-blue-600 uppercase">Dividendo Estimado (UF)</p>
+                    <p id="resDividendo" class="text-3xl font-black text-slate-900">--</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-green-50 rounded-2xl">
+                        <p class="text-[10px] font-black text-green-600 uppercase">Potencial Cashback</p>
+                        <p id="resCashback" class="text-xl font-bold text-slate-900">--</p>
+                    </div>
+                    <div class="p-4 bg-purple-50 rounded-2xl">
+                        <p class="text-[10px] font-black text-purple-600 uppercase">Valor Futuro (UF)</p>
+                        <p id="resValorFuturo" class="text-xl font-bold text-slate-900">--</p>
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t border-slate-100">
+                    <p class="text-sm text-slate-500 mb-4">Para recibir el informe técnico de esta propiedad y cómo ejecutar el Cashback:</p>
+                    <input type="email" id="emailLead" class="w-full p-4 rounded-xl bg-slate-100 mb-3 text-center" placeholder="Tu correo personal">
+                    <button onclick="enviarLead()" class="w-full bg-green-500 text-white py-4 rounded-xl font-bold shadow-lg hover:bg-green-600 transition">Solicitar Informe Completo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
