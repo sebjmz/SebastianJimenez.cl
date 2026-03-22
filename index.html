@@ -456,7 +456,19 @@
             alert('¡Gracias! Sebastian ha recibido tu solicitud y se pondrá en contacto contigo en las próximas 24 horas.');
             e.target.reset();
         };
+function closeWelcome(interes) {
+        const modal = document.getElementById('welcomeModal');
+        modal.style.opacity = '0';
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 500);
 
+        if(interes === 'vender') {
+            document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+        } else if(interes === 'invertir') {
+            document.getElementById('propiedades').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
         render();
         // --- LÓGICA DE LA CALCULADORA Y POP-UP ---
 let popupMostrado = false;
