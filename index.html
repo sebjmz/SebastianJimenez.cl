@@ -394,6 +394,8 @@
             document.getElementById('modalPrice').innerText = currentProp.precio;
             document.getElementById('modalDesc').innerText = currentProp.descripcion;
             document.getElementById('modalBadge').innerText = currentProp.etiqueta;
+            const mensaje = encodeURIComponent(`Hola Sebastián, me interesa el dossier técnico de: ${currentProp.titulo}`);
+    document.getElementById('modalWaLink').href = `https://wa.me/56951134778?text=${mensaje}`;
             const specsGrid = document.getElementById('modalSpecs');
             specsGrid.innerHTML = '';
             for (const [key, value] of Object.entries(currentProp.especificaciones)) {
