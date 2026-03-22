@@ -542,184 +542,109 @@ window.addEventListener('scroll', function() {
     }
 });
         render();
-       // --- LÓGICA DEL POP-UP DE PROPIEDAD IDEAL ---
-let popupMostrado = false;
-let datosQuiz = { objetivo: "", zona: "", presupuesto: "", email: "" };
 
-// 1. Detectar intención de salida (Mouse sale por arriba)
-document.addEventListener("mouseleave", function(e) {
-    if (e.clientY < 0 && !popupMostrado) {
-        document.getElementById('exitPopup').classList.remove('hidden');
-        popupMostrado = true;
-    }
-});
+        // --- LÓGICA DEL POP-UP DE PROPIEDAD IDEAL ---
+        let popupMostrado = false;
+        let datosQuiz = { objetivo: "", zona: "", presupuesto: "", email: "" };
 
-function closeExitPopup() {
-    document.getElementById('exitPopup').classList.add('hidden');
-}
+        // 1. Detectar intención de salida
+        document.addEventListener("mouseleave", function(e) {
+            if (e.clientY < 0 && !popupMostrado) {
+                document.getElementById('exitPopup').classList.remove('hidden');
+                popupMostrado = true;
+            }
+        });
 
-// 2. Navegación del Cuestionario
-function nextStep(objetivo) {
-    datosQuiz.objetivo = objetivo;
-    document.getElementById('step1').classList.add('hidden');
-    document.getElementById('step2').classList.remove('hidden');
-}
+        function closeExitPopup() {
+            document.getElementById('exitPopup').classList.add('hidden');
+        }
 
-function finishQuiz() {
-    datosQuiz.zona = document.getElementById('quizZona').value;
-    datosQuiz.presupuesto = document.getElementById('quizPresupuesto').value;
-    datosQuiz.email = document.getElementById('quizEmail').value;
+        // 2. Navegación del Cuestionario
+        function nextStep(objetivo) {
+            datosQuiz.objetivo = objetivo;
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+        }
 
-    if(!datosQuiz.email || !datosQuiz.zona) {
-        alert("Por favor, completa los campos para poder asesorarte.");
-        return;
-    }
+        function finishQuiz() {
+            datosQuiz.zona = document.getElementById('quizZona').value;
+            datosQuiz.presupuesto = document.getElementById('quizPresupuesto').value;
+            datosQuiz.email = document.getElementById('quizEmail').value;
 
-    // Aquí los datos ya están en la variable 'datosQuiz'
-    console.log("Captura Exit Intent:", datosQuiz);
+            if(!datosQuiz.email || !datosQuiz.zona) {
+                alert("Por favor, completa los campos para poder asesorarte.");
+                return;
+            }
 
-    document.getElementById('step2').classList.add('hidden');
-    document.getElementById('stepFinal').classList.remove('hidden');
+            // Consola para verificar que captura bien
+            console.log("Captura Prospecto:", datosQuiz);
 
-    // Cierre automático tras éxito
-    setTimeout(() => { closeExitPopup(); }, 3000);
-}
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('stepFinal').classList.remove('hidden');
+
+            // Cierre automático tras 3 segundos
+            setTimeout(() => { closeExitPopup(); }, 3000);
+        }
     </script>
-    <!-- Pop-up Calculadora de Rentabilidad & Cashback -->
-<div id="exitPopup" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-sm">
-    <div class="bg-white w-full max-w-4xl rounded-[2.5rem] overflow-hidden relative shadow-2xl flex flex-col md:flex-row border border-blue-100">
-        
-        <!-- Lado Izquierdo: Entradas de datos -->
-        <div class="md:w-1/2 p-8 bg-slate-50 border-r border-slate-100">
-            <h2 class="text-2xl font-bold text-slate-900 mb-6 italic"><i class="fas fa-calculator text-blue-600 mr-2"></i>Simulador Estratégico</h2>
-            
-            <div class="grid grid-cols-2 gap-4">
-                <div class="col-span-2">
-                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Valor Propiedad (UF)</label>
-                    <input type="number" id="calcValor" class="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none" placeholder="Ej: 3500">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Pie (%)</label>
-                    <input type="number" id="calcPie" class="w-full p-3 rounded-xl border border-slate-200" value="20">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Años Crédito</label>
-                    <input type="number" id="calcAnios" class="w-full p-3 rounded-xl border border-slate-200" value="25">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Contrib. (Trimestre)</label>
-                    <input type="number" id="calcContrib" class="w-full p-3 rounded-xl border border-slate-200" placeholder="$">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Gastos Comunes</label>
-                    <input type="number" id="calcGGCC" class="w-full p-3 rounded-xl border border-slate-200" placeholder="$">
-                </div>
-            </div>
 
-            <div class="mt-6">
-                <label class="block text-[10px] font-black uppercase text-slate-400 mb-2">Estrategia de Valor</label>
-                <select id="calcMejora" class="w-full p-3 rounded-xl border border-slate-200 bg-white">
-                    <option value="0">Sin mejoras (Estado actual)</option>
-                    <option value="0.10">Remodelación Cocina/Baños (+10% valor)</option>
-                    <option value="0.15">Ampliación / Terraza (+15% valor)</option>
-                    <option value="0.05">Domótica & Seguridad (+5% valor)</option>
-                </select>
-            </div>
-
-            <button onclick="calcularTodo()" class="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition">Calcular Escenario</button>
-        </div>
-
-        <!-- Lado Derecho: Resultados -->
-        <div class="md:w-1/2 p-10 bg-white relative text-center">
-            <button onclick="closeExitPopup()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-900"><i class="fas fa-times"></i></button>
-            
-            <div id="resultadoInicial" class="py-10">
-                <i class="fas fa-chart-line text-5xl text-slate-200 mb-4"></i>
-                <p class="text-slate-400 italic">Ingresa los datos para proyectar tu rentabilidad y posible Cashback.</p>
-            </div>
-
-            <div id="resultadoFinal" class="hidden space-y-6 text-left">
-                <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100">
-                    <p class="text-[10px] font-black text-blue-600 uppercase">Dividendo Estimado (UF)</p>
-                    <p id="resDividendo" class="text-3xl font-black text-slate-900">--</p>
-                </div>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="p-4 bg-green-50 rounded-2xl">
-                        <p class="text-[10px] font-black text-green-600 uppercase">Potencial Cashback</p>
-                        <p id="resCashback" class="text-xl font-bold text-slate-900">--</p>
-                    </div>
-                    <div class="p-4 bg-purple-50 rounded-2xl">
-                        <p class="text-[10px] font-black text-purple-600 uppercase">Valor Futuro (UF)</p>
-                        <p id="resValorFuturo" class="text-xl font-bold text-slate-900">--</p>
-                    </div>
-                </div>
-
-                <div class="pt-6 border-t border-slate-100">
-                    <p class="text-sm text-slate-500 mb-4">Para recibir el informe técnico de esta propiedad y cómo ejecutar el Cashback:</p>
-                    <input type="email" id="emailLead" class="w-full p-4 rounded-xl bg-slate-100 mb-3 text-center" placeholder="Tu correo personal">
-                    <button onclick="enviarLead()" class="w-full bg-green-500 text-white py-4 rounded-xl font-bold shadow-lg hover:bg-green-600 transition">Solicitar Informe Completo</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    </script>
     <!-- NUEVO Pop-up: Perfil de Búsqueda Ideal -->
-<div id="exitPopup" class="fixed inset-0 z-[500] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-md">
-    <div class="bg-white w-full max-w-2xl rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 relative flex flex-col md:flex-row">
-        
-        <button onclick="closeExitPopup()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-900 transition z-10">
-            <i class="fas fa-times text-xl"></i>
-        </button>
+    <div id="exitPopup" class="fixed inset-0 z-[500] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-md">
+        <div class="bg-white w-full max-w-2xl rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 relative flex flex-col md:flex-row">
+            
+            <button onclick="closeExitPopup()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-900 transition z-10">
+                <i class="fas fa-times text-xl"></i>
+            </button>
 
-        <!-- Columna Informativa -->
-        <div class="md:w-1/3 bg-slate-900 p-8 text-white flex flex-col justify-center">
-            <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                <i class="fas fa-search-location text-xl"></i>
-            </div>
-            <h3 class="font-bold text-2xl mb-4 leading-tight">Encontremos tu activo ideal.</h3>
-            <p class="text-slate-400 text-sm">Dime qué buscas y activaré mi red de contactos para encontrarlo por ti.</p>
-        </div>
-
-        <!-- Columna del Cuestionario -->
-        <div class="md:w-2/3 p-10 bg-white">
-            <div id="step1">
-                <p class="text-[10px] font-black uppercase text-blue-600 tracking-widest mb-2">Paso 1 de 2</p>
-                <h2 class="text-xl font-bold text-slate-900 mb-6">¿Cuál es tu objetivo?</h2>
-                <div class="space-y-3">
-                    <button onclick="nextStep('Inversión')" class="w-full p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50 text-left font-semibold text-slate-700 transition flex justify-between items-center">
-                        Inversión / Rentabilidad <i class="fas fa-chart-line text-blue-500"></i>
-                    </button>
-                    <button onclick="nextStep('Vivienda')" class="w-full p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50 text-left font-semibold text-slate-700 transition flex justify-between items-center">
-                        Vivienda Personal <i class="fas fa-home text-blue-500"></i>
-                    </button>
+            <!-- Columna Informativa -->
+            <div class="md:w-1/3 bg-slate-900 p-8 text-white flex flex-col justify-center">
+                <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/20">
+                    <i class="fas fa-search-location text-xl"></i>
                 </div>
+                <h3 class="font-bold text-2xl mb-4 leading-tight">Encontremos tu activo ideal.</h3>
+                <p class="text-slate-400 text-sm">Dime qué buscas y activaré mi red de contactos para encontrarlo por ti.</p>
             </div>
 
-            <div id="step2" class="hidden">
-                <p class="text-[10px] font-black uppercase text-blue-600 tracking-widest mb-2">Paso 2 de 2</p>
-                <h2 class="text-xl font-bold text-slate-900 mb-6">Detalles de búsqueda</h2>
-                <div class="space-y-4">
-                    <input type="text" id="quizZona" placeholder="¿En qué zona? (Ej: Concón)" class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 outline-none focus:ring-2 focus:ring-blue-600">
-                    <select id="quizPresupuesto" class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 outline-none">
-                        <option value="">Rango de Presupuesto</option>
-                        <option value="Bajo 4000">Bajo 4.000 UF</option>
-                        <option value="4000-8000">4.000 - 8.000 UF</option>
-                        <option value="Sobre 8000">Sobre 8.000 UF</option>
-                    </select>
-                    <input type="email" id="quizEmail" placeholder="Tu correo personal" class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 outline-none">
-                    <button onclick="finishQuiz()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition">Activar Búsqueda</button>
+            <!-- Columna del Cuestionario -->
+            <div class="md:w-2/3 p-10 bg-white">
+                <!-- Paso 1 -->
+                <div id="step1">
+                    <p class="text-[10px] font-black uppercase text-blue-600 tracking-widest mb-2">Paso 1 de 2</p>
+                    <h2 class="text-xl font-bold text-slate-900 mb-6">¿Cuál es tu objetivo?</h2>
+                    <div class="space-y-3">
+                        <button onclick="nextStep('Inversión')" class="w-full p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50 text-left font-semibold text-slate-700 transition flex justify-between items-center">
+                            Inversión / Rentabilidad <i class="fas fa-chart-line text-blue-500"></i>
+                        </button>
+                        <button onclick="nextStep('Vivienda')" class="w-full p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50 text-left font-semibold text-slate-700 transition flex justify-between items-center">
+                            Vivienda Personal <i class="fas fa-home text-blue-500"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <div id="stepFinal" class="hidden text-center py-10">
-                <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
-                <h2 class="text-2xl font-bold text-slate-900 mb-2">¡Recibido!</h2>
-                <p class="text-slate-500">Analizaré mi base de datos de captaciones exclusivas para contactarte.</p>
+                <!-- Paso 2 -->
+                <div id="step2" class="hidden">
+                    <p class="text-[10px] font-black uppercase text-blue-600 tracking-widest mb-2">Paso 2 de 2</p>
+                    <h2 class="text-xl font-bold text-slate-900 mb-6">Detalles de búsqueda</h2>
+                    <div class="space-y-4">
+                        <input type="text" id="quizZona" placeholder="¿En qué zona? (Ej: Concón)" class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 outline-none focus:ring-2 focus:ring-blue-600">
+                        <select id="quizPresupuesto" class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 outline-none">
+                            <option value="">Rango de Presupuesto</option>
+                            <option value="Bajo 4000">Bajo 4.000 UF</option>
+                            <option value="4000-8000">4.000 - 8.000 UF</option>
+                            <option value="Sobre 8000">Sobre 8.000 UF</option>
+                        </select>
+                        <input type="email" id="quizEmail" placeholder="Tu correo personal" class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 outline-none">
+                        <button onclick="finishQuiz()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition">Activar Búsqueda</button>
+                    </div>
+                </div>
+
+                <!-- Final -->
+                <div id="stepFinal" class="hidden text-center py-10">
+                    <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-2">¡Recibido!</h2>
+                    <p class="text-slate-500">Analizaré mi base de datos de captaciones exclusivas para contactarte.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>
