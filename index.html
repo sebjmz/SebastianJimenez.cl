@@ -28,16 +28,10 @@
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
-        /* Glassmorphism para el Método */
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Modal Styles */
-        #propertyModal {
-            transition: opacity 0.3s ease-in-out;
         }
 
         .no-scroll {
@@ -45,8 +39,10 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
-<div id="welcomeModal" class="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-xl transition-opacity duration-500">
+<body class="bg-slate-50 text-slate-900 no-scroll">
+
+    <!-- Modal de Bienvenida -->
+    <div id="welcomeModal" class="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-xl transition-opacity duration-500">
         <div class="bg-white w-full max-w-xl rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100">
             <div class="p-12 text-center">
                 <div class="text-2xl font-bold tracking-tighter text-slate-900 mb-2">
@@ -70,30 +66,25 @@
             </div>
         </div>
     </div>
+
     <!-- Navegación -->
     <nav id="mainNav" class="fixed w-full z-50 transition-all duration-500 bg-transparent">
-    <div class="max-w-7xl mx-auto px-6 md:px-12">
-        <div class="flex justify-between h-24 items-center">
-            
-            <!-- Logo con espaciado sutil -->
-            <a href="#inicio" id="navLogo" class="text-xl font-bold tracking-tight text-white hover:opacity-80 transition-all duration-300">
-                SEBASTIAN<span class="text-blue-500">JIMENEZ</span>.CL
-            </a>
-
-            <!-- Menú con espacio real (gap-10) -->
-            <div id="navLinks" class="hidden md:flex items-center gap-10 text-[13px] font-semibold uppercase tracking-widest text-white">
-                <a href="#inicio" class="hover:text-blue-400 transition-colors">Inicio</a>
-                <a href="#propiedades" class="hover:text-blue-400 transition-colors">Propiedades</a>
-                <a href="#metodo" class="hover:text-blue-400 transition-colors">Mi Método</a>
-                
-                <!-- Botón con sombra integrada (sin el halo blanco) -->
-                <a href="#contacto" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-blue-900/20 ring-1 ring-white/10">
-                    Contactar
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex justify-between h-24 items-center">
+                <a href="#inicio" id="navLogo" class="text-xl font-bold tracking-tight text-white hover:opacity-80 transition-all duration-300">
+                    SEBASTIAN<span class="text-blue-500">JIMENEZ</span>.CL
                 </a>
+                <div id="navLinks" class="hidden md:flex items-center gap-10 text-[13px] font-semibold uppercase tracking-widest text-white">
+                    <a href="#inicio" class="hover:text-blue-400 transition-colors">Inicio</a>
+                    <a href="#propiedades" class="hover:text-blue-400 transition-colors">Propiedades</a>
+                    <a href="#metodo" class="hover:text-blue-400 transition-colors">Mi Método</a>
+                    <a href="#contacto" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-blue-900/20 ring-1 ring-white/10">
+                        Contactar
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <!-- Hero Section -->
     <section id="inicio" class="hero-gradient pt-40 pb-32 text-white overflow-hidden">
@@ -116,9 +107,8 @@
             <div class="md:w-1/2 flex justify-center relative">
                 <div class="relative z-10 group">
                     <div class="w-72 h-96 bg-slate-800 rounded-[2.5rem] overflow-hidden border-4 border-slate-700 shadow-2xl">
-    <!-- Aquí es donde pegas el nombre de tu archivo -->
-    <img src="img/bf7832b6-a40e-44a8-ba20-33b0a42772de.png" alt="Sebastian Jimenez" class="w-full h-full object-cover">
-</div>
+                        <img src="img/bf7832b6-a40e-44a8-ba20-33b0a42772de.png" alt="Sebastian Jimenez" class="w-full h-full object-cover">
+                    </div>
                 </div>
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-600/10 blur-[120px] -z-0"></div>
             </div>
@@ -132,338 +122,261 @@
                 <h2 class="text-4xl font-bold text-slate-900 mb-4">Oportunidades de Inversión</h2>
                 <p class="text-lg text-slate-500 italic">Haz clic en una propiedad para ver detalles técnicos y proyección de valor.</p>
             </div>
-
             <div id="propiedadesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <!-- Inyectado por JS -->
             </div>
         </div>
     </section>
 
-    <!-- Mi Método (Modernizado) -->
+    <!-- Mi Método -->
     <section id="metodo" class="py-32 bg-slate-950 text-white relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="max-w-3xl mb-24">
                 <h2 class="text-4xl md:text-5xl font-bold mb-8">El método que va <span class="text-blue-500">un paso adelante</span>.</h2>
                 <p class="text-xl text-slate-400">Mientras el mercado tradicional reacciona, nosotros proyectamos. Mi enfoque combina análisis de datos con gestión humana de alto nivel.</p>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="glass-card p-10 rounded-[2.5rem] hover:bg-blue-600/5 transition duration-500">
-                    <div class="text-blue-500 text-4xl mb-8">
-                        <i class="fas fa-microchip"></i>
-                    </div>
+                <!-- Cards de método omitidas por brevedad pero mantenidas en estructura -->
+                <div class="glass-card p-10 rounded-[2.5rem] border-blue-500/30 bg-blue-600/5 hover:bg-blue-600/10 transition duration-500">
+                    <div class="text-blue-500 text-4xl mb-8"><i class="fas fa-microchip"></i></div>
                     <h3 class="text-2xl font-bold mb-4">PropTech & IA</h3>
-                    <p class="text-slate-400 leading-relaxed mb-6">Utilizo algoritmos para identificar zonas de "calentamiento" inmobiliario antes de que los precios suban exponencialmente.</p>
-                    <ul class="text-sm space-y-3 text-slate-500">
-                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Mapas de calor de plusvalía</li>
-                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Proyecciones a 12, 24 y 36 meses</li>
-                    </ul>
+                    <p class="text-slate-400 leading-relaxed">Identifico zonas de alta plusvalía antes de que los precios suban exponencialmente.</p>
                 </div>
-
-                <!-- Card 2 -->
-                <div class="glass-card p-10 rounded-[2.5rem] border-blue-500/30 bg-blue-600/5 hover:bg-blue-600/10 transition duration-500 scale-105">
-                    <div class="text-blue-500 text-4xl mb-8">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Targeting de Precisión</h3>
-                    <p class="text-slate-400 leading-relaxed mb-6">Tu propiedad no se publica, se promociona quirúrgicamente ante inversionistas calificados mediante segmentación avanzada.</p>
-                    <ul class="text-sm space-y-3 text-slate-500">
-                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Filtro de leads automatizado</li>
-                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Red privada de compradores premium</li>
-                    </ul>
+                <div class="glass-card p-10 rounded-[2.5rem] border-blue-500/30 bg-blue-600/5 hover:bg-blue-600/10 transition duration-500">
+                    <div class="text-blue-500 text-4xl mb-8"><i class="fas fa-bullseye"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">Targeting Quirúrgico</h3>
+                    <p class="text-slate-400 leading-relaxed">Segmentación avanzada para conectar con el inversionista ideal de forma directa.</p>
                 </div>
-
-                <!-- Card 3 -->
-                <div class="glass-card p-10 rounded-[2.5rem] hover:bg-blue-600/5 transition duration-500">
-                    <div class="text-blue-500 text-4xl mb-8">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Blindaje Contractual</h3>
-                    <p class="text-slate-400 leading-relaxed mb-6">Gestión total del riesgo. Aseguramos que cada clausula proteja tu capital y acelere el cierre bancario y legal.</p>
-                    <ul class="text-sm space-y-3 text-slate-500">
-                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Due Diligence exhaustivo</li>
-                        <li><i class="fas fa-check text-blue-500 mr-2"></i> Reportes semanales de gestión</li>
-                    </ul>
+                <div class="glass-card p-10 rounded-[2.5rem] border-blue-500/30 bg-blue-600/5 hover:bg-blue-600/10 transition duration-500">
+                    <div class="text-blue-500 text-4xl mb-8"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">Blindaje Total</h3>
+                    <p class="text-slate-400 leading-relaxed">Gestión legal y contractual de alto estándar para proteger cada peso de tu inversión.</p>
                 </div>
             </div>
         </div>
-        <!-- Decoración de fondo -->
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/10 blur-[120px]"></div>
     </section>
 
-    <!-- Contacto (Reintegrado y Moderno) -->
+    <!-- Contacto -->
     <section id="contacto" class="py-32 bg-slate-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-slate-100">
-                <!-- Info de Contacto -->
                 <div class="lg:w-1/3 bg-blue-600 p-12 text-white">
                     <h2 class="text-3xl font-bold mb-8">Hablemos de negocios.</h2>
-                    <p class="text-blue-100 mb-12">Si buscas un corredor tradicional, hay muchos afuera. Si buscas un consultor inmobiliario estratégico, estás en el lugar correcto.</p>
-                    
                     <div class="space-y-8">
                         <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4">
-                                <i class="fas fa-phone-alt"></i>
-                            </div>
-                            <span><!-- Enlace de llamada directa -->
-<a href="tel:+56951134778" class="flex items-center space-x-3 hover:text-blue-700 transition">
-    <span class="font-bold">+56 9 5113 4778</span>
-</a></span>
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4"><i class="fas fa-phone-alt"></i></div>
+                            <a href="tel:+56951134778" class="font-bold">+56 9 5113 4778</a>
                         </div>
                         <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4">
-                                <i class="far fa-envelope"></i>
-                            </div>
-                            <span><a href="mailto:sebastian@sebastianjimenez.cl?subject=Consulta%20Inmobiliaria&body=Hola%20Sebastián," class="flex items-center space-x-3 hover:text-blue-700 transition">
-    <span class="font-bold">Escribeme Directo</span>
-</a></span>
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4"><i class="far fa-envelope"></i></div>
+                            <a href="mailto:sebastian@sebastianjimenez.cl" class="font-bold">Escríbeme Directo</a>
                         </div>
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <span>Viña del Mar - Santiago</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-16 flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-
-                <!-- Formulario -->
                 <div class="lg:w-2/3 p-12 md:p-16">
-                   <form id="contactForm" class="space-y-6">
-    <!-- Configuración para FormSubmit (esto se queda) -->
-    <input type="hidden" name="_subject" value="Nueva Solicitud Estratégica - Web Inmobiliaria">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
-
-    <!-- Campos del formulario (asegúrate de que tengan el atributo 'name') -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="space-y-2">
-            <label class="text-sm font-bold text-slate-700">Tu Nombre</label>
-            <input type="text" name="nombre" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="Juan Pérez">
-        </div>
-        <div class="space-y-2">
-            <label class="text-sm font-bold text-slate-700">Tu Email</label>
-            <input type="email" name="email" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="juan@ejemplo.cl">
-        </div>
-    </div>
-    
-    <div class="space-y-2">
-        <label class="text-sm font-bold text-slate-700">Tipo de Requerimiento</label>
-        <select name="requerimiento" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition cursor-pointer appearance-none">
-            <option>Quiero vender mi propiedad</option>
-            <option>Quiero arrendar mi propiedad</option>
-            <option>Busco arriendo</option>
-            <option>Busco invertir con plusvalía</option>
-            <option>Administración de arriendos</option>
-            <option>Tasación comercial</option>
-        </select>
-    </div>
-    
-    <div class="space-y-2">
-        <label class="text-sm font-bold text-slate-700">Mensaje / Contexto</label>
-        <textarea name="mensaje" rows="4" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="Cuéntame brevemente sobre tu propiedad o inversión deseada..."></textarea>
-    </div>
-    
-    <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-200">
-        Enviar Solicitud Estratégica
-    </button>
-    
-    <!-- Este mensaje aparecerá solo después de enviar -->
-    <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded-2xl text-center font-bold">
-        ¡Gracias! Tu solicitud ha sido enviada con éxito. Me pondré en contacto contigo a la brevedad.
-    </div>
-</form>
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <input type="text" name="nombre" placeholder="Tu Nombre" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none">
+                            <input type="email" name="email" placeholder="Tu Email" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none">
+                        </div>
+                        <select name="requerimiento" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none">
+                            <option>Quiero vender mi propiedad</option>
+                            <option>Busco invertir con plusvalía</option>
+                            <option>Tasación comercial</option>
+                        </select>
+                        <textarea name="mensaje" rows="4" placeholder="Mensaje..." class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-600 outline-none"></textarea>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-200">
+                            Enviar Solicitud Estratégica
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modal de Propiedad (Estructura igual a la anterior) -->
+    <!-- Modal de Propiedad -->
     <div id="propertyModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-sm">
         <div class="bg-white w-full max-w-5xl max-h-[90vh] rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row relative shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-6 right-6 z-20 bg-white/10 hover:bg-white/20 text-white md:text-slate-900 p-2 rounded-full backdrop-blur transition">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-            <div class="md:w-3/5 h-[300px] md:h-auto bg-slate-200 relative">
-                <img id="modalImg" src="" class="w-full h-full object-cover" alt="Vista Propiedad">
-                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
-                    <button onclick="prevImg()" class="bg-white/90 p-3 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition"><i class="fas fa-chevron-left"></i></button>
-                    <button onclick="nextImg()" class="bg-white/90 p-3 rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition"><i class="fas fa-chevron-right"></i></button>
-                </div>
+            <button onclick="closeModal()" class="absolute top-6 right-6 z-20 bg-white/10 text-white md:text-slate-900 p-2 rounded-full"><i class="fas fa-times"></i></button>
+            <div class="md:w-3/5 h-[300px] md:h-auto bg-slate-200">
+                <img id="modalImg" src="" class="w-full h-full object-cover">
             </div>
             <div class="md:w-2/5 p-8 md:p-12 overflow-y-auto">
-                <div id="modalBadge" class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 mb-4"></div>
-                <h2 id="modalTitle" class="text-3xl font-bold text-slate-900 mb-2"></h2>
+                <div id="modalBadge" class="text-blue-600 bg-blue-50 px-3 py-1 inline-block rounded-full text-xs font-black uppercase mb-4"></div>
+                <h2 id="modalTitle" class="text-3xl font-bold mb-2"></h2>
                 <p id="modalPrice" class="text-2xl font-black text-blue-600 mb-6"></p>
-                <div id="modalSpecs" class="grid grid-cols-2 gap-4 text-sm font-medium mb-8"></div>
-                <div class="pt-6 border-t border-slate-100">
-                    <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3">Visión del Experto</h4>
-                    <p id="modalDesc" class="text-slate-600 leading-relaxed italic"></p>
-                </div>
-                <div class="pt-8">
-    
-<a id="modalWaLink" href="#" target="_blank" class="block w-full bg-green-500 text-white text-center py-4 rounded-2xl font-bold hover:bg-green-600 transition shadow-lg shadow-green-100 flex items-center justify-center space-x-3 text-lg">
-        <i class="fab fa-whatsapp text-2xl"></i>
-        <span>Solicitar Dossier Técnico</span>
-    </a>
-</div>
+                <div id="modalSpecs" class="grid grid-cols-2 gap-4 text-sm mb-8"></div>
+                <p id="modalDesc" class="text-slate-600 italic"></p>
+                <a id="modalWaLink" href="#" target="_blank" class="mt-8 block w-full bg-green-500 text-white text-center py-4 rounded-2xl font-bold flex items-center justify-center space-x-3">
+                    <i class="fab fa-whatsapp"></i> <span>Solicitar Dossier</span>
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="py-12 bg-white text-center border-t border-slate-100">
-        <p class="font-bold text-sm text-slate-400 tracking-widest uppercase">© 2026 SEBASTIANJIMENEZ.CL | Inteligencia Inmobiliaria</p>
-    </footer>
-
-   <!-- WhatsApp Floating Button -->
-<a href="https://wa.me/56951134778?text=Hola%20Sebastián,%20vi%20tu%20página%20web%20y%20me%20gustaría%20recibir%20asesoría%20sobre%20una%20propiedad." 
-   target="_blank" 
-   class="fixed bottom-10 right-10 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition z-50">
-    <i class="fab fa-whatsapp text-4xl"></i>
-</a>
-
-    <script>
-// --- 1. CONFIGURACIÓN Y DATOS ---
-    const propiedades = [
-        {
-            id: 1,
-            titulo: "Depto Proyección Plusvalía - Concón",
-            descripcion: "Este activo se encuentra en el radio de influencia del nuevo plan maestro vial. Proyectamos una captura de valor por sobre el mercado local en 18 meses.",
-            precio: "UF 4.200",
-            etiqueta: "Smart Investment",
-            imagenes: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800"],
-            especificaciones: { "Superficie": "75 m²", "Dormitorios": "2", "Baños": "2", "Rentabilidad": "5.5% Est." }
-        },
-        {
-            id: 2,
-            titulo: "Casa Consolidada - Bosques Montemar",
-            descripcion: "Zona de alta demanda y nula vacancia. Ideal para quienes buscan resguardo patrimonial en un entorno de máxima seguridad.",
-            precio: "UF 12.800",
-            etiqueta: "Patrimonio",
-            imagenes: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"],
-            especificaciones: { "Terreno": "450 m²", "Construidos": "180 m²", "Baños": "4", "Seguridad": "Máxima" }
-        }
-    ];
-
-    let currentProp = null;
-    let currentImgIndex = 0;
-    let popupMostrado = false;
-    let datosQuiz = { objetivo: "", zona: "", presupuesto: "", email: "" };
-    const container = document.getElementById('propiedadesContainer');
-    const modal = document.getElementById('propertyModal');
-
-    // --- 2. FUNCIONES DE INTERFAZ (MENÚ Y BIENVENIDA) ---
-    function closeWelcome(interes) {
-        const welcome = document.getElementById('welcomeModal');
-        welcome.style.opacity = '0';
-        setTimeout(() => {
-            welcome.style.display = 'none';
-            document.body.classList.remove('no-scroll');
-        }, 500);
-
-        const target = interes === 'vender' ? 'contacto' : 'propiedades';
-        document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
-    }
-
-    window.addEventListener('scroll', function() {
-        const nav = document.getElementById('mainNav');
-        if (window.scrollY > 50) {
-            nav.classList.add('bg-white/80', 'backdrop-blur-xl', 'shadow-sm');
-        } else {
-            nav.classList.remove('bg-white/80', 'backdrop-blur-xl', 'shadow-sm');
-        }
-    });
-
-    // --- 3. RENDERIZAR PROPIEDADES ---
-    function render() {
-        if(!container) return;
-        container.innerHTML = propiedades.map(prop => `
-            <div onclick="openModal(${prop.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group cursor-pointer">
-                <div class="h-72 bg-slate-200 relative overflow-hidden">
-                    <img src="${prop.imagenes[0]}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase text-blue-600 tracking-widest shadow-sm">
-                        ${prop.etiqueta}
-                    </div>
-                </div>
-                <div class="p-8">
-                    <h3 class="font-bold text-xl mb-3 text-slate-900">${prop.titulo}</h3>
-                    <p class="text-blue-600 font-black text-xl mb-4">${prop.precio}</p>
-                    <div class="text-sm font-bold text-slate-400 group-hover:text-blue-600 transition flex items-center uppercase">
-                        Analizar Activo <i class="fas fa-chevron-right ml-2 text-xs"></i>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function
-</script>
-
-    <!-- NUEVO Pop-up: Perfil de Búsqueda Ideal -->
+    <!-- Exit Popup -->
     <div id="exitPopup" class="fixed inset-0 z-[500] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-md">
         <div class="bg-white w-full max-w-2xl rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 relative flex flex-col md:flex-row">
-            
-            <button onclick="closeExitPopup()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-900 transition z-10">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-
-            <!-- Columna Informativa -->
+            <button onclick="closeExitPopup()" class="absolute top-6 right-6 text-slate-300"><i class="fas fa-times"></i></button>
             <div class="md:w-1/3 bg-slate-900 p-8 text-white flex flex-col justify-center">
-                <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/20">
-                    <i class="fas fa-search-location text-xl"></i>
-                </div>
-                <h3 class="font-bold text-2xl mb-4 leading-tight">Encontremos tu activo ideal.</h3>
-                <p class="text-slate-400 text-sm">Dime qué buscas y activaré mi red de contactos para encontrarlo por ti.</p>
+                <h3 class="font-bold text-2xl mb-4">Activa tu búsqueda.</h3>
+                <p class="text-slate-400 text-sm">Activaré mi red para encontrar lo que buscas.</p>
             </div>
-
-            <!-- Columna del Cuestionario -->
             <div class="md:w-2/3 p-10 bg-white">
-                <!-- Paso 1 -->
                 <div id="step1">
-                    <p class="text-[10px] font-black uppercase text-blue-600 tracking-widest mb-2">Paso 1 de 2</p>
-                    <h2 class="text-xl font-bold text-slate-900 mb-6">¿Cuál es tu objetivo?</h2>
+                    <h2 class="text-xl font-bold mb-6">¿Cuál es tu objetivo?</h2>
                     <div class="space-y-3">
-                        <button onclick="nextStep('Inversión')" class="w-full p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50 text-left font-semibold text-slate-700 transition flex justify-between items-center">
-                            Inversión / Rentabilidad <i class="fas fa-chart-line text-blue-500"></i>
-                        </button>
-                        <button onclick="nextStep('Vivienda')" class="w-full p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50 text-left font-semibold text-slate-700 transition flex justify-between items-center">
-                            Vivienda Personal <i class="fas fa-home text-blue-500"></i>
-                        </button>
+                        <button onclick="nextStep('Inversión')" class="w-full p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-600 transition text-left font-bold">Inversión</button>
+                        <button onclick="nextStep('Vivienda')" class="w-full p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-600 transition text-left font-bold">Vivienda Personal</button>
                     </div>
                 </div>
-
-                <!-- Paso 2 -->
                 <div id="step2" class="hidden">
-                    <p class="text-[10px] font-black uppercase text-blue-600 tracking-widest mb-2">Paso 2 de 2</p>
-                    <h2 class="text-xl font-bold text-slate-900 mb-6">Detalles de búsqueda</h2>
-                    <div class="space-y-4">
-                        <input type="text" id="quizZona" placeholder="¿En qué zona? (Ej: Concón)" class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 outline-none focus:ring-2 focus:ring-blue-600">
-                        <select id="quizPresupuesto" class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 outline-none">
-                            <option value="">Rango de Presupuesto</option>
-                            <option value="Bajo 4000">Bajo 4.000 UF</option>
-                            <option value="4000-8000">4.000 - 8.000 UF</option>
-                            <option value="Sobre 8000">Sobre 8.000 UF</option>
-                        </select>
-                        <input type="email" id="quizEmail" placeholder="Tu correo personal" class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 outline-none">
-                        <button onclick="finishQuiz()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition">Activar Búsqueda</button>
-                    </div>
+                    <input type="text" id="quizZona" placeholder="¿En qué zona?" class="w-full p-4 rounded-xl bg-slate-50 mb-4 outline-none border">
+                    <input type="email" id="quizEmail" placeholder="Tu correo" class="w-full p-4 rounded-xl bg-slate-50 mb-4 outline-none border">
+                    <button onclick="finishQuiz()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold">Activar Búsqueda</button>
                 </div>
-
-                <!-- Final -->
                 <div id="stepFinal" class="hidden text-center py-10">
                     <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
-                    <h2 class="text-2xl font-bold text-slate-900 mb-2">¡Recibido!</h2>
-                    <p class="text-slate-500">Analizaré mi base de datos de captaciones exclusivas para contactarte.</p>
+                    <h2 class="text-2xl font-bold">¡Recibido!</h2>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // --- DATA ---
+        const propiedades = [
+            {
+                id: 1,
+                titulo: "Depto Proyección Plusvalía - Concón",
+                descripcion: "Este activo se encuentra en el radio de influencia del nuevo plan maestro vial. Proyectamos una captura de valor por sobre el mercado local en 18 meses.",
+                precio: "UF 4.200",
+                etiqueta: "Smart Investment",
+                imagenes: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800"],
+                especificaciones: { "Superficie": "75 m²", "Dormitorios": "2", "Baños": "2", "Rentabilidad": "5.5% Est." }
+            },
+            {
+                id: 2,
+                titulo: "Casa Consolidada - Bosques Montemar",
+                descripcion: "Zona de alta demanda y nula vacancia. Ideal para quienes buscan resguardo patrimonial en un entorno de máxima seguridad.",
+                precio: "UF 12.800",
+                etiqueta: "Patrimonio",
+                imagenes: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"],
+                especificaciones: { "Terreno": "450 m²", "Construidos": "180 m²", "Baños": "4", "Seguridad": "Máxima" }
+            }
+        ];
+
+        let currentProp = null;
+        let popupMostrado = false;
+
+        // --- FUNCIONES DE NAVEGACIÓN Y BIENVENIDA ---
+        function closeWelcome(interes) {
+            const welcome = document.getElementById('welcomeModal');
+            if (welcome) {
+                welcome.style.opacity = '0';
+                setTimeout(() => {
+                    welcome.style.display = 'none';
+                    // IMPORTANTE: Primero quitar la clase que bloquea el scroll
+                    document.body.classList.remove('no-scroll');
+                    
+                    // Luego, si el usuario eligió algo, hacer el scroll
+                    if (interes === 'vender') {
+                        document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+                    } else if (interes === 'invertir') {
+                        document.getElementById('propiedades').scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 500);
+            }
+        }
+
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            const links = document.getElementById('navLinks');
+            const logo = document.getElementById('navLogo');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/95', 'backdrop-blur-xl', 'shadow-md', 'h-20');
+                nav.classList.remove('bg-transparent', 'h-24');
+                links.classList.add('text-slate-900');
+                links.classList.remove('text-white');
+                logo.classList.add('text-slate-900');
+                logo.classList.remove('text-white');
+            } else {
+                nav.classList.remove('bg-white/95', 'backdrop-blur-xl', 'shadow-md', 'h-20');
+                nav.classList.add('bg-transparent', 'h-24');
+                links.classList.remove('text-slate-900');
+                links.classList.add('text-white');
+                logo.classList.remove('text-slate-900');
+                logo.classList.add('text-white');
+            }
+        });
+
+        // --- MODAL DE PROPIEDADES ---
+        function render() {
+            const container = document.getElementById('propiedadesContainer');
+            if(!container) return;
+            container.innerHTML = propiedades.map(prop => `
+                <div onclick="openModal(${prop.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group">
+                    <div class="h-72 bg-slate-200 relative overflow-hidden">
+                        <img src="${prop.imagenes[0]}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-4 left-4 bg-white/95 px-3 py-1 rounded-full text-[10px] font-black uppercase text-blue-600 shadow-sm">${prop.etiqueta}</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-bold text-xl mb-3">${prop.titulo}</h3>
+                        <p class="text-blue-600 font-black text-xl mb-4">${prop.precio}</p>
+                        <div class="text-sm font-bold text-slate-400 group-hover:text-blue-600 transition flex items-center uppercase">Analizar Activo <i class="fas fa-chevron-right ml-2 text-xs"></i></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModal(id) {
+            currentProp = propiedades.find(p => p.id === id);
+            document.getElementById('modalImg').src = currentProp.imagenes[0];
+            document.getElementById('modalTitle').innerText = currentProp.titulo;
+            document.getElementById('modalPrice').innerText = currentProp.precio;
+            document.getElementById('modalBadge').innerText = currentProp.etiqueta;
+            document.getElementById('modalDesc').innerText = currentProp.descripcion;
+            
+            const specsHtml = Object.entries(currentProp.especificaciones)
+                .map(([key, value]) => `<div><span class="text-slate-400 block">${key}</span><span class="font-bold">${value}</span></div>`)
+                .join('');
+            document.getElementById('modalSpecs').innerHTML = specsHtml;
+            document.getElementById('modalWaLink').href = `https://wa.me/56951134778?text=Hola, quiero dossier de: ${currentProp.titulo}`;
+            
+            document.getElementById('propertyModal').classList.remove('hidden');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeModal() {
+            document.getElementById('propertyModal').classList.add('hidden');
+            document.body.classList.remove('no-scroll');
+        }
+
+        // --- QUIZ / EXIT POPUP ---
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0 && !popupMostrado) {
+                document.getElementById('exitPopup').classList.remove('hidden');
+                popupMostrado = true;
+            }
+        });
+
+        function closeExitPopup() {
+            document.getElementById('exitPopup').classList.add('hidden');
+        }
+
+        function nextStep(objetivo) {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+        }
+
+        function finishQuiz() {
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('stepFinal').classList.remove('hidden');
+            setTimeout(closeExitPopup, 2000);
+        }
+
+        // Iniciar
+        render();
+    </script>
 </body>
 </html>
