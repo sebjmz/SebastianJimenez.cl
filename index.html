@@ -11,6 +11,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        @media (max-width: 768px) {
+    /* Bajamos la escala general de fuentes */
+    html {
+        font-size: 14px; 
+    }
+    /* Compactamos los espacios entre secciones */
+    section {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    /* Ajustamos los títulos para que no ocupen toda la pantalla */
+    h1 { font-size: 2.5rem !important; }
+    h2 { font-size: 2rem !important; }
+    
+    /* Evitamos que los contenedores toquen los bordes del teléfono */
+    .max-w-7xl {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         
         body {
