@@ -473,6 +473,19 @@ function closeWelcome(interes) {
             document.getElementById('propiedades').scrollIntoView({ behavior: 'smooth' });
         }
     }
+        // Efecto de Menú Inteligente (Transparente -> Vidrio)
+window.addEventListener('scroll', function() {
+    const nav = document.getElementById('mainNav');
+    if (window.scrollY > 10) {
+        // Al bajar: Fondo blanco traslúcido + Desenfoque + Sombra fina
+        nav.classList.remove('bg-white/0');
+        nav.classList.add('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-slate-100', 'shadow-sm');
+    } else {
+        // Al estar arriba: Totalmente transparente
+        nav.classList.remove('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-slate-100', 'shadow-sm');
+        nav.classList.add('bg-white/0');
+    }
+});
         render();
         // --- LÓGICA DE LA CALCULADORA Y POP-UP ---
 let popupMostrado = false;
