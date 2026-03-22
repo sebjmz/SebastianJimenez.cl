@@ -330,7 +330,7 @@
 </a>
 
     <script>
-    // --- 1. DATOS DE PROPIEDADES ---
+// --- 1. CONFIGURACIÓN Y DATOS ---
     const propiedades = [
         {
             id: 1,
@@ -338,10 +338,7 @@
             descripcion: "Este activo se encuentra en el radio de influencia del nuevo plan maestro vial. Proyectamos una captura de valor por sobre el mercado local en 18 meses.",
             precio: "UF 4.200",
             etiqueta: "Smart Investment",
-            imagenes: [
-                "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
-                "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800"
-            ],
+            imagenes: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800"],
             especificaciones: { "Superficie": "75 m²", "Dormitorios": "2", "Baños": "2", "Rentabilidad": "5.5% Est." }
         },
         {
@@ -350,39 +347,45 @@
             descripcion: "Zona de alta demanda y nula vacancia. Ideal para quienes buscan resguardo patrimonial en un entorno de máxima seguridad.",
             precio: "UF 12.800",
             etiqueta: "Patrimonio",
-            imagenes: [
-                "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
-            ],
+            imagenes: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"],
             especificaciones: { "Terreno": "450 m²", "Construidos": "180 m²", "Baños": "4", "Seguridad": "Máxima" }
         }
     ];
 
     let currentProp = null;
     let currentImgIndex = 0;
+    let popupMostrado = false;
+    let datosQuiz = { objetivo: "", zona: "", presupuesto: "", email: "" };
     const container = document.getElementById('propiedadesContainer');
     const modal = document.getElementById('propertyModal');
 
-    // --- 2. LÓGICA DEL RECUADRO INICIAL (WELCOME MODAL) ---
+    // --- 2. FUNCIONES DE INTERFAZ (MENÚ Y BIENVENIDA) ---
     function closeWelcome(interes) {
-        const welcomeModal = document.getElementById('welcomeModal');
-        welcomeModal.style.opacity = '0';
+        const welcome = document.getElementById('welcomeModal');
+        welcome.style.opacity = '0';
         setTimeout(() => {
-            welcomeModal.style.display = 'none';
+            welcome.style.display = 'none';
             document.body.classList.remove('no-scroll');
         }, 500);
 
-        if(interes === 'vender') {
-            document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-        } else if(interes === 'invertir') {
-            document.getElementById('propiedades').scrollIntoView({ behavior: 'smooth' });
-        }
+        const target = interes === 'vender' ? 'contacto' : 'propiedades';
+        document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
     }
 
-    // --- 3. RENDERIZADO Y MODALES DE PROPIEDAD ---
+    window.addEventListener('scroll', function() {
+        const nav = document.getElementById('mainNav');
+        if (window.scrollY > 50) {
+            nav.classList.add('bg-white/80', 'backdrop-blur-xl', 'shadow-sm');
+        } else {
+            nav.classList.remove('bg-white/80', 'backdrop-blur-xl', 'shadow-sm');
+        }
+    });
+
+    // --- 3. RENDERIZAR PROPIEDADES ---
     function render() {
         if(!container) return;
         container.innerHTML = propiedades.map(prop => `
-            <div onclick="openModal(${prop.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group">
+            <div onclick="openModal(${prop.id})" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 card-hover group cursor-pointer">
                 <div class="h-72 bg-slate-200 relative overflow-hidden">
                     <img src="${prop.imagenes[0]}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                     <div class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase text-blue-600 tracking-widest shadow-sm">
@@ -392,86 +395,15 @@
                 <div class="p-8">
                     <h3 class="font-bold text-xl mb-3 text-slate-900">${prop.titulo}</h3>
                     <p class="text-blue-600 font-black text-xl mb-4">${prop.precio}</p>
-                    <div class="text-sm font-bold text-slate-400 group-hover:text-blue-600 transition flex items-center">
-                        ANALIZAR ACTIVO <i class="fas fa-chevron-right ml-2 text-xs"></i>
+                    <div class="text-sm font-bold text-slate-400 group-hover:text-blue-600 transition flex items-center uppercase">
+                        Analizar Activo <i class="fas fa-chevron-right ml-2 text-xs"></i>
                     </div>
                 </div>
             </div>
         `).join('');
     }
 
-    function openModal(id) {
-        currentProp = propiedades.find(p => p.id === id);
-        currentImgIndex = 0;
-        document.getElementById('modalImg').src = currentProp.imagenes[0];
-        document.getElementById('modalTitle').innerText = currentProp.titulo;
-        document.getElementById('modalPrice').innerText = currentProp.precio;
-        document.getElementById('modalDesc').innerText = currentProp.descripcion;
-        document.getElementById('modalBadge').innerText = currentProp.etiqueta;
-        
-        const mensaje = encodeURIComponent(`Hola Sebastián, me interesa el dossier técnico de: ${currentProp.titulo}`);
-        document.getElementById('modalWaLink').href = `https://wa.me/56951134778?text=${mensaje}`;
-        
-        const specsGrid = document.getElementById('modalSpecs');
-        specsGrid.innerHTML = Object.entries(currentProp.especificaciones).map(([key, value]) => `
-            <div class="p-3 bg-slate-50 rounded-xl">
-                <span class="block text-slate-400 text-[9px] uppercase font-black mb-1">${key}</span>
-                <span class="text-slate-800 text-sm font-semibold">${value}</span>
-            </div>
-        `).join('');
-        
-        modal.classList.remove('hidden');
-        document.body.classList.add('no-scroll');
-    }
-
-    function closeModal() {
-        modal.classList.add('hidden');
-        document.body.classList.remove('no-scroll');
-    }
-
-    // --- 4. NAVEGACIÓN Y MENÚ ---
-    window.addEventListener('scroll', function() {
-        const nav = document.getElementById('mainNav');
-        const logo = document.getElementById('navLogo');
-        const links = document.getElementById('navLinks');
-        if (window.scrollY > 50) {
-            nav.classList.add('bg-white/80', 'backdrop-blur-xl', 'shadow-sm');
-            logo.classList.replace('text-white', 'text-slate-900');
-            links.classList.replace('text-white', 'text-slate-600');
-        } else {
-            nav.classList.remove('bg-white/80', 'backdrop-blur-xl', 'shadow-sm');
-            logo.classList.replace('text-slate-900', 'text-white');
-            links.classList.replace('text-slate-600', 'text-white');
-        }
-    });
-
-    // --- 5. QUIZ DE SALIDA ---
-    let popupMostrado = false;
-    document.addEventListener("mouseleave", (e) => {
-        if (e.clientY < 0 && !popupMostrado) {
-            document.getElementById('exitPopup').classList.remove('hidden');
-            popupMostrado = true;
-        }
-    });
-
-    function nextStep(obj) {
-        document.getElementById('step1').classList.add('hidden');
-        document.getElementById('step2').classList.remove('hidden');
-    }
-
-    function finishQuiz() {
-        document.getElementById('step2').classList.add('hidden');
-        document.getElementById('stepFinal').classList.remove('hidden');
-        setTimeout(() => { document.getElementById('exitPopup').classList.add('hidden'); }, 3000);
-    }
-
-    function closeExitPopup() { document.getElementById('exitPopup').classList.add('hidden'); }
-
-    // Inicializar todo
-    document.addEventListener('DOMContentLoaded', () => {
-        render();
-        document.body.classList.add('no-scroll'); // Bloqueo inicial para el modal
-    });
+    function
 </script>
 
     <!-- NUEVO Pop-up: Perfil de Búsqueda Ideal -->
