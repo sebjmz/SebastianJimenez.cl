@@ -201,18 +201,47 @@
 
             <!-- Formulario AJAX con FormSubmit -->
             <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 relative">
-                <form id="contact-form" class="space-y-6">
-    <input type="hidden" name="_captcha" value="false">
-    <div class="space-y-4">
-        <input type="text" name="Nombre" placeholder="Tu nombre" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition">
-        <input type="email" name="Email" placeholder="Tu correo" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition">
-        <textarea name="Mensaje" placeholder="¿En qué puedo ayudarte?" rows="4" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-blue-600 outline-none transition"></textarea>
-    </div>
-    <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold hover:bg-blue-600 transition-all shadow-lg flex items-center justify-center space-x-3">
-        <span>Enviar Mensaje</span>
-        <i class="fas fa-paper-plane"></i>
-    </button>
-</form>
+                <script>
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    // 1. Evitamos que la página se mueva a la pantalla blanca
+    e.preventDefault();
+    
+    const btn = document.getElementById('submit-btn');
+    const form = e.target;
+    const successMsg = document.getElementById('success-msg');
+
+    btn.innerText = 'Enviando...';
+    btn.disabled = true;
+
+    // 2. Enviamos los datos por "detrás" (AJAX)
+    fetch("https://formsubmit.co/ajax/sebastian@sebastianjimenez.cl", {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success === "true") {
+            // 3. Ocultamos el formulario y mostramos el mensaje de éxito
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+
+            // 4. ¡EXPLOSIÓN DE CONFETI! (Asegúrate de tener la librería en el head)
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#2563eb', '#1e293b', '#22c55e', '#ffffff']
+            });
+        }
+    })
+    .catch(error => {
+        alert("Hubo un error de conexión. Intenta nuevamente.");
+        btn.innerText = 'Enviar Mensaje';
+        btn.disabled = false;
+    });
+});
+</script>
 
                 <!-- Mensaje de éxito oculto -->
                 <div id="success-msg" class="hidden text-center py-10">
