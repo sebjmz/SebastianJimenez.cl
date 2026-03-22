@@ -46,7 +46,30 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
-
+<div id="welcomeModal" class="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-xl transition-opacity duration-500">
+        <div class="bg-white w-full max-w-xl rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100">
+            <div class="p-12 text-center">
+                <div class="text-2xl font-bold tracking-tighter text-slate-900 mb-2">
+                    SEBASTIAN<span class="text-blue-600">JIMENEZ</span>.CL
+                </div>
+                <p class="text-slate-400 uppercase text-[10px] font-black tracking-[0.2em] mb-8">Consultoría Inmobiliaria de Alta Gama</p>
+                <h2 class="text-3xl font-bold text-slate-900 mb-6">¿Cómo puedo ayudarte hoy?</h2>
+                <div class="space-y-4">
+                    <button onclick="closeWelcome('vender')" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold hover:bg-blue-600 transition duration-300 flex items-center justify-center space-x-3">
+                        <i class="fas fa-home"></i>
+                        <span>Quiero Vender/Arrendar mi propiedad</span>
+                    </button>
+                    <button onclick="closeWelcome('invertir')" class="w-full border-2 border-slate-200 text-slate-700 py-5 rounded-2xl font-bold hover:border-blue-600 hover:text-blue-600 transition duration-300 flex items-center justify-center space-x-3">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Busco Oportunidades de Inversión</span>
+                    </button>
+                </div>
+                <button onclick="closeWelcome('nada')" class="mt-8 text-slate-400 text-sm font-medium hover:text-slate-600 underline underline-offset-4">
+                    Solo estoy explorando
+                </button>
+            </div>
+        </div>
+    </div>
     <!-- Navegación -->
     <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
