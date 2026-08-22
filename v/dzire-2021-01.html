@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Open Graph Meta Tags (Para previsualización en Facebook, LinkedIn, iMessage) -->
-    <meta property="og:title" content="🚨 LIQUIDACIÓN URGENTE: Suzuki Dzire 2021 | $6.990.000">
-    <meta property="og:description" content="❌ Mercado: $7.800.000. ⛽ 19.1 km/l mixto. Ingeniería Japonesa. Oportunidad única por renovación.">
+    <meta property="og:title" content="OPORTUNIDAD: Suzuki Dzire GL 1.2 2021 | $6.990.000">
+    <meta property="og:description" content="Mercado: $7.800.000. Rendimiento: 19.1 km/l mixto. Ingeniería Japonesa. Excelente estado.">
     <meta property="og:image" content="https://sebastianjimenez.cl/img/dzire-principal.webp">
     <meta property="og:url" content="https://sebastianjimenez.cl/v/dzire-2021-01.html">
     <meta property="og:type" content="website">
@@ -60,8 +60,8 @@
 <body class="bg-gray-100 text-gray-900 font-sans relative pb-24">
 
     <div class="max-w-3xl mx-auto bg-white shadow-2xl min-h-screen pb-12 relative no-print">
-        <div class="bg-red-600 text-white text-center py-4 font-black text-2xl md:text-3xl animate-pulse tracking-wider uppercase">
-            🚨 SE DEBE VENDER 🚨
+        <div class="bg-gray-900 text-white text-center py-4 font-black text-2xl md:text-3xl tracking-wider uppercase">
+            SE DEBE VENDER
         </div>
         
         <a data-fancybox="gallery" href="../img/dzire-principal.webp" class="zoom-box !aspect-auto !h-96 w-full">
@@ -70,13 +70,13 @@
         <p class="text-xs text-gray-500 font-bold uppercase mt-2 text-center px-6"><i class="fas fa-hand-pointer"></i> Toca la imagen para explorarla en pantalla completa</p>
         
         <div class="p-6">
-            <h1 class="text-4xl font-extrabold uppercase leading-tight">Suzuki Dzire GL 1.2 <span class="text-red-600">2021</span></h1>
+            <h1 class="text-4xl font-extrabold uppercase leading-tight">Suzuki Dzire GL 1.2 <span class="text-blue-600">2021</span></h1>
             <p class="text-gray-500 font-semibold mt-1">Patente: RC-RC-96 | Chasis: MA3ZF63S8NA791494</p>
             
-            <div class="bg-gray-100 p-5 rounded-lg my-6 border-l-8 border-red-600 shadow-inner flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="bg-gray-100 p-5 rounded-lg my-6 border-l-8 border-blue-600 shadow-inner flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <p class="text-gray-500 line-through text-xl">Precio Mercado Referencial: $7.800.000</p>
-                    <p class="text-5xl font-black text-red-600 mt-1 mb-3">$6.990.000</p>
+                    <p class="text-5xl font-black text-blue-600 mt-1 mb-3">$6.990.000</p>
                     <div class="flex flex-wrap gap-2">
                         <span class="bg-green-100 text-green-800 text-[10px] md:text-xs font-black px-3 py-1 rounded border border-green-200 uppercase tracking-wider">
                             <i class="fas fa-gas-pump mr-1"></i> 19.1 km/l Mixto
@@ -238,6 +238,7 @@
             <div class="border-t pt-6">
                 <p class="text-xs uppercase font-bold text-gray-500 mb-3">Código QR de la publicación</p>
                 <img src="https://quickchart.io/qr?text=https%3A%2F%2Fsebastianjimenez.cl%2Fv%2Fdzire-2021-01.html&size=300" alt="QR Code" class="mx-auto w-40 h-40 border-4 border-gray-100 rounded-lg shadow-sm">
+                <p class="text-xs text-gray-500 mt-2">1. Abre tu cámara | 2. Apunta al código | 3. Toca el enlace</p>
             </div>
             
             <button onclick="window.print()" class="mt-6 w-full bg-black text-white font-bold py-3 rounded-xl shadow-md hover:bg-gray-800 transition">
@@ -256,8 +257,7 @@
     <script>
         const PAGE_URL = "https://sebastianjimenez.cl/v/dzire-2021-01.html";
         
-        // Texto rico para compartir (Portapapeles y WhatsApp)
-        const promoText = `🚨 LIQUIDACIÓN URGENTE: Suzuki Dzire GL 1.2 (2021)\n\n❌ Precio Mercado: $7.800.000\n✅ PRECIO AHORA: $6.990.000\n\n⛽ Rendimiento: 19.1 km/l mixto\n⚙️ Ingeniería Japonesa\n\n👉 Fotos, video y detalles aquí:\n${PAGE_URL}`;
+        const promoText = `Esto quizás te interese. Probablemente no dure mucho en el mercado: ${PAGE_URL}`;
 
         Fancybox.bind("[data-fancybox]", {
             Images: { zoom: true },
@@ -303,7 +303,7 @@
         }
 
         function shareFacebook() {
-            // Facebook utiliza estrictamente las etiquetas Open Graph (OG) definidas en el <head>
+            // Nota sobre Facebook: Facebook extraerá su información exclusivamente de las etiquetas <meta property="og:..."> que están en el <head>. No se puede inyectar texto extra en la caja de publicación del usuario.
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(PAGE_URL)}`, '_blank');
         }
 
@@ -315,9 +315,10 @@
                 const toastMessage = document.getElementById('toastMessage');
                 
                 if (source === 'ig') {
-                    toastMessage.innerText = 'URL copiada. Pégala en el Sticker de tu Historia.';
+                    // Instagram Stories solo admite enlaces directos en el "Sticker de Enlace", por eso solo se copia la URL y no el texto completo.
+                    toastMessage.innerText = 'Enlace copiado. Usa el Sticker "Enlace" en tu Historia de Instagram.';
                 } else {
-                    toastMessage.innerText = 'Texto publicitario y enlace copiados.';
+                    toastMessage.innerText = 'Enlace copiado.';
                 }
                 
                 toast.classList.add('show');
