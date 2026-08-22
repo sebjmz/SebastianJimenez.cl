@@ -17,10 +17,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        @media print {
+            body { background: white; color: black; margin: 0; padding: 0; }
+            .no-print { display: none !important; }
+            .print-only { display: flex !important; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+            .urgency-banner { font-size: 3rem; font-weight: 900; background: black; color: white; padding: 10px 20px; text-transform: uppercase; margin-bottom: 20px; width: 100%; }
+        }
+        .print-only { display: none; }
+        
         .zoom-box {
             overflow: hidden;
             position: relative;
-            cursor: crosshair;
+            cursor: pointer;
             border-radius: 0.5rem;
             aspect-ratio: 4/3;
             background-color: #f3f4f6;
@@ -48,7 +56,7 @@
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans relative">
 
-    <div class="max-w-3xl mx-auto bg-white shadow-2xl min-h-screen pb-12 relative">
+    <div class="max-w-3xl mx-auto bg-white shadow-2xl min-h-screen pb-12 relative no-print">
         <div class="bg-red-600 text-white text-center py-4 font-black text-2xl md:text-3xl animate-pulse tracking-wider uppercase">
             🚨 URGENTE DEBO VENDER AHORA 🚨
         </div>
@@ -95,7 +103,7 @@
             </div>
 
             <!-- Botón WhatsApp Contacto -->
-            <a href="https://wa.me/56951134778?text=Hola%20Sebasti%C3%A1n%2C%20me%20interesa%20este%20veh%C3%ADculo%3A%20Suzuki%20Dzire%202021.%20%C2%BFCu%C3%A1ndo%20lo%20puedo%20ver%3F" target="_blank" class="w-full bg-[#25D366] hover:bg-[#1ebd59] transition text-white font-black py-5 rounded-xl text-xl flex items-center justify-center gap-3 mb-8 shadow-lg">
+            <a href="https://wa.me/56951134778?text=Me%20interesa%20este%20vehiculo%2C%20Suzuki%20Dzire%202021.%20Cuando%20lo%20puedo%20ver%3F" target="_blank" class="w-full bg-[#25D366] hover:bg-[#1ebd59] transition text-white font-black py-5 rounded-xl text-xl flex items-center justify-center gap-3 mb-8 shadow-lg">
                 <i class="fab fa-whatsapp text-3xl"></i>
                 <span>CONTACTAR AL VENDEDOR</span>
             </a>
@@ -111,7 +119,7 @@
             </ul>
 
             <h3 class="font-black text-2xl mb-2 border-b pb-2">Galería Multimedia</h3>
-            <p class="text-xs text-gray-500 font-bold uppercase mb-4"><i class="fas fa-search-plus"></i> Pasa el cursor sobre cualquier imagen para hacer zoom interactivo</p>
+            <p class="text-xs text-gray-500 font-bold uppercase mb-4"><i class="fas fa-hand-pointer"></i> Haz clic en cualquier imagen para abrirla en pantalla completa y explorar con zoom</p>
             
             <div class="mb-4">
                 <video controls class="w-full bg-black rounded-lg shadow-md">
@@ -146,8 +154,30 @@
         </div>
     </div>
 
+    <!-- VISTA IMPRESIÓN (AFICHE CALLEJERO / VENTANA) -->
+    <div class="print-only font-sans">
+        <div class="urgency-banner">¡URGENTE DEBO VENDER AHORA!</div>
+        <img src="../img/dzire-principal.webp" style="max-height: 380px; width: 100%; object-fit: contain; margin-bottom: 20px;">
+        
+        <h1 style="font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin: 0;">SUZUKI DZIRE GL 1.2 2021</h1>
+        <p style="font-size: 1.8rem; font-weight: bold; color: #555; margin-top: 5px;">140.300 KM | MT | Documentación al día</p>
+        
+        <h2 style="font-size: 2.5rem; color: #777; text-decoration: line-through; margin-top: 20px; margin-bottom: 5px;">Mercado: $7.800.000</h2>
+        <h2 style="font-size: 5rem; font-weight: 900; color: black; margin: 0; padding: 10px 40px; border: 8px solid black; display: inline-block;">$6.990.000</h2>
+        
+        <div style="margin-top: 40px; display: flex; align-items: center; justify-content: center; gap: 40px; width: 100%; max-width: 800px;">
+            <img src="https://quickchart.io/qr?text=https%3A%2F%2Fsebastianjimenez.cl%2Fv%2Fdzire-2021-01.html&size=250" style="padding: 15px; border: 4px solid black;" alt="QR Code">
+            <div style="text-align: left;">
+                <h3 style="font-size: 2.2rem; margin:0 0 15px 0; font-weight: 900; text-transform: uppercase;">Para ver fotos, video y detalles:</h3>
+                <p style="font-size: 1.6rem; margin: 8px 0;"><strong>1.</strong> Abre la cámara de tu celular</p>
+                <p style="font-size: 1.6rem; margin: 8px 0;"><strong>2.</strong> Apunta a este código QR</p>
+                <p style="font-size: 1.6rem; margin: 8px 0;"><strong>3.</strong> Toca el enlace que aparece</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Compartir -->
-    <div id="shareModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-gray-900/90 backdrop-blur-sm transition-opacity">
+    <div id="shareModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-gray-900/90 backdrop-blur-sm transition-opacity no-print">
         <div class="bg-white w-full max-w-md rounded-[2rem] overflow-hidden shadow-2xl relative p-8 text-center">
             <button onclick="toggleModal('shareModal')" class="absolute top-4 right-5 text-gray-400 hover:text-gray-900 text-xl"><i class="fas fa-times"></i></button>
             
@@ -176,11 +206,24 @@
                 <p class="text-xs uppercase font-bold text-gray-500 mb-3">Código QR de la publicación</p>
                 <img src="https://quickchart.io/qr?text=https%3A%2F%2Fsebastianjimenez.cl%2Fv%2Fdzire-2021-01.html&size=300" alt="QR Code" class="mx-auto w-40 h-40 border-4 border-gray-100 rounded-lg shadow-sm">
             </div>
+            
+            <button onclick="window.print()" class="mt-6 w-full bg-black text-white font-bold py-3 rounded-xl shadow-md hover:bg-gray-800 transition">
+                <i class="fas fa-print"></i> Imprimir Afiche Físico
+            </button>
+        </div>
+    </div>
+
+    <!-- Lightbox (Visor de imagen completa) -->
+    <div id="lightbox" class="fixed inset-0 z-[300] hidden flex items-center justify-center bg-black/95 cursor-pointer no-print">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-4xl z-[310] hover:text-gray-300 transition"><i class="fas fa-times"></i></button>
+        <div class="relative w-full h-full flex items-center justify-center overflow-hidden" id="lightbox-container">
+            <p class="absolute top-6 left-1/2 transform -translate-x-1/2 text-white/50 text-sm font-bold tracking-widest uppercase pointer-events-none z-[310]"><i class="fas fa-search-plus"></i> Pasa el mouse para hacer zoom</p>
+            <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] object-contain transition-transform duration-100 pointer-events-none" alt="Vista ampliada">
         </div>
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 z-[200]">
+    <div id="toast" class="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 z-[400] no-print">
         <i class="fas fa-check-circle text-green-400"></i>
         <span id="toastMessage">Enlace copiado</span>
     </div>
@@ -188,7 +231,7 @@
     <script>
         const PAGE_URL = "https://sebastianjimenez.cl/v/dzire-2021-01.html";
 
-        // Lógica de Zoom Dinámico
+        // Lógica de Zoom en línea (Miniaturas)
         document.querySelectorAll('.zoom-box').forEach(box => {
             const img = box.querySelector('img');
             box.addEventListener('mousemove', e => {
@@ -196,15 +239,58 @@
                 const x = ((e.clientX - rect.left) / rect.width) * 100;
                 const y = ((e.clientY - rect.top) / rect.height) * 100;
                 img.style.transformOrigin = `${x}% ${y}%`;
-                img.style.transform = 'scale(2.5)';
+                img.style.transform = 'scale(1.5)';
             });
             box.addEventListener('mouseleave', () => {
                 img.style.transform = 'scale(1)';
                 img.style.transformOrigin = 'center center';
             });
+            
+            // Abrir Lightbox al hacer clic
+            box.addEventListener('click', () => {
+                openLightbox(img.src);
+            });
         });
 
-        // Lógica Modal
+        // Lógica del Lightbox (Pantalla completa)
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxContainer = document.getElementById('lightbox-container');
+
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            lightboxImg.style.transform = 'scale(1)';
+            lightboxImg.style.transformOrigin = 'center center';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target === lightboxContainer) {
+                closeLightbox();
+            }
+        });
+
+        // Zoom profundo interactivo dentro del Lightbox
+        lightboxContainer.addEventListener('mousemove', e => {
+            const rect = lightboxContainer.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            lightboxImg.style.transformOrigin = `${x}% ${y}%`;
+            lightboxImg.style.transform = 'scale(2.5)';
+        });
+
+        lightboxContainer.addEventListener('mouseleave', () => {
+            lightboxImg.style.transform = 'scale(1)';
+            lightboxImg.style.transformOrigin = 'center center';
+        });
+
+        // Lógica Modal Compartir
         function toggleModal(id) {
             const modal = document.getElementById(id);
             if (modal.classList.contains('hidden')) {
@@ -216,7 +302,7 @@
             }
         }
 
-        // Lógica Compartir
+        // Lógica Compartir Redes
         function shareWhatsApp() {
             const text = encodeURIComponent(`Mira esta oportunidad: Suzuki Dzire 2021 a $6.990.000. Detalles y fotos aquí: ${PAGE_URL}`);
             window.open(`https://wa.me/?text=${text}`, '_blank');
