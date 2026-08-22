@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIQUIDACIÓN URGENTE: Suzuki Dzire GL 1.2 2021</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        @media print {
+            body { background: white; color: black; margin: 0; padding: 0; }
+            .no-print { display: none !important; }
+            .print-only { display: flex !important; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+            .urgency-banner { font-size: 3rem; font-weight: 900; background: black; color: white; padding: 10px 20px; text-transform: uppercase; margin-bottom: 20px; width: 100%; }
+        }
+        .print-only { display: none; }
+        .gallery-img { aspect-ratio: 4/3; object-fit: cover; width: 100%; border-radius: 0.5rem; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans">
+    <!-- VISTA WEB -->
+    <div class="no-print max-w-3xl mx-auto bg-white shadow-2xl min-h-screen pb-10">
+        <div class="bg-red-600 text-white text-center py-4 font-black text-2xl animate-pulse tracking-widest uppercase">
+            🚨 Urgente - Se debe vender 🚨
+        </div>
+        
+        <!-- Fotografía principal proporcionada -->
+        <img src="4a374d03-e87b-425f-bf0d-1363b72ces9df.png" class="w-full h-auto object-cover max-h-96" alt="Suzuki Dzire 2021 Frontal">
+        
+        <div class="p-6">
+            <h1 class="text-4xl font-extrabold uppercase leading-tight">Suzuki Dzire GL 1.2 <span class="text-red-600">2021</span></h1>
+            <p class="text-gray-500 font-semibold mt-1">Patente: RC-RC-96 | Chasis: MA3ZF63S8NA791494</p>
+            
+            <div class="bg-gray-100 p-5 rounded-lg my-6 border-l-8 border-red-600 shadow-inner">
+                <p class="text-gray-500 line-through text-xl">Precio Mercado Referencial: $7.650.000</p>
+                <p class="text-5xl font-black text-red-600 mt-2">Precio Liquidación: $5.990.000</p>
+                <p class="text-sm font-bold text-gray-700 mt-2 bg-yellow-200 inline-block px-2 py-1 rounded">* Avalúo Fiscal (SII): $6.256.147 (Se vende bajo tasación oficial)</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-gray-50 p-4 rounded-lg border text-center shadow-sm">
+                    <span class="block text-xs text-gray-500 uppercase font-bold">Kilometraje</span>
+                    <span class="font-black text-xl">140.300 km</span>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg border text-center shadow-sm">
+                    <span class="block text-xs text-gray-500 uppercase font-bold">Transmisión</span>
+                    <span class="font-black text-xl">Manual (MT)</span>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg border text-center shadow-sm">
+                    <span class="block text-xs text-gray-500 uppercase font-bold">Motor</span>
+                    <span class="font-black text-xl">1.2L VVT</span>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg border text-center shadow-sm">
+                    <span class="block text-xs text-gray-500 uppercase font-bold">Dueños</span>
+                    <span class="font-black text-xl">2</span>
+                </div>
+            </div>
+
+            <button onclick="window.print()" class="w-full bg-black hover:bg-gray-800 transition-colors text-white font-black py-4 rounded-lg text-xl flex items-center justify-center gap-2 mb-8 shadow-lg">
+                🖨️ IMPRIMIR AFICHE PARA VENTANA (CON QR)
+            </button>
+
+            <h3 class="font-black text-2xl mb-4 border-b pb-2">Especificaciones Técnicas</h3>
+            <ul class="list-disc pl-5 mb-8 space-y-2 text-gray-700">
+                <li><strong>Motorización:</strong> K12MN VVT 1.2, 4 cilindros, 16 válvulas.</li>
+                <li><strong>Rendimiento:</strong> 82 HP de potencia y torque máximo de 113 Nm.</li>
+                <li><strong>Capacidades:</strong> Volumen de maletero de 378 litros, estanque de combustible de 37 litros.</li>
+                <li><strong>Dimensiones:</strong> 3.995 mm (largo) x 1.735 mm (ancho) x 1.515 mm (alto).</li>
+                <li><strong>Seguridad:</strong> Doble airbag frontal, sistema de frenos ABS con EBD, anclajes ISOFIX.</li>
+                <li><strong>Equipamiento:</strong> Aire acondicionado, alzavidrios eléctricos, comandos de audio al volante.</li>
+            </ul>
+
+            <h3 class="font-black text-2xl mb-4 border-b pb-2">Galería Multimedia</h3>
+            
+            <div class="mb-4">
+                <!-- Se asume que el video estará en la misma carpeta con el nombre video.mp4 -->
+                <video controls class="w-full bg-black rounded-lg shadow-md">
+                    <source src="video.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+                <p class="text-sm text-gray-500 text-center mt-1">Revisión de motor y funcionamiento (Nº K12MN7620930)</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mb-8">
+                <img src="20251105_133926.jpg" class="gallery-img shadow" alt="Exterior frontal">
+                <img src="20251105_133947.jpg" class="gallery-img shadow" alt="Exterior trasero lateral">
+                <img src="20251105_133933.jpg" class="gallery-img shadow" alt="Exterior trasero">
+                <img src="20251105_134114.jpg" class="gallery-img shadow" alt="Interior delantero">
+                <img src="20251105_134152.jpg" class="gallery-img shadow" alt="Interior trasero">
+                <img src="20251105_134304.jpg" class="gallery-img shadow" alt="Maletero">
+                <img src="20251105_134313.jpg" class="gallery-img shadow" alt="Maletero detalle">
+            </div>
+            
+            <h3 class="font-black text-2xl mb-4 border-b pb-2">Referencia de Mercado</h3>
+            <p class="text-sm text-gray-600 mb-4">Capturas de referencia en portales de venta demostrando precios actuales por modelos idénticos o de similares características.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 opacity-75">
+                <div class="bg-gray-200 border-2 border-dashed border-gray-400 rounded-lg h-48 flex items-center justify-center text-gray-500 font-bold p-4 text-center">
+                    (Reemplazar con imagen chileautos_1.jpg)
+                </div>
+                <div class="bg-gray-200 border-2 border-dashed border-gray-400 rounded-lg h-48 flex items-center justify-center text-gray-500 font-bold p-4 text-center">
+                    (Reemplazar con imagen chileautos_2.jpg)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VISTA IMPRESIÓN (AFICHE CALLEJERO / VENTANA) -->
+    <div class="print-only font-sans">
+        <div class="urgency-banner">¡OPORTUNIDAD URGENTE!</div>
+        <img src="4a374d03-e87b-425f-bf0d-1363b72ces9df.png" style="max-height: 400px; width: 100%; object-fit: contain; margin-bottom: 20px;">
+        
+        <h1 style="font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin: 0;">SUZUKI DZIRE GL 1.2 2021</h1>
+        <p style="font-size: 1.8rem; font-weight: bold; color: #555; margin-top: 5px;">140.300 KM | MT | Documentación al día</p>
+        
+        <h2 style="font-size: 2.5rem; color: #777; text-decoration: line-through; margin-top: 20px; margin-bottom: 5px;">Mercado: $7.650.000</h2>
+        <h2 style="font-size: 5rem; font-weight: 900; color: black; margin: 0; padding: 10px 40px; border: 8px solid black; display: inline-block;">$5.990.000</h2>
+        
+        <div style="margin-top: 50px; display: flex; align-items: center; justify-content: center; gap: 40px; width: 100%; max-width: 800px;">
+            <div id="qrcode" style="padding: 15px; border: 4px solid black;"></div>
+            <div style="text-align: left;">
+                <h3 style="font-size: 2.2rem; margin:0 0 15px 0; font-weight: 900; text-transform: uppercase;">Para ver fotos, video y detalles:</h3>
+                <p style="font-size: 1.6rem; margin: 8px 0;"><strong>1.</strong> Abre la cámara de tu celular</p>
+                <p style="font-size: 1.6rem; margin: 8px 0;"><strong>2.</strong> Apunta a este código QR</p>
+                <p style="font-size: 1.6rem; margin: 8px 0;"><strong>3.</strong> Toca el enlace que aparece</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            new QRCode(document.getElementById("qrcode"), {
+                text: window.location.href,
+                width: 250,
+                height: 250,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+    </script>
+</body>
+</html>
