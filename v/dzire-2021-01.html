@@ -6,7 +6,7 @@
     
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="URGENTE: Suzuki Dzire GL 1.2 2021 - Liquidación">
-    <meta property="og:description" content="Ocasión única por renovación. $6.990.000. 140.300 km. Excelente estado.">
+    <meta property="og:description" content="Rendimiento de 19.1 km/l mixto. Ingeniería Japonesa. $6.990.000. 140.300 km.">
     <meta property="og:image" content="https://sebastianjimenez.cl/img/dzire-principal.webp">
     <meta property="og:url" content="https://sebastianjimenez.cl/v/dzire-2021-01.html">
     <meta property="og:type" content="website">
@@ -16,7 +16,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Fancybox CSS para Swipe y Zoom táctil en móviles y PC -->
+    <!-- Fancybox CSS para Swipe y Zoom táctil -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
     
     <style>
@@ -35,7 +35,7 @@
             border-radius: 0.5rem;
             aspect-ratio: 4/3;
             background-color: #f3f4f6;
-            display: block; /* Importante para Fancybox */
+            display: block; 
         }
         .zoom-box img {
             width: 100%;
@@ -43,7 +43,7 @@
             object-fit: cover;
             transform-origin: center center;
             transition: transform 0.2s ease-out;
-            pointer-events: none; /* Permite clickar el enlace subyacente de Fancybox */
+            pointer-events: none; 
         }
         
         #toast {
@@ -65,7 +65,6 @@
             🚨 SE DEBE VENDER 🚨
         </div>
         
-        <!-- Enlace Fancybox para imagen principal (Grupo 1) -->
         <a data-fancybox="gallery" href="../img/dzire-principal.webp" class="zoom-box !aspect-auto !h-96 w-full">
             <img src="../img/dzire-principal.webp" class="w-full h-full object-cover" alt="Suzuki Dzire 2021 Frontal">
         </a>
@@ -74,15 +73,23 @@
             <h1 class="text-4xl font-extrabold uppercase leading-tight">Suzuki Dzire GL 1.2 <span class="text-red-600">2021</span></h1>
             <p class="text-gray-500 font-semibold mt-1">Patente: RC-RC-96 | Chasis: MA3ZF63S8NA791494</p>
             
-            <div class="bg-gray-100 p-5 rounded-lg my-6 border-l-8 border-red-600 shadow-inner flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="bg-gray-100 p-5 rounded-lg my-6 border-l-8 border-red-600 shadow-inner flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <p class="text-gray-500 line-through text-xl">Precio Mercado Referencial: $7.800.000</p>
-                    <p class="text-5xl font-black text-red-600 mt-2">$6.990.000</p>
-                    <span class="inline-block mt-3 bg-red-100 text-red-700 text-xs font-black px-3 py-1 rounded uppercase tracking-wider">
-                        Oportunidad única: excelente estado.
-                    </span>
+                    <p class="text-5xl font-black text-red-600 mt-1 mb-3">$6.990.000</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-green-100 text-green-800 text-[10px] md:text-xs font-black px-3 py-1 rounded border border-green-200 uppercase tracking-wider">
+                            <i class="fas fa-gas-pump mr-1"></i> 19.1 km/l Mixto
+                        </span>
+                        <span class="bg-blue-100 text-blue-800 text-[10px] md:text-xs font-black px-3 py-1 rounded border border-blue-200 uppercase tracking-wider">
+                            <i class="fas fa-cogs mr-1"></i> Ingeniería Japonesa
+                        </span>
+                        <span class="bg-yellow-100 text-yellow-800 text-[10px] md:text-xs font-black px-3 py-1 rounded border border-yellow-200 uppercase tracking-wider">
+                            <i class="fas fa-wrench mr-1"></i> Mantención Económica
+                        </span>
+                    </div>
                 </div>
-                <button onclick="toggleModal('shareModal')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl flex flex-col items-center gap-1 shadow-lg transition-transform hover:scale-105">
+                <button onclick="toggleModal('shareModal')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl flex flex-col items-center gap-1 shadow-lg transition-transform hover:scale-105 w-full md:w-auto mt-4 md:mt-0">
                     <i class="fas fa-share-alt text-2xl"></i>
                     <span class="text-xs uppercase tracking-widest">Compartir</span>
                 </button>
@@ -108,25 +115,30 @@
             </div>
 
             <!-- Botón WhatsApp Contacto -->
-            <a href="https://wa.me/56951134778?text=Me%20interesa%20este%20vehiculo%2C%20Suzuki%20Dzire%202021.%20Cuando%20lo%20puedo%20ver%3F" target="_blank" class="w-full bg-[#25D366] hover:bg-[#1ebd59] transition text-white font-black py-5 rounded-xl text-xl flex items-center justify-center gap-3 mb-8 shadow-lg">
+            <a href="https://wa.me/56951134778?text=Me%20interesa%20este%20vehiculo%2C%20Suzuki%20Dzire%202021.%20Cuando%20lo%20puedo%20ver%3F" target="_blank" class="w-full bg-[#25D366] hover:bg-[#1ebd59] transition text-white font-black py-5 rounded-xl text-xl flex items-center justify-center gap-3 mb-8 shadow-lg animate-bounce">
                 <i class="fab fa-whatsapp text-3xl"></i>
                 <span>CONTACTAR AL VENDEDOR</span>
             </a>
 
-            <h3 class="font-black text-2xl mb-4 border-b pb-2">Especificaciones Técnicas</h3>
-            <ul class="list-disc pl-5 mb-8 space-y-2 text-gray-700">
-                <li><strong>Motorización:</strong> K12M VVT 1.2, 4 cilindros, 16 válvulas.</li>
-                <li><strong>Rendimiento:</strong> 82 HP a 6.000 rpm y torque de 113 Nm a 4.200 rpm.</li>
-                <li><strong>Capacidades:</strong> Maletero de 378 litros, estanque de 37 litros.</li>
-                <li><strong>Dimensiones:</strong> 3.995 mm (largo) x 1.735 mm (ancho) x 1.515 mm (alto).</li>
-                <li><strong>Seguridad:</strong> Doble airbag frontal, frenos ABS con EBD, anclajes ISOFIX.</li>
-                <li><strong>Equipamiento:</strong> Aire acondicionado, alzavidrios eléctricos, mandos al volante.</li>
-            </ul>
+            <h3 class="font-black text-2xl mb-4 border-b pb-2">Ventajas Técnicas y Rendimiento</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li><strong>Consumo Real:</strong> 15.2 km/l en ciudad | 21.8 km/l en carretera | <strong>19.1 km/l mixto</strong>. Extremadamente eficiente.</li>
+                    <li><strong>Fiabilidad Mecánica:</strong> Motor K12M VVT de ingeniería 100% japonesa. Cadena de distribución libre de mantenimiento continuo.</li>
+                    <li><strong>Repuestos:</strong> Alta disponibilidad en Chile y valor de mercado de los más bajos de su segmento.</li>
+                    <li><strong>Plataforma Heartect:</strong> Chasis ultraligero y rígido de alta seguridad que mejora el consumo y la respuesta dinámica.</li>
+                </ul>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li><strong>Potencia:</strong> 82 HP a 6.000 rpm y torque de 113 Nm.</li>
+                    <li><strong>Capacidades:</strong> Maletero optimizado de 378 litros. Estanque de 37L.</li>
+                    <li><strong>Seguridad Integrada:</strong> Doble airbag frontal, frenos ABS + EBD, y anclajes ISOFIX para sillas infantiles.</li>
+                    <li><strong>Equipamiento:</strong> Aire acondicionado, alzavidrios eléctricos en las 4 puertas, mandos de audio al volante.</li>
+                </ul>
+            </div>
 
             <h3 class="font-black text-2xl mb-2 border-b pb-2">Galería Multimedia</h3>
             <p class="text-xs text-gray-500 font-bold uppercase mb-4"><i class="fas fa-hand-pointer"></i> Toca cualquier imagen o video para explorarlo en pantalla completa</p>
             
-            <!-- Video Local en Galería (Grupo 1) -->
             <div class="mb-4 relative group cursor-pointer">
                 <a data-fancybox="gallery" href="../img/dzire-motor.mp4" class="block w-full relative rounded-lg overflow-hidden shadow-md">
                     <video class="w-full bg-black pointer-events-none">
@@ -136,10 +148,9 @@
                         <i class="fas fa-play-circle text-white text-6xl opacity-90"></i>
                     </div>
                 </a>
-                <p class="text-sm text-gray-500 text-center mt-1">Revisión de motor y funcionamiento (Nº K12MN7620930)</p>
+                <p class="text-sm text-gray-500 text-center mt-1">Revisión de motor (Nº K12MN7620930)</p>
             </div>
 
-            <!-- Imágenes en Galería (Grupo 1) -->
             <div class="grid grid-cols-2 gap-3 mb-8">
                 <a data-fancybox="gallery" href="../img/dzire-frontal.webp" class="zoom-box"><img src="../img/dzire-frontal.webp" alt="Exterior frontal"></a>
                 <a data-fancybox="gallery" href="../img/dzire-lat-trasero.webp" class="zoom-box"><img src="../img/dzire-lat-trasero.webp" alt="Exterior trasero lateral"></a>
@@ -151,7 +162,6 @@
             </div>
             
             <h3 class="font-black text-2xl mb-4 border-b pb-2">Revisión en Video</h3>
-            <!-- Video YouTube en Galería (Grupo 1) -->
             <div class="mb-8 aspect-video relative group cursor-pointer">
                 <a data-fancybox="gallery" href="https://www.youtube.com/watch?v=7SjprXbh9BU" class="block w-full h-full relative rounded-lg overflow-hidden shadow-md">
                     <img src="https://img.youtube.com/vi/7SjprXbh9BU/maxresdefault.jpg" class="w-full h-full object-cover" alt="YouTube Thumbnail">
@@ -162,9 +172,8 @@
             </div>
 
             <h3 class="font-black text-2xl mb-4 border-b pb-2">Referencia de Mercado</h3>
-            <p class="text-sm text-gray-600 mb-4">Compara tú mismo los precios publicados en Chileautos para el Suzuki Dzire 2021:</p>
+            <p class="text-sm text-gray-600 mb-4">Compara tú mismo los precios de modelos equivalentes activos hoy en Chileautos:</p>
             
-            <!-- Imágenes Referencia (Grupo 2 - Independiente) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <a data-fancybox="mercado" href="../img/ref-mercado-1.webp" class="zoom-box !aspect-auto border shadow-sm">
                     <img src="../img/ref-mercado-1.webp" alt="Referencia mercado Chileautos 1">
@@ -182,7 +191,7 @@
         <img src="../img/dzire-principal.webp" style="max-height: 380px; width: 100%; object-fit: contain; margin-bottom: 20px;">
         
         <h1 style="font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin: 0;">SUZUKI DZIRE GL 1.2 2021</h1>
-        <p style="font-size: 1.8rem; font-weight: bold; color: #555; margin-top: 5px;">140.300 KM | MT | Documentación al día</p>
+        <p style="font-size: 1.8rem; font-weight: bold; color: #555; margin-top: 5px;">19.1 KM/L MIXTO | INGENIERÍA JAPONESA</p>
         
         <h2 style="font-size: 2.5rem; color: #777; text-decoration: line-through; margin-top: 20px; margin-bottom: 5px;">Mercado: $7.800.000</h2>
         <h2 style="font-size: 5rem; font-weight: 900; color: black; margin: 0; padding: 10px 40px; border: 8px solid black; display: inline-block;">$6.990.000</h2>
@@ -246,9 +255,7 @@
     <script>
         const PAGE_URL = "https://sebastianjimenez.cl/v/dzire-2021-01.html";
 
-        // Inicialización Fancybox
         Fancybox.bind("[data-fancybox]", {
-            // Habilita controles táctiles avanzados
             Images: {
                 zoom: true,
             },
@@ -261,11 +268,9 @@
             },
         });
 
-        // Efecto Hover Magnético para PC (Miniaturas)
         document.querySelectorAll('.zoom-box').forEach(box => {
             const img = box.querySelector('img');
             box.addEventListener('mousemove', e => {
-                // Ejecutar solo si tiene mouse (evita conflictos en pantallas táctiles)
                 if(window.matchMedia("(hover: hover)").matches) {
                     const rect = box.getBoundingClientRect();
                     const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -280,7 +285,6 @@
             });
         });
 
-        // Lógica Modal Compartir
         function toggleModal(id) {
             const modal = document.getElementById(id);
             if (modal.classList.contains('hidden')) {
@@ -292,7 +296,6 @@
             }
         }
 
-        // Lógica Compartir Redes
         function shareWhatsApp() {
             const text = encodeURIComponent(`Mira esta oportunidad: Suzuki Dzire 2021 a $6.990.000. Detalles y fotos aquí: ${PAGE_URL}`);
             window.open(`https://wa.me/?text=${text}`, '_blank');
