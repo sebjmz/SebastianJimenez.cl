@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="URGENTE: Suzuki Dzire GL 1.2 2021 - Liquidación">
-    <meta property="og:description" content="Rendimiento de 19.1 km/l mixto. Ingeniería Japonesa. $6.990.000. 140.300 km.">
+    <!-- Open Graph Meta Tags (Para previsualización en Facebook, LinkedIn, iMessage) -->
+    <meta property="og:title" content="🚨 LIQUIDACIÓN URGENTE: Suzuki Dzire 2021 | $6.990.000">
+    <meta property="og:description" content="❌ Mercado: $7.800.000. ⛽ 19.1 km/l mixto. Ingeniería Japonesa. Oportunidad única por renovación.">
     <meta property="og:image" content="https://sebastianjimenez.cl/img/dzire-principal.webp">
     <meta property="og:url" content="https://sebastianjimenez.cl/v/dzire-2021-01.html">
     <meta property="og:type" content="website">
@@ -16,7 +16,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Fancybox CSS para Swipe y Zoom táctil -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
     
     <style>
@@ -68,11 +67,11 @@
         <a data-fancybox="gallery" href="../img/dzire-principal.webp" class="zoom-box !aspect-auto !h-96 w-full">
             <img src="../img/dzire-principal.webp" class="w-full h-full object-cover" alt="Suzuki Dzire 2021 Frontal">
         </a>
-        <p class="text-xs text-gray-500 font-bold uppercase mt-2 text-center px-6"><i class="fas fa-hand-pointer"></i> Toca la imagen para explorar todas las imagenes y videos en pantalla completa</p>
+        <p class="text-xs text-gray-500 font-bold uppercase mt-2 text-center px-6"><i class="fas fa-hand-pointer"></i> Toca la imagen para explorarla en pantalla completa</p>
         
         <div class="p-6">
-            <h1 class="text-4xl font-extrabold uppercase leading-tight">Suzuki Dzire GL 1.2 <span class="text-red-600">2021</span>[cite: 1]</h1>
-            <p class="text-gray-500 font-semibold mt-1">Patente: RC-RC-96 | Chasis: MA3ZF63S8NA791494[cite: 1]</p>
+            <h1 class="text-4xl font-extrabold uppercase leading-tight">Suzuki Dzire GL 1.2 <span class="text-red-600">2021</span></h1>
+            <p class="text-gray-500 font-semibold mt-1">Patente: RC-RC-96 | Chasis: MA3ZF63S8NA791494</p>
             
             <div class="bg-gray-100 p-5 rounded-lg my-6 border-l-8 border-red-600 shadow-inner flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
@@ -143,7 +142,7 @@
                         <i class="fas fa-play-circle text-white text-6xl opacity-90"></i>
                     </div>
                 </a>
-                <p class="text-sm text-gray-500 text-center mt-1">Revisión de motor (Nº K12MN7620930)[cite: 1]</p>
+                <p class="text-sm text-gray-500 text-center mt-1">Revisión de motor (Nº K12MN7620930)</p>
             </div>
 
             <div class="grid grid-cols-2 gap-3 mb-8">
@@ -193,7 +192,7 @@
         <div class="urgency-banner">SE DEBE VENDER</div>
         <img src="../img/dzire-principal.webp" style="max-height: 380px; width: 100%; object-fit: contain; margin-bottom: 20px;">
         
-        <h1 style="font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin: 0;">SUZUKI DZIRE GL 1.2 2021[cite: 1]</h1>
+        <h1 style="font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin: 0;">SUZUKI DZIRE GL 1.2 2021</h1>
         <p style="font-size: 1.8rem; font-weight: bold; color: #555; margin-top: 5px;">19.1 KM/L MIXTO | INGENIERÍA JAPONESA</p>
         
         <h2 style="font-size: 2.5rem; color: #777; text-decoration: line-through; margin-top: 20px; margin-bottom: 5px;">Mercado: $7.800.000</h2>
@@ -253,15 +252,15 @@
         <span id="toastMessage">Enlace copiado</span>
     </div>
 
-    <!-- Script Fancybox y Lógicas Propias -->
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <script>
         const PAGE_URL = "https://sebastianjimenez.cl/v/dzire-2021-01.html";
+        
+        // Texto rico para compartir (Portapapeles y WhatsApp)
+        const promoText = `🚨 LIQUIDACIÓN URGENTE: Suzuki Dzire GL 1.2 (2021)\n\n❌ Precio Mercado: $7.800.000\n✅ PRECIO AHORA: $6.990.000\n\n⛽ Rendimiento: 19.1 km/l mixto\n⚙️ Ingeniería Japonesa\n\n👉 Fotos, video y detalles aquí:\n${PAGE_URL}`;
 
         Fancybox.bind("[data-fancybox]", {
-            Images: {
-                zoom: true,
-            },
+            Images: { zoom: true },
             Toolbar: {
                 display: {
                     left: ["infobar"],
@@ -300,23 +299,25 @@
         }
 
         function shareWhatsApp() {
-            const text = encodeURIComponent(`Mira esta oportunidad: Suzuki Dzire 2021 a $6.990.000. Detalles y fotos aquí: ${PAGE_URL}`);
-            window.open(`https://wa.me/?text=${text}`, '_blank');
+            window.open(`https://wa.me/?text=${encodeURIComponent(promoText)}`, '_blank');
         }
 
         function shareFacebook() {
+            // Facebook utiliza estrictamente las etiquetas Open Graph (OG) definidas en el <head>
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(PAGE_URL)}`, '_blank');
         }
 
         function copyToClipboard(source) {
-            navigator.clipboard.writeText(PAGE_URL).then(() => {
+            const textToCopy = source === 'ig' ? PAGE_URL : promoText;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
                 const toast = document.getElementById('toast');
                 const toastMessage = document.getElementById('toastMessage');
                 
                 if (source === 'ig') {
-                    toastMessage.innerText = 'Enlace copiado. Pégalo en tu Historia o Bio.';
+                    toastMessage.innerText = 'URL copiada. Pégala en el Sticker de tu Historia.';
                 } else {
-                    toastMessage.innerText = 'Enlace copiado al portapapeles.';
+                    toastMessage.innerText = 'Texto publicitario y enlace copiados.';
                 }
                 
                 toast.classList.add('show');
