@@ -54,11 +54,11 @@
         #toast.show {
             visibility: visible;
             opacity: 1;
-            bottom: 30px;
+            bottom: 100px;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-900 font-sans relative">
+<body class="bg-gray-100 text-gray-900 font-sans relative pb-24">
 
     <div class="max-w-3xl mx-auto bg-white shadow-2xl min-h-screen pb-12 relative no-print">
         <div class="bg-red-600 text-white text-center py-4 font-black text-2xl md:text-3xl animate-pulse tracking-wider uppercase">
@@ -95,7 +95,7 @@
                 </button>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div class="bg-gray-50 p-4 rounded-lg border text-center shadow-sm">
                     <span class="block text-xs text-gray-500 uppercase font-bold">Kilometraje</span>
                     <span class="font-black text-xl">140.300 km</span>
@@ -113,12 +113,6 @@
                     <span class="font-black text-xl">2</span>
                 </div>
             </div>
-
-            <!-- Botón WhatsApp Contacto -->
-            <a href="https://wa.me/56951134778?text=Me%20interesa%20este%20vehiculo%2C%20Suzuki%20Dzire%202021.%20Cuando%20lo%20puedo%20ver%3F" target="_blank" class="w-full bg-[#25D366] hover:bg-[#1ebd59] transition text-white font-black py-5 rounded-xl text-xl flex items-center justify-center gap-3 mb-8 shadow-lg animate-bounce">
-                <i class="fab fa-whatsapp text-3xl"></i>
-                <span>CONTACTAR AL VENDEDOR</span>
-            </a>
 
             <h3 class="font-black text-2xl mb-4 border-b pb-2">Ventajas Técnicas y Rendimiento</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
@@ -185,6 +179,14 @@
         </div>
     </div>
 
+    <!-- Botón Contacto Fijo (Visible en PC y Móvil) -->
+    <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-3xl px-4 pb-4 z-[90] no-print">
+        <a href="https://wa.me/56951134778?text=Me%20interesa%20este%20vehiculo%2C%20Suzuki%20Dzire%202021.%20Cuando%20lo%20puedo%20ver%3F" target="_blank" class="w-full bg-[#25D366] hover:bg-[#1ebd59] transition text-white font-black py-4 rounded-xl text-xl flex items-center justify-center gap-3 shadow-[0_10px_25px_rgba(37,211,102,0.5)]">
+            <i class="fab fa-whatsapp text-3xl"></i>
+            <span>CONTACTAR AL VENDEDOR</span>
+        </a>
+    </div>
+
     <!-- VISTA IMPRESIÓN (AFICHE CALLEJERO / VENTANA) -->
     <div class="print-only font-sans">
         <div class="urgency-banner">SE DEBE VENDER</div>
@@ -245,7 +247,7 @@
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 z-[400] no-print">
+    <div id="toast" class="fixed left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 z-[400] no-print">
         <i class="fas fa-check-circle text-green-400"></i>
         <span id="toastMessage">Enlace copiado</span>
     </div>
