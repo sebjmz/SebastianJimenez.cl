@@ -65,7 +65,7 @@
     <div class="max-w-3xl mx-auto bg-white shadow-2xl min-h-screen pb-12 relative no-print">
         <div class="bg-gray-900 text-white text-center py-4 font-black text-2xl md:text-3xl tracking-wider uppercase flex flex-col items-center justify-center">
             SE VENDE, 27/08/2026
-            <!-- Contador de personas en vivo Sincronizado -->
+            <!-- Contador de personas en vivo Sincronizado Universalmente -->
             <div id="live-viewers-badge" class="mt-2 flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-full text-xs tracking-normal shadow-lg transition-all duration-300">
                 <span class="relative flex h-3 w-3">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -332,6 +332,8 @@
     <script>
         const PAGE_URL = "https://sebastianjimenez.cl/v/dzire-2021-01.html";
         const promoText = `Este Suzuki está para ti: ${PAGE_URL}`;
+        
+        // Cambié la llave a v3 para reiniciar el caché completamente desde cero
         const API_NAMESPACE = "dzire_2021_sebastianjimenez";
 
         Fancybox.bind("[data-fancybox]", { Images: { zoom: true } });
@@ -395,9 +397,15 @@
             setTimeout(() => toast.classList.remove('show'), 4500);
         }
 
-        // SISTEMA ESTRELLA COMPARTIDO (Polling)
+
+        /* =========================================
+           SISTEMA ESTRELLA COMPARTIDO SIN CACHÉ
+           ========================================= */
+        let isInitialStarLoad = true;
+
         function syncStars() {
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v2`)
+            // El parámetro ?_=${Date.now()} bloquea la caché del navegador obligando a descargar el dato real
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v3?_=${Date.now()}`)
                 .then(r => r.json())
                 .then(d => {
                     const currentStars = (parseInt(d.count) || 0) + 18; 
@@ -406,21 +414,35 @@
                     
                     if (currentStars > oldStars) {
                         counter.innerText = currentStars;
-                        if (oldStars !== 18) { 
+                        if (!isInitialStarLoad) { 
                             triggerFomoNotification("Alguien acaba de destacar esta publicación");
                         }
                     }
+                    isInitialStarLoad = false;
                 })
-                .catch(() => {});
+                .catch(() => { isInitialStarLoad = false; });
         }
+
+        // Sincronización instantánea local si el usuario abre 2 pestañas en el mismo PC/Celular
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'dzire_stars_sync') {
+                const newVal = parseInt(e.newValue);
+                const counter = document.getElementById('star-counter');
+                if (newVal > parseInt(counter.innerText)) {
+                    counter.innerText = newVal;
+                    triggerFomoNotification("Alguien acaba de destacar esta publicación");
+                }
+            }
+        });
 
         function giveStar() {
             const layer = document.getElementById('star-animation-layer');
             const icon = layer.querySelector('i');
             const counter = document.getElementById('star-counter');
             
-            // Actualización optimista local
-            counter.innerText = parseInt(counter.innerText) + 1;
+            const newCount = parseInt(counter.innerText) + 1;
+            counter.innerText = newCount;
+            localStorage.setItem('dzire_stars_sync', newCount); // Notifica a otras pestañas locales
             
             layer.classList.remove('hidden');
             icon.classList.remove('star-animating');
@@ -430,22 +452,23 @@
             triggerFomoNotification("Has destacado esta publicación");
             setTimeout(() => layer.classList.add('hidden'), 1000);
             
-            // Actualización en API compartida
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v2/up`).catch(()=>{});
+            // Forzamos el registro sin caché
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v3/up?_=${Date.now()}`).catch(()=>{});
         }
 
-        // SISTEMA ESPECTADORES EN VIVO (Algoritmo Determinista UTC)
+
+        /* =========================================
+           SISTEMA ESPECTADORES UNIVERSAL (UTC)
+           ========================================= */
         function updateLiveViewers() {
+            const now = Date.now();
+            // Este número es EXACTAMENTE igual en todos los computadores del mundo dentro de una ventana de 10 segundos
+            const timeSeed = Math.floor(now / 10000); 
+            const random = Math.sin(timeSeed) * 10000;
+            const viewers = Math.floor((random - Math.floor(random)) * 3) + 1; // Fluctúa entre 1 y 3
+            
             const liveBadge = document.getElementById('live-viewers-badge');
             const liveText = document.getElementById('live-count-text');
-            
-            // La semilla UTC cambia cada 15 segundos exactos a nivel global
-            const timeSeed = Math.floor(Date.now() / 15000);
-            // Algoritmo pseudoaleatorio sincronizado
-            const random = Math.sin(timeSeed) * 10000;
-            // Rango matemático: Mínimo 1, Máximo 4 personas
-            const viewers = Math.floor((random - Math.floor(random)) * 4) + 1;
-            
             const currentText = liveText.innerText;
             const newText = viewers === 1 ? "1 persona está viendo esto ahora" : `${viewers} personas están viendo esto ahora`;
             
@@ -456,16 +479,24 @@
             } else if (currentText === "") {
                 liveText.innerText = newText;
             }
+
+            // Calculamos los milisegundos exactos que faltan para el próximo salto global de 10 segundos
+            const delay = 10000 - (now % 10000);
+            setTimeout(updateLiveViewers, delay);
         }
 
+
+        /* =========================================
+           INICIALIZACIÓN GENERAL
+           ========================================= */
         document.addEventListener("DOMContentLoaded", () => {
-            // Iniciar sincronización de estrellas (cada 5 segundos)
+            
+            // Iniciar sincronización de estrellas (consulta cada 5 segundos a la nube sin caché)
             syncStars();
             setInterval(syncStars, 5000);
 
-            // Iniciar algoritmo de espectadores (cada 5 segundos evalúa el bloque UTC)
+            // Iniciar algoritmo de espectadores hiper-sincronizado
             updateLiveViewers();
-            setInterval(updateLiveViewers, 5000);
 
             // Contador Visitantes Histórico (API)
             fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/visits_v1/up`)
