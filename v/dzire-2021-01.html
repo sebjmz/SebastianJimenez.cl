@@ -258,7 +258,7 @@
         </a>
     </div>
 
-    <!-- VISTA IMPRESIÓN (AFICHE CALLEJERO / VENTANA) -->
+    <!-- VISTA IMPRESIÓN -->
     <div class="print-only font-sans">
         <div class="urgency-banner">SE VENDE, REÑACA</div>
         <img src="../img/dzire-principal.webp" style="max-height: 380px; width: 100%; object-fit: contain; margin-bottom: 20px;">
@@ -373,22 +373,21 @@
         let isInitLocal = { downloads: true, shares: true, contacts: true };
 
         function syncGlobalFomoEvents() {
-            // Descargas
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/dls_v1?_=${Date.now()}`).then(r=>r.json()).then(d=>{
+            const fetchOpts = { cache: 'no-store' };
+            
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/dls_v1`, fetchOpts).then(r=>r.json()).then(d=>{
                 let c = parseInt(d.count)||0;
                 if(c > localStats.downloads) { localStats.downloads = c; if(!isInitLocal.downloads) triggerFomoNotification("Alguien acaba de descargar la ficha técnica"); }
                 isInitLocal.downloads = false;
             }).catch(()=>{isInitLocal.downloads=false;});
 
-            // Compartidos
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/shrs_v1?_=${Date.now()}`).then(r=>r.json()).then(d=>{
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/shrs_v1`, fetchOpts).then(r=>r.json()).then(d=>{
                 let c = parseInt(d.count)||0;
                 if(c > localStats.shares) { localStats.shares = c; if(!isInitLocal.shares) triggerFomoNotification("Alguien acaba de compartir este vehículo"); }
                 isInitLocal.shares = false;
             }).catch(()=>{isInitLocal.shares=false;});
 
-            // Contactos
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/cnts_v1?_=${Date.now()}`).then(r=>r.json()).then(d=>{
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/cnts_v1`, fetchOpts).then(r=>r.json()).then(d=>{
                 let c = parseInt(d.count)||0;
                 if(c > localStats.contacts) { localStats.contacts = c; if(!isInitLocal.contacts) triggerFomoNotification("Una persona ha contactado al vendedor recién"); }
                 isInitLocal.contacts = false;
@@ -399,10 +398,9 @@
             triggerFomoNotification(localMessage);
             localStats[type]++;
             localStorage.setItem(`dzire_${type}_sync`, localStats[type]);
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/${endpoint}/up?_=${Date.now()}`).catch(()=>{});
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/${endpoint}/up`, { cache: 'no-store' }).catch(()=>{});
         }
 
-        // Eventos a botones
         document.getElementById('btn-download-pdf').addEventListener('click', () => {
             triggerGlobalAction('downloads', 'dls_v1', "Has descargado la ficha técnica");
         });
@@ -411,9 +409,7 @@
             triggerGlobalAction('contacts', 'cnts_v1', "Te estás conectando con el vendedor");
         });
 
-        function registerShareEvent() {
-            triggerGlobalAction('shares', 'shrs_v1', "Has compartido esta publicación");
-        }
+        function registerShareEvent() { triggerGlobalAction('shares', 'shrs_v1', "Has compartido esta publicación"); }
 
         function shareWhatsApp() { registerShareEvent(); window.open(`https://wa.me/?text=${encodeURIComponent(promoText)}`, '_blank'); }
         function shareFacebook() { registerShareEvent(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(PAGE_URL)}`, '_blank'); }
@@ -433,7 +429,7 @@
         let isInitialStarLoad = true;
 
         function syncStars() {
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v3?_=${Date.now()}`)
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v4`, { cache: 'no-store' })
                 .then(r => r.json())
                 .then(d => {
                     const currentStars = (parseInt(d.count) || 0) + 18; 
@@ -468,7 +464,7 @@
             triggerFomoNotification("Has destacado esta publicación");
             setTimeout(() => layer.classList.add('hidden'), 1000);
             
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v3/up?_=${Date.now()}`).catch(()=>{});
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v4/up`, { cache: 'no-store' }).catch(()=>{});
         }
 
         /* =========================================
@@ -533,8 +529,7 @@
 
             updateLiveViewers();
 
-            // Contador Visitantes
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/visits_v1/up`)
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/visits_v2/up`, { cache: 'no-store' })
                 .then(r => { if(!r.ok) throw new Error(); return r.json(); })
                 .then(d => renderCounter((parseInt(d.count) || 1) + 66))
                 .catch(() => {
