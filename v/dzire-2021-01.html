@@ -65,13 +65,13 @@
     <div class="max-w-3xl mx-auto bg-white shadow-2xl min-h-screen pb-12 relative no-print">
         <div class="bg-gray-900 text-white text-center py-4 font-black text-2xl md:text-3xl tracking-wider uppercase flex flex-col items-center justify-center">
             SE VENDE, 27/08/2026
-            <!-- Contador de personas en vivo -->
+            <!-- Contador de personas en vivo Sincronizado -->
             <div id="live-viewers-badge" class="mt-2 flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-full text-xs tracking-normal shadow-lg transition-all duration-300">
                 <span class="relative flex h-3 w-3">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-3 w-3 bg-red-100"></span>
                 </span>
-                <span id="live-count-text" class="font-bold">2 personas están viendo esto ahora</span>
+                <span id="live-count-text" class="font-bold">1 persona está viendo esto ahora</span>
             </div>
         </div>
         
@@ -93,7 +93,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-2 mb-2">
                 <p class="text-gray-500 font-semibold">Patente: RC-RC-96 | Chasis: MA3ZF63S8NA791494</p>
                 <div class="flex items-center gap-3 mt-3 md:mt-0">
-                    <!-- Botón Estrella / Aura -->
+                    <!-- Botón Estrella / Aura Sincronizado -->
                     <button onclick="giveStar()" class="bg-gradient-to-r from-yellow-50 to-orange-50 hover:from-yellow-100 hover:to-orange-100 text-yellow-700 font-black py-1.5 px-4 rounded-full border border-yellow-300 shadow-sm flex items-center gap-2 transition-transform transform hover:scale-105 active:scale-95">
                         <i class="fas fa-star text-yellow-500 text-lg"></i>
                         <span id="star-counter">18</span>
@@ -104,7 +104,6 @@
             </div>
             
             <div class="bg-gray-100 p-5 rounded-lg mt-8 mb-6 border-l-8 border-blue-600 shadow-inner flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative">
-                
                 <div class="absolute -top-5 right-2 md:-right-4 bg-green-500 text-white font-black px-4 py-2 rounded-lg shadow-lg transform rotate-3 z-10 uppercase tracking-widest border-2 border-white text-sm md:text-lg">
                     📍 REÑACA
                 </div>
@@ -333,10 +332,10 @@
     <script>
         const PAGE_URL = "https://sebastianjimenez.cl/v/dzire-2021-01.html";
         const promoText = `Este Suzuki está para ti: ${PAGE_URL}`;
+        const API_NAMESPACE = "dzire_2021_sebastianjimenez";
 
         Fancybox.bind("[data-fancybox]", { Images: { zoom: true } });
 
-        // Función Modal
         function toggleModal(id) {
             const modal = document.getElementById(id);
             if (modal.classList.contains('hidden')) {
@@ -346,7 +345,6 @@
             }
         }
 
-        // Script del zoom-box original para imágenes
         document.querySelectorAll('.zoom-box').forEach(box => {
             const img = box.querySelector('img');
             box.addEventListener('mousemove', e => {
@@ -364,7 +362,6 @@
             });
         });
 
-        // Compartir
         function shareWhatsApp() {
             triggerFomoNotification("Alguien acaba de compartir este vehículo");
             window.open(`https://wa.me/?text=${encodeURIComponent(promoText)}`, '_blank');
@@ -383,17 +380,14 @@
             });
         }
 
-        // Botón WhatsApp Contacto -> Gatilla Notificación FOMO
         document.getElementById('btn-contact-whatsapp').addEventListener('click', () => {
             triggerFomoNotification("Una persona ha contactado al vendedor recién");
         });
 
-        // Botón Descarga PDF -> Gatilla Notificación FOMO
         document.getElementById('btn-download-pdf').addEventListener('click', () => {
             triggerFomoNotification("Alguien acaba de descargar la ficha técnica");
         });
 
-        // Notificaciones FOMO (Inferior derecha)
         function triggerFomoNotification(msg) {
             const toast = document.getElementById('fomo-toast');
             document.getElementById('fomoMessage').innerText = msg;
@@ -401,30 +395,80 @@
             setTimeout(() => toast.classList.remove('show'), 4500);
         }
 
-        // Sistema Estrella / Aura
+        // SISTEMA ESTRELLA COMPARTIDO (Polling)
+        function syncStars() {
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v2`)
+                .then(r => r.json())
+                .then(d => {
+                    const currentStars = (parseInt(d.count) || 0) + 18; 
+                    const counter = document.getElementById('star-counter');
+                    const oldStars = parseInt(counter.innerText);
+                    
+                    if (currentStars > oldStars) {
+                        counter.innerText = currentStars;
+                        if (oldStars !== 18) { 
+                            triggerFomoNotification("Alguien acaba de destacar esta publicación");
+                        }
+                    }
+                })
+                .catch(() => {});
+        }
+
         function giveStar() {
             const layer = document.getElementById('star-animation-layer');
             const icon = layer.querySelector('i');
+            const counter = document.getElementById('star-counter');
+            
+            // Actualización optimista local
+            counter.innerText = parseInt(counter.innerText) + 1;
             
             layer.classList.remove('hidden');
             icon.classList.remove('star-animating');
             void icon.offsetWidth; 
             icon.classList.add('star-animating');
             
-            const counter = document.getElementById('star-counter');
-            counter.innerText = parseInt(counter.innerText) + 1;
-            
-            triggerFomoNotification("Alguien acaba de destacar esta publicación");
-            
+            triggerFomoNotification("Has destacado esta publicación");
             setTimeout(() => layer.classList.add('hidden'), 1000);
+            
+            // Actualización en API compartida
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v2/up`).catch(()=>{});
         }
 
-        // Contador Visitantes Histórico (API)
-        document.addEventListener("DOMContentLoaded", () => {
-            const namespace = "dzire_2021_sebastianjimenez";
-            const key = "visits_v1";
+        // SISTEMA ESPECTADORES EN VIVO (Algoritmo Determinista UTC)
+        function updateLiveViewers() {
+            const liveBadge = document.getElementById('live-viewers-badge');
+            const liveText = document.getElementById('live-count-text');
+            
+            // La semilla UTC cambia cada 15 segundos exactos a nivel global
+            const timeSeed = Math.floor(Date.now() / 15000);
+            // Algoritmo pseudoaleatorio sincronizado
+            const random = Math.sin(timeSeed) * 10000;
+            // Rango matemático: Mínimo 1, Máximo 4 personas
+            const viewers = Math.floor((random - Math.floor(random)) * 4) + 1;
+            
+            const currentText = liveText.innerText;
+            const newText = viewers === 1 ? "1 persona está viendo esto ahora" : `${viewers} personas están viendo esto ahora`;
+            
+            if (currentText !== newText && currentText !== "") {
+                liveText.innerText = newText;
+                liveBadge.classList.add('scale-105', 'bg-red-500');
+                setTimeout(() => liveBadge.classList.remove('scale-105', 'bg-red-500'), 300);
+            } else if (currentText === "") {
+                liveText.innerText = newText;
+            }
+        }
 
-            fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`)
+        document.addEventListener("DOMContentLoaded", () => {
+            // Iniciar sincronización de estrellas (cada 5 segundos)
+            syncStars();
+            setInterval(syncStars, 5000);
+
+            // Iniciar algoritmo de espectadores (cada 5 segundos evalúa el bloque UTC)
+            updateLiveViewers();
+            setInterval(updateLiveViewers, 5000);
+
+            // Contador Visitantes Histórico (API)
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/visits_v1/up`)
                 .then(r => { if(!r.ok) throw new Error(); return r.json(); })
                 .then(d => renderCounter((parseInt(d.count) || 1) + 66))
                 .catch(() => {
@@ -453,23 +497,6 @@
                     });
                 }, 800);
             }
-
-            // Lógica de "Personas viendo ahora" (Simulación realista)
-            const liveBadge = document.getElementById('live-viewers-badge');
-            const liveText = document.getElementById('live-count-text');
-            let viewers = 2;
-
-            setInterval(() => {
-                const change = Math.random() > 0.5 ? 1 : -1;
-                viewers += change;
-                if(viewers < 2) viewers = 2;
-                if(viewers > 5) viewers = 5;
-                
-                liveText.innerText = `${viewers} personas están viendo esto ahora`;
-                
-                liveBadge.classList.add('scale-105', 'bg-red-500');
-                setTimeout(() => liveBadge.classList.remove('scale-105', 'bg-red-500'), 300);
-            }, 18000); 
         });
     </script>
 </body>
