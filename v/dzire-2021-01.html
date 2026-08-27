@@ -369,42 +369,57 @@
             });
         }
 
-        // Script del Contador de Visitas
-        document.addEventListener("DOMContentLoaded", () => {
-            fetch('https://api.counterapi.dev/v1/sebastian_landing_auto/dzire_2021_visits/up')
-                .then(r => r.json())
-                .then(d => renderCounter((d.count || 1) + 66))
-                .catch(() => renderCounter(67));
-                
-            function renderCounter(count) {
-                const container = document.getElementById('visitor-counter-container');
-                if (!container) return;
-                
-                const prev = (count - 1).toString().padStart(count.toString().length, '0');
-                const curr = count.toString();
-                
-                let html = '<div class="counter-capsule gap-2"><i class="fas fa-eye text-blue-400"></i><div class="flex">';
-                
-                for (let i = 0; i < curr.length; i++) {
-                    if (curr[i] !== prev[i]) {
-                        html += `<div class="digit-container"><div class="digit-track" style="transform: translateY(0);"><span>${prev[i]}</span><span>${curr[i]}</span></div></div>`;
-                    } else {
-                        html += `<div class="digit-container"><div class="digit-track"><span>${curr[i]}</span></div></div>`;
-                    }
-                }
-                
-                html += '</div><span class="text-[10px] text-gray-400 font-sans tracking-widest ml-1">VISITAS</span></div>';
-                container.innerHTML = html;
-                
-                setTimeout(() => {
-                    container.querySelectorAll('.digit-track').forEach(track => {
-                        if(track.children.length > 1) {
-                            track.style.transform = 'translateY(-1.35rem)';
-                        }
-                    });
-                }, 800);
-            }
+        // Script del Contador de Visitas Robusto
+document.addEventListener("DOMContentLoaded", () => {
+    const namespace = "dzire_2021_sebastianjimenez";
+    const key = "visits_v1";
+
+    fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`)
+        .then(response => {
+            if (!response.ok) throw new Error("Error en red");
+            return response.json();
+        })
+        .then(data => {
+            const currentVisits = (parseInt(data.count) || 1) + 66;
+            renderCounter(currentVisits);
+        })
+        .catch(() => {
+            // Fallback con persistencia local si falla la red externa o estás en local
+            let localCount = parseInt(localStorage.getItem('page_visits_dzire') || '66');
+            localCount += 1;
+            localStorage.setItem('page_visits_dzire', localCount);
+            renderCounter(localCount);
         });
+
+    function renderCounter(count) {
+        const container = document.getElementById('visitor-counter-container');
+        if (!container) return;
+        
+        const prev = (count - 1).toString().padStart(count.toString().length, '0');
+        const curr = count.toString();
+        
+        let html = '<div class="counter-capsule gap-2"><i class="fas fa-eye text-blue-400"></i><div class="flex">';
+        
+        for (let i = 0; i < curr.length; i++) {
+            if (curr[i] !== prev[i]) {
+                html += `<div class="digit-container"><div class="digit-track" style="transform: translateY(0);"><span>${prev[i]}</span><span>${curr[i]}</span></div></div>`;
+            } else {
+                html += `<div class="digit-container"><div class="digit-track"><span>${curr[i]}</span></div></div>`;
+            }
+        }
+        
+        html += '</div><span class="text-[10px] text-gray-400 font-sans tracking-widest ml-1">VISITAS</span></div>';
+        container.innerHTML = html;
+        
+        setTimeout(() => {
+            container.querySelectorAll('.digit-track').forEach(track => {
+                if(track.children.length > 1) {
+                    track.style.transform = 'translateY(-1.35rem)';
+                }
+            });
+        }, 800);
+    }
+});
     </script>
 </body>
 </html>
