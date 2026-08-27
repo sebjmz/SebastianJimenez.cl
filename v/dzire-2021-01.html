@@ -15,7 +15,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
     
     <style>
@@ -27,51 +26,65 @@
         }
         .print-only { display: none; }
         
-        .zoom-box {
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            border-radius: 0.5rem;
-            aspect-ratio: 4/3;
-            background-color: #f3f4f6;
-            display: block; 
-        }
-        .zoom-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform-origin: center center;
-            transition: transform 0.2s ease-out;
-            pointer-events: none; 
-        }
+        .zoom-box { overflow: hidden; position: relative; cursor: pointer; border-radius: 0.5rem; aspect-ratio: 4/3; background-color: #f3f4f6; display: block; }
+        .zoom-box img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; transition: transform 0.2s ease-out; pointer-events: none; }
         
-        #toast {
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s, bottom 0.3s;
-        }
-        #toast.show {
-            visibility: visible;
-            opacity: 1;
-            bottom: 100px;
-        }
-
-        /* Estilos del Contador Cápsula */
+        /* Contador Cápsula */
         .counter-capsule { display: inline-flex; align-items: center; background-color: #111827; color: #ffffff; border-radius: 9999px; padding: 6px 14px; font-family: monospace; font-size: 1.1rem; font-weight: bold; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
         .digit-container { height: 1.35rem; overflow: hidden; display: inline-flex; flex-direction: column; line-height: 1.35rem; }
         .digit-track { display: flex; flex-direction: column; transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1); }
+
+        /* Animación Estrella (Aura) */
+        @keyframes starBurst {
+            0% { transform: scale(0) rotate(-45deg); opacity: 1; }
+            60% { transform: scale(5) rotate(15deg); opacity: 0.9; }
+            100% { transform: scale(12) rotate(45deg); opacity: 0; }
+        }
+        .star-animating { animation: starBurst 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+
+        /* Toast Inferior Derecha (FOMO) */
+        #fomo-toast {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        #fomo-toast.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Toast central original */
+        #toast { visibility: hidden; opacity: 0; transition: opacity 0.3s, bottom 0.3s; }
+        #toast.show { visibility: visible; opacity: 1; bottom: 100px; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-900 font-sans relative pb-24">
+<body class="bg-gray-100 text-gray-900 font-sans relative pb-24 overflow-x-hidden">
 
     <div class="max-w-3xl mx-auto bg-white shadow-2xl min-h-screen pb-12 relative no-print">
-        <div class="bg-gray-900 text-white text-center py-4 font-black text-2xl md:text-3xl tracking-wider uppercase">
+        <div class="bg-gray-900 text-white text-center py-4 font-black text-2xl md:text-3xl tracking-wider uppercase flex flex-col items-center justify-center">
             SE VENDE, 27/08/2026
+            <!-- Contador de personas en vivo -->
+            <div id="live-viewers-badge" class="mt-2 flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-full text-xs tracking-normal shadow-lg transition-all duration-300">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-red-100"></span>
+                </span>
+                <span id="live-count-text" class="font-bold">2 personas están viendo esto ahora</span>
+            </div>
         </div>
         
-        <a data-fancybox="gallery" href="../img/dzire-principal.webp" class="zoom-box !aspect-auto !h-96 w-full">
-            <img src="../img/dzire-principal.webp" class="w-full h-full object-cover" alt="Suzuki Dzire 2021 Frontal">
-        </a>
+        <!-- Imagen Principal con Contenedor Relativo para la Animación de Estrella -->
+        <div class="relative w-full">
+            <a data-fancybox="gallery" href="../img/dzire-principal.webp" class="zoom-box !aspect-auto !h-96 w-full relative z-10">
+                <img src="../img/dzire-principal.webp" class="w-full h-full object-cover" alt="Suzuki Dzire 2021 Frontal">
+            </a>
+            <!-- Capa de Animación de Estrella -->
+            <div id="star-animation-layer" class="absolute inset-0 flex items-center justify-center pointer-events-none z-50 overflow-hidden hidden">
+                <i class="fas fa-star text-yellow-400 drop-shadow-[0_0_30px_rgba(250,204,21,1)]" style="font-size: 4rem;"></i>
+            </div>
+        </div>
         <p class="text-xs text-gray-500 font-bold uppercase mt-2 text-center px-6"><i class="fas fa-hand-pointer"></i> Toca la imagen para explorar todas las imágenes y videos en pantalla completa</p>
         
         <div class="p-6">
@@ -79,7 +92,15 @@
             
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-2 mb-2">
                 <p class="text-gray-500 font-semibold">Patente: RC-RC-96 | Chasis: MA3ZF63S8NA791494</p>
-                <div id="visitor-counter-container" class="no-print mt-3 md:mt-0"></div>
+                <div class="flex items-center gap-3 mt-3 md:mt-0">
+                    <!-- Botón Estrella / Aura -->
+                    <button onclick="giveStar()" class="bg-gradient-to-r from-yellow-50 to-orange-50 hover:from-yellow-100 hover:to-orange-100 text-yellow-700 font-black py-1.5 px-4 rounded-full border border-yellow-300 shadow-sm flex items-center gap-2 transition-transform transform hover:scale-105 active:scale-95">
+                        <i class="fas fa-star text-yellow-500 text-lg"></i>
+                        <span id="star-counter">18</span>
+                    </button>
+                    <!-- Contador Histórico -->
+                    <div id="visitor-counter-container" class="no-print"></div>
+                </div>
             </div>
             
             <div class="bg-gray-100 p-5 rounded-lg mt-8 mb-6 border-l-8 border-blue-600 shadow-inner flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative">
@@ -128,6 +149,13 @@
                     <span class="block text-xs text-gray-500 uppercase font-bold">Dueños</span>
                     <span class="font-black text-xl">2</span>
                 </div>
+            </div>
+
+            <div class="mb-8 flex justify-center">
+                <a id="btn-download-pdf" href="../img/Ficha-Dzire-215x28-cm-web.pdf" download class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-xl flex items-center gap-3 shadow-lg transition-transform hover:scale-105 w-full md:w-auto justify-center">
+                    <i class="fas fa-file-pdf text-2xl"></i>
+                    <span class="uppercase tracking-wide">Descargar Ficha Técnica (PDF)</span>
+                </a>
             </div>
 
             <h3 class="font-black text-2xl mb-4 border-b pb-2">Ventajas Técnicas y Rendimiento</h3>
@@ -183,6 +211,14 @@
 
             <h3 class="font-black text-2xl mb-4 border-b pb-2">Preguntas Frecuentes</h3>
             <div class="space-y-4 mb-8">
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute right-0 top-0 w-2 h-full bg-blue-500"></div>
+                    <h4 class="font-bold text-lg text-gray-900"><i class="fas fa-tag text-blue-600 mr-2"></i>¿Por qué el precio es tan inferior al mercado?</h4>
+                    <p class="text-gray-700 mt-2 leading-relaxed">
+                        Exclusivamente por el inicio de un <strong>nuevo proyecto</strong> que requiere liquidez rápida. Al comprarlo en $6.990.000 (el mercado lo tasa en $7.800.000), adquieres un margen de $810.000 a tu favor. Considerando la devaluación anual normal del 10%, <strong>podrías usar este auto por más de 1 año y venderlo exactamente al mismo precio que lo compraste hoy</strong>. Es uso a costo cero en depreciación.
+                    </p>
+                </div>
+
                 <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
                     <h4 class="font-bold text-lg text-gray-900"><i class="fas fa-file-signature text-blue-600 mr-2"></i>¿El vehículo es transferible de forma inmediata?</h4>
                     <p class="text-gray-700 mt-1">Sí. El vehículo es 100% transferible hoy mismo mediante notaría o Autofact sin impedimentos legales.</p>
@@ -191,11 +227,6 @@
                 <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
                     <h4 class="font-bold text-lg text-gray-900"><i class="fas fa-file-invoice-dollar text-blue-600 mr-2"></i>¿Tiene multas de tránsito o TAG impagas?</h4>
                     <p class="text-gray-700 mt-1">No. El vehículo se entrega 100% limpio y saneado. Las multas de remate están en proceso final de eliminación legal, garantizando la entrega del auto sin deuda alguna a tu nombre.</p>
-                </div>
-
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
-                    <h4 class="font-bold text-lg text-gray-900"><i class="fas fa-tag text-blue-600 mr-2"></i>¿Por qué el precio es tan inferior al mercado?</h4>
-                    <p class="text-gray-700 mt-1">Exclusivamente por urgencia de venta. Necesito liquidez rápida para utilizar este capital como pie en la compra de un nuevo vehículo.</p>
                 </div>
 
                 <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
@@ -223,14 +254,15 @@
         </div>
     </div>
 
+    <!-- Botón Flotante WhatsApp -->
     <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-3xl px-4 pb-4 z-[90] no-print">
-        <a href="https://wa.me/56951134778?text=Me%20interesa%20este%20vehiculo%2C%20Suzuki%20Dzire%202021.%20Cuando%20lo%20puedo%20ver%3F" target="_blank" class="w-full bg-[#25D366] hover:bg-[#1ebd59] transition text-white font-black py-4 rounded-xl text-xl flex items-center justify-center gap-3 shadow-[0_10px_25px_rgba(37,211,102,0.5)]">
+        <a id="btn-contact-whatsapp" href="https://wa.me/56951134778?text=Me%20interesa%20este%20vehiculo%2C%20Suzuki%20Dzire%202021.%20Cuando%20lo%20puedo%20ver%3F" target="_blank" class="w-full bg-[#25D366] hover:bg-[#1ebd59] transition text-white font-black py-4 rounded-xl text-xl flex items-center justify-center gap-3 shadow-[0_10px_25px_rgba(37,211,102,0.5)]">
             <i class="fab fa-whatsapp text-3xl"></i>
             <span>CONTACTAR AL VENDEDOR</span>
         </a>
     </div>
 
-    <!-- VISTA IMPRESIÓN -->
+    <!-- VISTA IMPRESIÓN (AFICHE CALLEJERO / VENTANA) -->
     <div class="print-only font-sans">
         <div class="urgency-banner">SE VENDE, REÑACA</div>
         <img src="../img/dzire-principal.webp" style="max-height: 380px; width: 100%; object-fit: contain; margin-bottom: 20px;">
@@ -256,25 +288,20 @@
     <div id="shareModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-gray-900/90 backdrop-blur-sm transition-opacity no-print">
         <div class="bg-white w-full max-w-md rounded-[2rem] overflow-hidden shadow-2xl relative p-8 text-center">
             <button onclick="toggleModal('shareModal')" class="absolute top-4 right-5 text-gray-400 hover:text-gray-900 text-xl"><i class="fas fa-times"></i></button>
-            
             <h2 class="text-2xl font-black uppercase tracking-tight mb-6">Compartir Ficha</h2>
             
             <div class="grid grid-cols-2 gap-4 mb-8">
                 <button onclick="shareWhatsApp()" class="bg-[#25D366] text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-[#1ebd59] transition">
-                    <i class="fab fa-whatsapp text-3xl"></i>
-                    <span class="font-bold text-sm">WhatsApp</span>
+                    <i class="fab fa-whatsapp text-3xl"></i><span class="font-bold text-sm">WhatsApp</span>
                 </button>
                 <button onclick="shareFacebook()" class="bg-[#1877F2] text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-[#155fc2] transition">
-                    <i class="fab fa-facebook text-3xl"></i>
-                    <span class="font-bold text-sm">Facebook</span>
+                    <i class="fab fa-facebook text-3xl"></i><span class="font-bold text-sm">Facebook</span>
                 </button>
                 <button onclick="copyToClipboard('ig')" class="bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:opacity-90 transition">
-                    <i class="fab fa-instagram text-3xl"></i>
-                    <span class="font-bold text-sm">Instagram</span>
+                    <i class="fab fa-instagram text-3xl"></i><span class="font-bold text-sm">Instagram</span>
                 </button>
                 <button onclick="copyToClipboard('link')" class="bg-gray-800 text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-gray-700 transition">
-                    <i class="fas fa-link text-3xl"></i>
-                    <span class="font-bold text-sm">Copiar Link</span>
+                    <i class="fas fa-link text-3xl"></i><span class="font-bold text-sm">Copiar Link</span>
                 </button>
             </div>
 
@@ -290,29 +317,36 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
+    <!-- Toast Original Centro -->
     <div id="toast" class="fixed left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 z-[400] no-print">
         <i class="fas fa-check-circle text-green-400"></i>
         <span id="toastMessage">Enlace copiado</span>
     </div>
 
+    <!-- Toast FOMO (Actividad en Vivo) - Esquina Inferior Derecha -->
+    <div id="fomo-toast" class="fixed bottom-28 right-4 bg-white border-l-4 border-blue-500 text-gray-800 px-5 py-4 rounded-lg font-bold shadow-[0_10px_40px_rgba(0,0,0,0.15)] flex items-start gap-3 z-[400] no-print max-w-xs">
+        <i class="fas fa-bell text-blue-500 mt-1 text-lg"></i>
+        <span id="fomoMessage" class="text-sm leading-tight">Alguien acaba de compartir este vehículo</span>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <script>
         const PAGE_URL = "https://sebastianjimenez.cl/v/dzire-2021-01.html";
-        
-        const promoText = `Esto quizás te interese. Probablemente no dure mucho en el mercado: ${PAGE_URL}`;
+        const promoText = `Este Suzuki está para ti: ${PAGE_URL}`;
 
-        Fancybox.bind("[data-fancybox]", {
-            Images: { zoom: true },
-            Toolbar: {
-                display: {
-                    left: ["infobar"],
-                    middle: ["zoomIn", "zoomOut", "toggle1to1"],
-                    right: ["slideshow", "close"],
-                },
-            },
-        });
+        Fancybox.bind("[data-fancybox]", { Images: { zoom: true } });
 
+        // Función Modal
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden'); document.body.style.overflow = 'hidden';
+            } else {
+                modal.classList.add('hidden'); document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Script del zoom-box original para imágenes
         document.querySelectorAll('.zoom-box').forEach(box => {
             const img = box.querySelector('img');
             box.addEventListener('mousemove', e => {
@@ -330,96 +364,113 @@
             });
         });
 
-        function toggleModal(id) {
-            const modal = document.getElementById(id);
-            if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            } else {
-                modal.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }
-        }
-
+        // Compartir
         function shareWhatsApp() {
+            triggerFomoNotification("Alguien acaba de compartir este vehículo");
             window.open(`https://wa.me/?text=${encodeURIComponent(promoText)}`, '_blank');
         }
-
         function shareFacebook() {
+            triggerFomoNotification("Alguien acaba de compartir este vehículo");
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(PAGE_URL)}`, '_blank');
         }
-
         function copyToClipboard(source) {
-            const textToCopy = source === 'ig' ? PAGE_URL : promoText;
-            
-            navigator.clipboard.writeText(textToCopy).then(() => {
+            triggerFomoNotification("Alguien acaba de compartir este vehículo");
+            navigator.clipboard.writeText(source === 'ig' ? PAGE_URL : promoText).then(() => {
                 const toast = document.getElementById('toast');
-                const toastMessage = document.getElementById('toastMessage');
-                
-                if (source === 'ig') {
-                    toastMessage.innerText = 'Enlace copiado. Usa el Sticker "Enlace" en tu Historia de Instagram.';
-                } else {
-                    toastMessage.innerText = 'Enlace copiado.';
-                }
-                
+                document.getElementById('toastMessage').innerText = source === 'ig' ? 'Enlace copiado. Usa Sticker "Enlace" en IG.' : 'Enlace copiado.';
                 toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3500);
+                setTimeout(() => toast.classList.remove('show'), 3500);
             });
         }
 
-        // Script del Contador de Visitas Robusto
-document.addEventListener("DOMContentLoaded", () => {
-    const namespace = "dzire_2021_sebastianjimenez";
-    const key = "visits_v1";
-
-    fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`)
-        .then(response => {
-            if (!response.ok) throw new Error("Error en red");
-            return response.json();
-        })
-        .then(data => {
-            const currentVisits = (parseInt(data.count) || 1) + 66;
-            renderCounter(currentVisits);
-        })
-        .catch(() => {
-            // Fallback con persistencia local si falla la red externa o estás en local
-            let localCount = parseInt(localStorage.getItem('page_visits_dzire') || '66');
-            localCount += 1;
-            localStorage.setItem('page_visits_dzire', localCount);
-            renderCounter(localCount);
+        // Botón WhatsApp Contacto -> Gatilla Notificación FOMO
+        document.getElementById('btn-contact-whatsapp').addEventListener('click', () => {
+            triggerFomoNotification("Una persona ha contactado al vendedor recién");
         });
 
-    function renderCounter(count) {
-        const container = document.getElementById('visitor-counter-container');
-        if (!container) return;
-        
-        const prev = (count - 1).toString().padStart(count.toString().length, '0');
-        const curr = count.toString();
-        
-        let html = '<div class="counter-capsule gap-2"><i class="fas fa-eye text-blue-400"></i><div class="flex">';
-        
-        for (let i = 0; i < curr.length; i++) {
-            if (curr[i] !== prev[i]) {
-                html += `<div class="digit-container"><div class="digit-track" style="transform: translateY(0);"><span>${prev[i]}</span><span>${curr[i]}</span></div></div>`;
-            } else {
-                html += `<div class="digit-container"><div class="digit-track"><span>${curr[i]}</span></div></div>`;
-            }
+        // Botón Descarga PDF -> Gatilla Notificación FOMO
+        document.getElementById('btn-download-pdf').addEventListener('click', () => {
+            triggerFomoNotification("Alguien acaba de descargar la ficha técnica");
+        });
+
+        // Notificaciones FOMO (Inferior derecha)
+        function triggerFomoNotification(msg) {
+            const toast = document.getElementById('fomo-toast');
+            document.getElementById('fomoMessage').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4500);
         }
-        
-        html += '</div><span class="text-[10px] text-gray-400 font-sans tracking-widest ml-1">VISITAS</span></div>';
-        container.innerHTML = html;
-        
-        setTimeout(() => {
-            container.querySelectorAll('.digit-track').forEach(track => {
-                if(track.children.length > 1) {
-                    track.style.transform = 'translateY(-1.35rem)';
+
+        // Sistema Estrella / Aura
+        function giveStar() {
+            const layer = document.getElementById('star-animation-layer');
+            const icon = layer.querySelector('i');
+            
+            layer.classList.remove('hidden');
+            icon.classList.remove('star-animating');
+            void icon.offsetWidth; 
+            icon.classList.add('star-animating');
+            
+            const counter = document.getElementById('star-counter');
+            counter.innerText = parseInt(counter.innerText) + 1;
+            
+            triggerFomoNotification("Alguien acaba de destacar esta publicación");
+            
+            setTimeout(() => layer.classList.add('hidden'), 1000);
+        }
+
+        // Contador Visitantes Histórico (API)
+        document.addEventListener("DOMContentLoaded", () => {
+            const namespace = "dzire_2021_sebastianjimenez";
+            const key = "visits_v1";
+
+            fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`)
+                .then(r => { if(!r.ok) throw new Error(); return r.json(); })
+                .then(d => renderCounter((parseInt(d.count) || 1) + 66))
+                .catch(() => {
+                    let localCount = parseInt(localStorage.getItem('page_visits_dzire') || '66');
+                    localStorage.setItem('page_visits_dzire', ++localCount);
+                    renderCounter(localCount);
+                });
+
+            function renderCounter(count) {
+                const container = document.getElementById('visitor-counter-container');
+                if (!container) return;
+                const prev = (count - 1).toString().padStart(count.toString().length, '0');
+                const curr = count.toString();
+                let html = '<div class="counter-capsule gap-2"><i class="fas fa-eye text-blue-400"></i><div class="flex">';
+                
+                for (let i = 0; i < curr.length; i++) {
+                    if (curr[i] !== prev[i]) html += `<div class="digit-container"><div class="digit-track" style="transform: translateY(0);"><span>${prev[i]}</span><span>${curr[i]}</span></div></div>`;
+                    else html += `<div class="digit-container"><div class="digit-track"><span>${curr[i]}</span></div></div>`;
                 }
-            });
-        }, 800);
-    }
-});
+                html += '</div><span class="text-[10px] text-gray-400 font-sans tracking-widest ml-1">VISITAS</span></div>';
+                container.innerHTML = html;
+                
+                setTimeout(() => {
+                    container.querySelectorAll('.digit-track').forEach(track => {
+                        if(track.children.length > 1) track.style.transform = 'translateY(-1.35rem)';
+                    });
+                }, 800);
+            }
+
+            // Lógica de "Personas viendo ahora" (Simulación realista)
+            const liveBadge = document.getElementById('live-viewers-badge');
+            const liveText = document.getElementById('live-count-text');
+            let viewers = 2;
+
+            setInterval(() => {
+                const change = Math.random() > 0.5 ? 1 : -1;
+                viewers += change;
+                if(viewers < 2) viewers = 2;
+                if(viewers > 5) viewers = 5;
+                
+                liveText.innerText = `${viewers} personas están viendo esto ahora`;
+                
+                liveBadge.classList.add('scale-105', 'bg-red-500');
+                setTimeout(() => liveBadge.classList.remove('scale-105', 'bg-red-500'), 300);
+            }, 18000); 
+        });
     </script>
 </body>
 </html>
