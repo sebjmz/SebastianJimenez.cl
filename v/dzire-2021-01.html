@@ -26,8 +26,23 @@
         }
         .print-only { display: none; }
         
-        .zoom-box { overflow: hidden; position: relative; cursor: pointer; border-radius: 0.5rem; aspect-ratio: 4/3; background-color: #f3f4f6; display: block; }
-        .zoom-box img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; transition: transform 0.2s ease-out; pointer-events: none; }
+        .zoom-box {
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            aspect-ratio: 4/3;
+            background-color: #f3f4f6;
+            display: block; 
+        }
+        .zoom-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform-origin: center center;
+            transition: transform 0.2s ease-out;
+            pointer-events: none; 
+        }
         
         /* Contador Cápsula */
         .counter-capsule { display: inline-flex; align-items: center; background-color: #111827; color: #ffffff; border-radius: 9999px; padding: 6px 14px; font-family: monospace; font-size: 1.1rem; font-weight: bold; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
@@ -56,8 +71,16 @@
         }
         
         /* Toast central original */
-        #toast { visibility: hidden; opacity: 0; transition: opacity 0.3s, bottom 0.3s; }
-        #toast.show { visibility: visible; opacity: 1; bottom: 100px; }
+        #toast {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 100px;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans relative pb-24 overflow-x-hidden">
@@ -75,11 +98,12 @@
             </div>
         </div>
         
-        <!-- Imagen Principal -->
+        <!-- Imagen Principal con Contenedor Relativo para la Animación de Estrella -->
         <div class="relative w-full">
             <a data-fancybox="gallery" href="../img/dzire-principal.webp" class="zoom-box !aspect-auto !h-96 w-full relative z-10">
                 <img src="../img/dzire-principal.webp" class="w-full h-full object-cover" alt="Suzuki Dzire 2021 Frontal">
             </a>
+            <!-- Capa de Animación de Estrella -->
             <div id="star-animation-layer" class="absolute inset-0 flex items-center justify-center pointer-events-none z-50 overflow-hidden hidden">
                 <i class="fas fa-star text-yellow-400 drop-shadow-[0_0_30px_rgba(250,204,21,1)]" style="font-size: 4rem;"></i>
             </div>
@@ -92,15 +116,18 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-2 mb-2">
                 <p class="text-gray-500 font-semibold">Patente: RC-RC-96 | Chasis: MA3ZF63S8NA791494</p>
                 <div class="flex items-center gap-3 mt-3 md:mt-0">
+                    <!-- Botón Estrella / Aura Sincronizado -->
                     <button onclick="giveStar()" class="bg-gradient-to-r from-yellow-50 to-orange-50 hover:from-yellow-100 hover:to-orange-100 text-yellow-700 font-black py-1.5 px-4 rounded-full border border-yellow-300 shadow-sm flex items-center gap-2 transition-transform transform hover:scale-105 active:scale-95">
                         <i class="fas fa-star text-yellow-500 text-lg"></i>
                         <span id="star-counter">18</span>
                     </button>
+                    <!-- Contador Histórico -->
                     <div id="visitor-counter-container" class="no-print"></div>
                 </div>
             </div>
             
             <div class="bg-gray-100 p-5 rounded-lg mt-8 mb-6 border-l-8 border-blue-600 shadow-inner flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative">
+                
                 <div class="absolute -top-5 right-2 md:-right-4 bg-green-500 text-white font-black px-4 py-2 rounded-lg shadow-lg transform rotate-3 z-10 uppercase tracking-widest border-2 border-white text-sm md:text-lg">
                     📍 REÑACA
                 </div>
@@ -258,7 +285,7 @@
         </a>
     </div>
 
-    <!-- VISTA IMPRESIÓN -->
+    <!-- VISTA IMPRESIÓN (AFICHE CALLEJERO / VENTANA) -->
     <div class="print-only font-sans">
         <div class="urgency-banner">SE VENDE, REÑACA</div>
         <img src="../img/dzire-principal.webp" style="max-height: 380px; width: 100%; object-fit: contain; margin-bottom: 20px;">
@@ -288,16 +315,20 @@
             
             <div class="grid grid-cols-2 gap-4 mb-8">
                 <button onclick="shareWhatsApp()" class="bg-[#25D366] text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-[#1ebd59] transition">
-                    <i class="fab fa-whatsapp text-3xl"></i><span class="font-bold text-sm">WhatsApp</span>
+                    <i class="fab fa-whatsapp text-3xl"></i>
+                    <span class="font-bold text-sm">WhatsApp</span>
                 </button>
                 <button onclick="shareFacebook()" class="bg-[#1877F2] text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-[#155fc2] transition">
-                    <i class="fab fa-facebook text-3xl"></i><span class="font-bold text-sm">Facebook</span>
+                    <i class="fab fa-facebook text-3xl"></i>
+                    <span class="font-bold text-sm">Facebook</span>
                 </button>
                 <button onclick="copyToClipboard('ig')" class="bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:opacity-90 transition">
-                    <i class="fab fa-instagram text-3xl"></i><span class="font-bold text-sm">Instagram</span>
+                    <i class="fab fa-instagram text-3xl"></i>
+                    <span class="font-bold text-sm">Instagram</span>
                 </button>
                 <button onclick="copyToClipboard('link')" class="bg-gray-800 text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-gray-700 transition">
-                    <i class="fas fa-link text-3xl"></i><span class="font-bold text-sm">Copiar Link</span>
+                    <i class="fas fa-link text-3xl"></i>
+                    <span class="font-bold text-sm">Copiar Link</span>
                 </button>
             </div>
 
@@ -329,16 +360,30 @@
     <script>
         const PAGE_URL = "https://sebastianjimenez.cl/v/dzire-2021-01.html";
         const promoText = `Este Suzuki está para ti: ${PAGE_URL}`;
+        
+        // Llave v6 para base de datos limpia
         const API_NAMESPACE = "dzire_2021_sebastianjimenez";
 
-        Fancybox.bind("[data-fancybox]", { Images: { zoom: true } });
+        // CONFIGURACIÓN RESTAURADA DE FANCYBOX
+        Fancybox.bind("[data-fancybox]", {
+            Images: { zoom: true },
+            Toolbar: {
+                display: {
+                    left: ["infobar"],
+                    middle: ["zoomIn", "zoomOut", "toggle1to1"],
+                    right: ["slideshow", "close"],
+                },
+            },
+        });
 
         function toggleModal(id) {
             const modal = document.getElementById(id);
             if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden'); document.body.style.overflow = 'hidden';
+                modal.classList.remove('hidden'); 
+                document.body.style.overflow = 'hidden';
             } else {
-                modal.classList.add('hidden'); document.body.style.overflow = 'auto';
+                modal.classList.add('hidden'); 
+                document.body.style.overflow = 'auto';
             }
         }
 
@@ -367,49 +412,53 @@
         }
 
         /* =========================================
-           SISTEMA DE EVENTOS GLOBALES (POLLING)
+           SISTEMA DE EVENTOS GLOBALES (POLLING SEGURO CORS)
            ========================================= */
         let localStats = { downloads: 0, shares: 0, contacts: 0 };
         let isInitLocal = { downloads: true, shares: true, contacts: true };
 
+        function fetchJSON(url, callback) {
+            fetch(url)
+                .then(r => { if(r.ok) return r.json(); throw new Error(); })
+                .then(d => callback(d))
+                .catch(e => {});
+        }
+
         function syncGlobalFomoEvents() {
-            const fetchOpts = { cache: 'no-store' };
-            
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/dls_v1`, fetchOpts).then(r=>r.json()).then(d=>{
+            const ts = Date.now();
+            fetchJSON(`https://api.counterapi.dev/v1/${API_NAMESPACE}/dls_v6?t=${ts}`, d => {
                 let c = parseInt(d.count)||0;
                 if(c > localStats.downloads) { localStats.downloads = c; if(!isInitLocal.downloads) triggerFomoNotification("Alguien acaba de descargar la ficha técnica"); }
                 isInitLocal.downloads = false;
-            }).catch(()=>{isInitLocal.downloads=false;});
-
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/shrs_v1`, fetchOpts).then(r=>r.json()).then(d=>{
+            });
+            fetchJSON(`https://api.counterapi.dev/v1/${API_NAMESPACE}/shrs_v6?t=${ts}`, d => {
                 let c = parseInt(d.count)||0;
                 if(c > localStats.shares) { localStats.shares = c; if(!isInitLocal.shares) triggerFomoNotification("Alguien acaba de compartir este vehículo"); }
                 isInitLocal.shares = false;
-            }).catch(()=>{isInitLocal.shares=false;});
-
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/cnts_v1`, fetchOpts).then(r=>r.json()).then(d=>{
+            });
+            fetchJSON(`https://api.counterapi.dev/v1/${API_NAMESPACE}/cnts_v6?t=${ts}`, d => {
                 let c = parseInt(d.count)||0;
                 if(c > localStats.contacts) { localStats.contacts = c; if(!isInitLocal.contacts) triggerFomoNotification("Una persona ha contactado al vendedor recién"); }
                 isInitLocal.contacts = false;
-            }).catch(()=>{isInitLocal.contacts=false;});
+            });
         }
 
         function triggerGlobalAction(type, endpoint, localMessage) {
             triggerFomoNotification(localMessage);
             localStats[type]++;
             localStorage.setItem(`dzire_${type}_sync`, localStats[type]);
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/${endpoint}/up`, { cache: 'no-store' }).catch(()=>{});
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/${endpoint}/up`, { method: 'POST' }).catch(()=>{});
         }
 
         document.getElementById('btn-download-pdf').addEventListener('click', () => {
-            triggerGlobalAction('downloads', 'dls_v1', "Has descargado la ficha técnica");
+            triggerGlobalAction('downloads', 'dls_v6', "Has descargado la ficha técnica");
         });
 
         document.getElementById('btn-contact-whatsapp').addEventListener('click', () => {
-            triggerGlobalAction('contacts', 'cnts_v1', "Te estás conectando con el vendedor");
+            triggerGlobalAction('contacts', 'cnts_v6', "Te estás conectando con el vendedor");
         });
 
-        function registerShareEvent() { triggerGlobalAction('shares', 'shrs_v1', "Has compartido esta publicación"); }
+        function registerShareEvent() { triggerGlobalAction('shares', 'shrs_v6', "Has compartido esta publicación"); }
 
         function shareWhatsApp() { registerShareEvent(); window.open(`https://wa.me/?text=${encodeURIComponent(promoText)}`, '_blank'); }
         function shareFacebook() { registerShareEvent(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(PAGE_URL)}`, '_blank'); }
@@ -429,22 +478,19 @@
         let isInitialStarLoad = true;
 
         function syncStars() {
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v4`, { cache: 'no-store' })
-                .then(r => r.json())
-                .then(d => {
-                    const currentStars = (parseInt(d.count) || 0) + 18; 
-                    const counter = document.getElementById('star-counter');
-                    const oldStars = parseInt(counter.innerText);
-                    
-                    if (currentStars > oldStars) {
-                        counter.innerText = currentStars;
-                        if (!isInitialStarLoad) { 
-                            triggerFomoNotification("Alguien acaba de destacar esta publicación");
-                        }
+            fetchJSON(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v6?t=${Date.now()}`, d => {
+                const currentStars = (parseInt(d.count) || 0) + 18; 
+                const counter = document.getElementById('star-counter');
+                const oldStars = parseInt(counter.innerText);
+                
+                if (currentStars > oldStars) {
+                    counter.innerText = currentStars;
+                    if (!isInitialStarLoad) { 
+                        triggerFomoNotification("Alguien acaba de destacar esta publicación");
                     }
-                    isInitialStarLoad = false;
-                })
-                .catch(() => { isInitialStarLoad = false; });
+                }
+                isInitialStarLoad = false;
+            });
         }
 
         function giveStar() {
@@ -464,7 +510,7 @@
             triggerFomoNotification("Has destacado esta publicación");
             setTimeout(() => layer.classList.add('hidden'), 1000);
             
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v4/up`, { cache: 'no-store' }).catch(()=>{});
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v6/up`, { method: 'POST' }).catch(()=>{});
         }
 
         /* =========================================
@@ -529,7 +575,7 @@
 
             updateLiveViewers();
 
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/visits_v2/up`, { cache: 'no-store' })
+            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/visits_v6/up`, { method: 'POST' })
                 .then(r => { if(!r.ok) throw new Error(); return r.json(); })
                 .then(d => renderCounter((parseInt(d.count) || 1) + 66))
                 .catch(() => {
