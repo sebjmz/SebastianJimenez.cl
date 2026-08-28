@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="OPORTUNIDAD: Suzuki Dzire GL 1.2 2021 | $6.990.000">
     <meta property="og:description" content="Mercado: $7.800.000. Rendimiento: 19.1 km/l mixto. Mecánica y Estructura Chasis 100% Japonesa. Excelente estado.">
     <meta property="og:image" content="https://sebastianjimenez.cl/img/dzire-principal.webp">
@@ -29,12 +28,10 @@
         .zoom-box { overflow: hidden; position: relative; cursor: pointer; border-radius: 0.5rem; aspect-ratio: 4/3; background-color: #f3f4f6; display: block; }
         .zoom-box img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; transition: transform 0.2s ease-out; pointer-events: none; }
         
-        /* Contador Cápsula */
         .counter-capsule { display: inline-flex; align-items: center; background-color: #111827; color: #ffffff; border-radius: 9999px; padding: 6px 14px; font-family: monospace; font-size: 1.1rem; font-weight: bold; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
         .digit-container { height: 1.35rem; overflow: hidden; display: inline-flex; flex-direction: column; line-height: 1.35rem; }
-        .digit-track { display: flex; flex-direction: column; transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1); }
+        .digit-track { display: flex; flex-direction: column; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
 
-        /* Animación Estrella (Aura) */
         @keyframes starBurst {
             0% { transform: scale(0) rotate(-45deg); opacity: 1; }
             60% { transform: scale(5) rotate(15deg); opacity: 0.9; }
@@ -42,7 +39,6 @@
         }
         .star-animating { animation: starBurst 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
-        /* Toast Inferior Derecha (FOMO) */
         #fomo-toast {
             visibility: hidden;
             opacity: 0;
@@ -55,7 +51,6 @@
             transform: translateX(0);
         }
         
-        /* Toast central original */
         #toast { visibility: hidden; opacity: 0; transition: opacity 0.3s, bottom 0.3s; }
         #toast.show { visibility: visible; opacity: 1; bottom: 100px; }
     </style>
@@ -90,17 +85,16 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-2 mb-2">
                 <p class="text-gray-500 font-semibold">Patente: RC-RC-96 | Chasis: MA3ZF63S8NA791494</p>
                 <div class="flex items-center gap-3 mt-3 md:mt-0">
-                    <button onclick="giveStar()" class="bg-gradient-to-r from-yellow-50 to-orange-50 hover:from-yellow-100 hover:to-orange-100 text-yellow-700 font-black py-1.5 px-4 rounded-full border border-yellow-300 shadow-sm flex items-center gap-2 transition-transform transform hover:scale-105 active:scale-95">
+                    <button id="btn-star" onclick="giveStar()" class="bg-gradient-to-r from-yellow-50 to-orange-50 hover:from-yellow-100 hover:to-orange-100 text-yellow-700 font-black py-1.5 px-4 rounded-full border border-yellow-300 shadow-sm flex items-center gap-2 transition-transform transform hover:scale-105 active:scale-95">
                         <i class="fas fa-star text-yellow-500 text-lg"></i>
                         <span id="star-counter">18</span>
                     </button>
                     <div id="visitor-counter-container" class="no-print">
-                        <div class="counter-capsule gap-2"><i class="fas fa-eye text-blue-400"></i><div class="flex" id="counter-digits">
-                            <!-- Init state base -->
-                            <div class="digit-container"><div class="digit-track"><span>0</span></div></div>
-                            <div class="digit-container"><div class="digit-track"><span>6</span></div></div>
-                            <div class="digit-container"><div class="digit-track"><span>7</span></div></div>
-                        </div><span class="text-[10px] text-gray-400 font-sans tracking-widest ml-1">VISITAS</span></div>
+                        <div class="counter-capsule gap-2">
+                            <i class="fas fa-eye text-blue-400"></i>
+                            <div class="flex" id="counter-digits"></div>
+                            <span class="text-[10px] text-gray-400 font-sans tracking-widest ml-1">VISITAS</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -262,7 +256,7 @@
         </a>
     </div>
 
-    <!-- VISTA IMPRESIÓN (AFICHE CALLEJERO / VENTANA) -->
+    <!-- VISTA IMPRESIÓN -->
     <div class="print-only font-sans">
         <div class="urgency-banner">SE VENDE, REÑACA</div>
         <img src="../img/dzire-principal.webp" style="max-height: 380px; width: 100%; object-fit: contain; margin-bottom: 20px;">
@@ -284,7 +278,7 @@
         </div>
     </div>
 
-    <!-- Modal Compartir -->
+    <!-- Modales y Toasts -->
     <div id="shareModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-gray-900/90 backdrop-blur-sm transition-opacity no-print">
         <div class="bg-white w-full max-w-md rounded-[2rem] overflow-hidden shadow-2xl relative p-8 text-center">
             <button onclick="toggleModal('shareModal')" class="absolute top-4 right-5 text-gray-400 hover:text-gray-900 text-xl"><i class="fas fa-times"></i></button>
@@ -317,33 +311,32 @@
         </div>
     </div>
 
-    <!-- Toast Original Centro -->
     <div id="toast" class="fixed left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 z-[400] no-print">
         <i class="fas fa-check-circle text-green-400"></i>
         <span id="toastMessage">Enlace copiado</span>
     </div>
 
-    <!-- Toast FOMO (Actividad en Vivo) - Esquina Inferior Derecha -->
     <div id="fomo-toast" class="fixed bottom-28 right-4 bg-white border-l-4 border-blue-500 text-gray-800 px-5 py-4 rounded-lg font-bold shadow-[0_10px_40px_rgba(0,0,0,0.15)] flex items-start gap-3 z-[400] no-print max-w-xs">
         <i class="fas fa-bell text-blue-500 mt-1 text-lg"></i>
-        <span id="fomoMessage" class="text-sm leading-tight">Alguien acaba de compartir este vehículo</span>
+        <span id="fomoMessage" class="text-sm leading-tight">Alguien acaba de interactuar</span>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <script>
         const PAGE_URL = "https://sebastianjimenez.cl/v/dzire-2021-01.html";
         const promoText = `Este Suzuki está para ti: ${PAGE_URL}`;
-        
-        // ==========================================
-        // CONFIGURACIÓN API CLOUDFLARE WORKER
-        // ==========================================
         const WORKER_URL = "https://dzire-api.sebjmz.workers.dev"; 
+
+        // Generar o recuperar ID de dispositivo único para permitir estrellas desde misma WiFi
+        let clientId = localStorage.getItem('dzire_client_id');
+        if (!clientId) {
+            clientId = Math.random().toString(36).substring(2, 15);
+            localStorage.setItem('dzire_client_id', clientId);
+        }
 
         Fancybox.bind("[data-fancybox]", {
             Images: { zoom: true },
-            Toolbar: {
-                display: { left: ["infobar"], middle: ["zoomIn", "zoomOut", "toggle1to1"], right: ["slideshow", "close"] },
-            },
+            Toolbar: { display: { left: ["infobar"], middle: ["zoomIn", "zoomOut", "toggle1to1"], right: ["slideshow", "close"] } },
         });
 
         function toggleModal(id) {
@@ -369,19 +362,17 @@
         function triggerFomoNotification(msg) {
             const toast = document.getElementById('fomo-toast');
             document.getElementById('fomoMessage').innerText = msg;
+            toast.classList.remove('show');
+            void toast.offsetWidth;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 4500);
         }
 
-        /* =========================================
-           SISTEMA DE EVENTOS GLOBALES (WORKER + BROADCAST CHANNEL)
-           ========================================= */
-        let globalStats = { visits: 67, stars: 18, downloads: 0, shares: 0, contacts: 0 };
+        let globalStats = { visits: 0, stars: 0, downloads: 0, shares: 0, contacts: 0 };
         let isInitialLoad = true;
         const syncChannel = new BroadcastChannel("dzire_sync_channel");
 
         function updateUI(stats, triggerNotifications = true) {
-            // Check changes
             const changed = {
                 visits: stats.visits > globalStats.visits,
                 stars: stats.stars > globalStats.stars,
@@ -392,71 +383,57 @@
             
             globalStats = { ...stats };
 
-            // Update Counter UI
             if (changed.visits || isInitialLoad) {
                 renderCounter(globalStats.visits);
             }
 
-            // Update Stars UI
-            if (changed.stars) {
+            if (changed.stars || isInitialLoad) {
                 document.getElementById('star-counter').innerText = globalStats.stars;
-                if (!isInitialLoad && triggerNotifications) triggerFomoNotification("Alguien acaba de destacar esta publicación");
+                if (localStorage.getItem('hasStarred')) {
+                    document.getElementById('btn-star').classList.add('opacity-50', 'cursor-not-allowed');
+                }
+                if (!isInitialLoad && triggerNotifications && changed.stars) triggerFomoNotification("Alguien acaba de destacar esta publicación");
             }
 
-            // FOMO Events UI
             if (!isInitialLoad && triggerNotifications) {
                 if (changed.downloads) triggerFomoNotification("Alguien acaba de descargar la ficha técnica");
                 if (changed.shares) triggerFomoNotification("Alguien acaba de compartir este vehículo");
-                if (changed.contacts) triggerFomoNotification("Una persona ha contactado al vendedor recién");
+                if (changed.contacts) triggerFomoNotification("Alguien está contactando al vendedor ahora mismo");
             }
             
             isInitialLoad = false;
         }
 
-        // Listener for cross-tab local communication
-        syncChannel.onmessage = (e) => {
-            updateUI(e.data, true);
-        };
+        syncChannel.onmessage = (e) => { updateUI(e.data, true); };
 
-        // Fetch data from Worker
         function pollWorkerData() {
             fetch(`${WORKER_URL}/sync`)
                 .then(r => r.json())
-                .then(d => {
-                    updateUI(d, true);
-                    syncChannel.postMessage(d); // Notificar a otras pestañas
-                }).catch(()=>{});
+                .then(d => { updateUI(d, true); syncChannel.postMessage(d); })
+                .catch(()=>{});
         }
 
-        // Send POST action to Worker
-        function triggerWorkerAction(endpoint, localMessage) {
+        function triggerWorkerAction(endpoint, localMessage, payload = {}) {
             triggerFomoNotification(localMessage);
-            fetch(`${WORKER_URL}/${endpoint}`, { method: 'POST' })
-                .then(r => r.json())
-                .then(d => {
-                    updateUI(d, false);
-                    syncChannel.postMessage(d);
-                }).catch(()=>{});
+            fetch(`${WORKER_URL}/${endpoint}`, { 
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            }).then(r => r.json()).then(d => { updateUI(d, false); syncChannel.postMessage(d); }).catch(()=>{});
         }
 
-        // Action Bindings
         document.getElementById('btn-download-pdf').addEventListener('click', () => {
-            triggerWorkerAction('event', "Has descargado la ficha técnica");
-            fetch(`${WORKER_URL}/event`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({type: 'downloads'}) });
+            triggerWorkerAction('event', "Has descargado la ficha técnica", {type: 'downloads'});
         });
 
         document.getElementById('btn-contact-whatsapp').addEventListener('click', () => {
-            triggerWorkerAction('event', "Te estás conectando con el vendedor");
-            fetch(`${WORKER_URL}/event`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({type: 'contacts'}) });
+            triggerWorkerAction('event', "Te estás conectando con el vendedor", {type: 'contacts'});
         });
 
-        function registerShareEvent() { 
-            triggerFomoNotification("Has compartido esta publicación");
-            fetch(`${WORKER_URL}/event`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({type: 'shares'}) });
-        }
-
+        function registerShareEvent() { triggerWorkerAction('event', "Has compartido esta publicación", {type: 'shares'}); }
         function shareWhatsApp() { registerShareEvent(); window.open(`https://wa.me/?text=${encodeURIComponent(promoText)}`, '_blank'); }
         function shareFacebook() { registerShareEvent(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(PAGE_URL)}`, '_blank'); }
+        
         function copyToClipboard(source) {
             registerShareEvent();
             navigator.clipboard.writeText(source === 'ig' ? PAGE_URL : promoText).then(() => {
@@ -468,13 +445,16 @@
         }
 
         function giveStar() {
+            if (localStorage.getItem('hasStarred')) return;
+            
             const layer = document.getElementById('star-animation-layer');
             const icon = layer.querySelector('i');
-            const counter = document.getElementById('star-counter');
+            const btn = document.getElementById('btn-star');
             
-            // Optimistic UI
             globalStats.stars++;
-            counter.innerText = globalStats.stars;
+            document.getElementById('star-counter').innerText = globalStats.stars;
+            localStorage.setItem('hasStarred', 'true');
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
             syncChannel.postMessage(globalStats);
             
             layer.classList.remove('hidden');
@@ -484,20 +464,20 @@
             triggerFomoNotification("Has destacado esta publicación");
             setTimeout(() => layer.classList.add('hidden'), 1000);
             
-            // POST to Worker
-            fetch(`${WORKER_URL}/star`, { method: 'POST' })
-                .then(r => r.json())
-                .then(d => { updateUI(d, false); syncChannel.postMessage(d); })
-                .catch(()=>{});
+            triggerWorkerAction('star', "Has destacado esta publicación", { clientId: clientId });
         }
 
         function renderCounter(count) {
             const container = document.getElementById('counter-digits');
             if (!container) return;
             
-            // Convert to string and pad appropriately
-            const prevStr = (count > 0 ? count - 1 : count).toString().padStart(3, '0');
-            const currStr = count.toString().padStart(prevStr.length, '0');
+            const currStr = count.toString();
+            let prevCount = count > 0 ? count - 1 : 0;
+            let prevStr = prevCount.toString();
+            
+            if (prevStr.length < currStr.length) {
+                prevStr = '0' + prevStr;
+            }
             
             let html = '';
             for (let i = 0; i < currStr.length; i++) {
@@ -513,12 +493,9 @@
                 container.parentElement.querySelectorAll('.digit-track').forEach(track => {
                     if(track.children.length > 1) track.style.transform = 'translateY(-1.35rem)';
                 });
-            }, 800);
+            }, 50);
         }
 
-        /* =========================================
-           SISTEMA ESPECTADORES UNIVERSAL (UTC)
-           ========================================= */
         function updateLiveViewers() {
             const now = Date.now();
             const timeSeed = Math.floor(now / 10000); 
@@ -542,13 +519,9 @@
             setTimeout(updateLiveViewers, delay);
         }
 
-        /* =========================================
-           INICIALIZACIÓN GENERAL
-           ========================================= */
         document.addEventListener("DOMContentLoaded", () => {
             updateLiveViewers();
             
-            // Registrar visita nueva al cargar
             fetch(`${WORKER_URL}/visit`, { method: 'POST' })
                 .then(r => r.json())
                 .then(d => {
@@ -556,8 +529,8 @@
                     syncChannel.postMessage(d);
                 }).catch(()=>{ renderCounter(globalStats.visits); });
 
-            // Polling eficiente (cada 15 segundos extrae el estado global del worker)
-            setInterval(pollWorkerData, 15000);
+            // Reducido a 3 segundos (alta frecuencia)
+            setInterval(pollWorkerData, 3000);
         });
     </script>
 </body>
