@@ -65,7 +65,7 @@
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-3 w-3 bg-red-100"></span>
                 </span>
-                <span id="live-count-text" class="font-bold">1 persona está viendo esto ahora</span>
+                <span id="live-count-text" class="font-bold"></span>
             </div>
         </div>
         
@@ -129,7 +129,7 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div class="bg-gray-50 p-4 rounded-lg border text-center shadow-sm">
                     <span class="block text-xs text-gray-500 uppercase font-bold">Kilometraje</span>
-                    <span class="font-black text-xl">140.300 km</span>
+                    <span class="font-black text-xl">14.300 km</span>
                 </div>
                 <div class="bg-gray-50 p-4 rounded-lg border text-center shadow-sm">
                     <span class="block text-xs text-gray-500 uppercase font-bold">Transmisión</span>
@@ -248,7 +248,6 @@
         </div>
     </div>
 
-    <!-- Botón Flotante WhatsApp -->
     <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-3xl px-4 pb-4 z-[90] no-print">
         <a id="btn-contact-whatsapp" href="https://wa.me/56951134778?text=Me%20interesa%20este%20vehiculo%2C%20Suzuki%20Dzire%202021.%20Cuando%20lo%20puedo%20ver%3F" target="_blank" class="w-full bg-[#25D366] hover:bg-[#1ebd59] transition text-white font-black py-4 rounded-xl text-xl flex items-center justify-center gap-3 shadow-[0_10px_25px_rgba(37,211,102,0.5)]">
             <i class="fab fa-whatsapp text-3xl"></i>
@@ -256,7 +255,6 @@
         </a>
     </div>
 
-    <!-- VISTA IMPRESIÓN -->
     <div class="print-only font-sans">
         <div class="urgency-banner">SE VENDE, REÑACA</div>
         <img src="../img/dzire-principal.webp" style="max-height: 380px; width: 100%; object-fit: contain; margin-bottom: 20px;">
@@ -278,7 +276,6 @@
         </div>
     </div>
 
-    <!-- Modales y Toasts -->
     <div id="shareModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-gray-900/90 backdrop-blur-sm transition-opacity no-print">
         <div class="bg-white w-full max-w-md rounded-[2rem] overflow-hidden shadow-2xl relative p-8 text-center">
             <button onclick="toggleModal('shareModal')" class="absolute top-4 right-5 text-gray-400 hover:text-gray-900 text-xl"><i class="fas fa-times"></i></button>
@@ -327,7 +324,6 @@
         const promoText = `Este Suzuki está para ti: ${PAGE_URL}`;
         const WORKER_URL = "https://dzire-api.sebjmz.workers.dev"; 
 
-        // Generar o recuperar ID de dispositivo único para permitir estrellas desde misma WiFi
         let clientId = localStorage.getItem('dzire_client_id');
         if (!clientId) {
             clientId = Math.random().toString(36).substring(2, 15);
@@ -497,10 +493,18 @@
         }
 
         function updateLiveViewers() {
-            const now = Date.now();
-            const timeSeed = Math.floor(now / 10000); 
-            const random = Math.sin(timeSeed) * 10000;
-            const viewers = Math.floor((random - Math.floor(random)) * 3) + 1; 
+            const timeWindow = Math.floor(Date.now() / 10000);
+            
+            const seed = timeWindow;
+            const randomVal = ((seed * 1664525) + 1013904223) % 4294967296;
+            const probability = randomVal / 4294967296;
+            
+            let viewers = 1;
+            if (probability >= 0.6 && probability < 0.9) {
+                viewers = 2;
+            } else if (probability >= 0.9) {
+                viewers = 3;
+            }
             
             const liveBadge = document.getElementById('live-viewers-badge');
             const liveText = document.getElementById('live-count-text');
@@ -515,7 +519,7 @@
                 liveText.innerText = newText;
             }
 
-            const delay = 10000 - (now % 10000);
+            const delay = 10000 - (Date.now() % 10000);
             setTimeout(updateLiveViewers, delay);
         }
 
@@ -529,7 +533,6 @@
                     syncChannel.postMessage(d);
                 }).catch(()=>{ renderCounter(globalStats.visits); });
 
-            // Reducido a 3 segundos (alta frecuencia)
             setInterval(pollWorkerData, 3000);
         });
     </script>
