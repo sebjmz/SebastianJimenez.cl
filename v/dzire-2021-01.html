@@ -493,24 +493,31 @@
         }
 
         function updateLiveViewers() {
-            const timeWindow = Math.floor(Date.now() / 10000);
-            
-            const seed = timeWindow;
-            const randomVal = ((seed * 1664525) + 1013904223) % 4294967296;
-            const probability = randomVal / 4294967296;
-            
-            let viewers = 1;
-            if (probability >= 0.6 && probability < 0.9) {
-                viewers = 2;
-            } else if (probability >= 0.9) {
-                viewers = 3;
-            }
-            
+            // Ciclo exacto de 100 estados mezclados (60 de "1", 30 de "2", 10 de "3")
+            const pattern = [
+                1,2,1,1,2,1,3,1,2,1,
+                1,1,2,1,2,1,1,3,1,2,
+                2,1,1,1,2,1,1,1,2,3,
+                1,2,1,1,2,1,1,2,1,1,
+                3,1,2,1,1,2,1,1,1,2,
+                1,1,3,2,1,1,2,1,1,2,
+                1,2,1,1,1,3,2,1,2,1,
+                1,1,2,1,1,2,1,3,1,2,
+                2,1,1,2,1,1,1,1,3,2,
+                1,2,1,1,3,1,2,1,1,2
+            ];
+
+            const intervalMs = 15000; // 15 segundos por actualización
+            const now = Date.now();
+            const step = Math.floor(now / intervalMs);
+            const index = step % pattern.length;
+            const viewers = pattern[index];
+
             const liveBadge = document.getElementById('live-viewers-badge');
             const liveText = document.getElementById('live-count-text');
             const currentText = liveText.innerText;
             const newText = viewers === 1 ? "1 persona está viendo esto ahora" : `${viewers} personas están viendo esto ahora`;
-            
+
             if (currentText !== newText && currentText !== "") {
                 liveText.innerText = newText;
                 liveBadge.classList.add('scale-105', 'bg-red-500');
@@ -519,7 +526,7 @@
                 liveText.innerText = newText;
             }
 
-            const delay = 10000 - (Date.now() % 10000);
+            const delay = intervalMs - (now % intervalMs);
             setTimeout(updateLiveViewers, delay);
         }
 
