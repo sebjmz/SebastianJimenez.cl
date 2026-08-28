@@ -26,23 +26,8 @@
         }
         .print-only { display: none; }
         
-        .zoom-box {
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            border-radius: 0.5rem;
-            aspect-ratio: 4/3;
-            background-color: #f3f4f6;
-            display: block; 
-        }
-        .zoom-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform-origin: center center;
-            transition: transform 0.2s ease-out;
-            pointer-events: none; 
-        }
+        .zoom-box { overflow: hidden; position: relative; cursor: pointer; border-radius: 0.5rem; aspect-ratio: 4/3; background-color: #f3f4f6; display: block; }
+        .zoom-box img { width: 100%; height: 100%; object-fit: cover; transform-origin: center center; transition: transform 0.2s ease-out; pointer-events: none; }
         
         /* Contador Cápsula */
         .counter-capsule { display: inline-flex; align-items: center; background-color: #111827; color: #ffffff; border-radius: 9999px; padding: 6px 14px; font-family: monospace; font-size: 1.1rem; font-weight: bold; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
@@ -71,16 +56,8 @@
         }
         
         /* Toast central original */
-        #toast {
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s, bottom 0.3s;
-        }
-        #toast.show {
-            visibility: visible;
-            opacity: 1;
-            bottom: 100px;
-        }
+        #toast { visibility: hidden; opacity: 0; transition: opacity 0.3s, bottom 0.3s; }
+        #toast.show { visibility: visible; opacity: 1; bottom: 100px; }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans relative pb-24 overflow-x-hidden">
@@ -88,7 +65,6 @@
     <div class="max-w-3xl mx-auto bg-white shadow-2xl min-h-screen pb-12 relative no-print">
         <div class="bg-gray-900 text-white text-center py-4 font-black text-2xl md:text-3xl tracking-wider uppercase flex flex-col items-center justify-center">
             SE VENDE, 27/08/2026
-            <!-- Contador de personas en vivo Sincronizado Universalmente -->
             <div id="live-viewers-badge" class="mt-2 flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-full text-xs tracking-normal shadow-lg transition-all duration-300">
                 <span class="relative flex h-3 w-3">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -98,12 +74,10 @@
             </div>
         </div>
         
-        <!-- Imagen Principal con Contenedor Relativo para la Animación de Estrella -->
         <div class="relative w-full">
             <a data-fancybox="gallery" href="../img/dzire-principal.webp" class="zoom-box !aspect-auto !h-96 w-full relative z-10">
                 <img src="../img/dzire-principal.webp" class="w-full h-full object-cover" alt="Suzuki Dzire 2021 Frontal">
             </a>
-            <!-- Capa de Animación de Estrella -->
             <div id="star-animation-layer" class="absolute inset-0 flex items-center justify-center pointer-events-none z-50 overflow-hidden hidden">
                 <i class="fas fa-star text-yellow-400 drop-shadow-[0_0_30px_rgba(250,204,21,1)]" style="font-size: 4rem;"></i>
             </div>
@@ -116,22 +90,25 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-2 mb-2">
                 <p class="text-gray-500 font-semibold">Patente: RC-RC-96 | Chasis: MA3ZF63S8NA791494</p>
                 <div class="flex items-center gap-3 mt-3 md:mt-0">
-                    <!-- Botón Estrella / Aura Sincronizado -->
                     <button onclick="giveStar()" class="bg-gradient-to-r from-yellow-50 to-orange-50 hover:from-yellow-100 hover:to-orange-100 text-yellow-700 font-black py-1.5 px-4 rounded-full border border-yellow-300 shadow-sm flex items-center gap-2 transition-transform transform hover:scale-105 active:scale-95">
                         <i class="fas fa-star text-yellow-500 text-lg"></i>
                         <span id="star-counter">18</span>
                     </button>
-                    <!-- Contador Histórico -->
-                    <div id="visitor-counter-container" class="no-print"></div>
+                    <div id="visitor-counter-container" class="no-print">
+                        <div class="counter-capsule gap-2"><i class="fas fa-eye text-blue-400"></i><div class="flex" id="counter-digits">
+                            <!-- Init state base -->
+                            <div class="digit-container"><div class="digit-track"><span>0</span></div></div>
+                            <div class="digit-container"><div class="digit-track"><span>6</span></div></div>
+                            <div class="digit-container"><div class="digit-track"><span>7</span></div></div>
+                        </div><span class="text-[10px] text-gray-400 font-sans tracking-widest ml-1">VISITAS</span></div>
+                    </div>
                 </div>
             </div>
             
             <div class="bg-gray-100 p-5 rounded-lg mt-8 mb-6 border-l-8 border-blue-600 shadow-inner flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative">
-                
                 <div class="absolute -top-5 right-2 md:-right-4 bg-green-500 text-white font-black px-4 py-2 rounded-lg shadow-lg transform rotate-3 z-10 uppercase tracking-widest border-2 border-white text-sm md:text-lg">
                     📍 REÑACA
                 </div>
-
                 <div>
                     <p class="text-gray-500 line-through text-xl">Precio Mercado Referencial: $7.800.000</p>
                     <p class="text-5xl font-black text-blue-600 mt-1 mb-3 relative inline-block">
@@ -315,20 +292,16 @@
             
             <div class="grid grid-cols-2 gap-4 mb-8">
                 <button onclick="shareWhatsApp()" class="bg-[#25D366] text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-[#1ebd59] transition">
-                    <i class="fab fa-whatsapp text-3xl"></i>
-                    <span class="font-bold text-sm">WhatsApp</span>
+                    <i class="fab fa-whatsapp text-3xl"></i><span class="font-bold text-sm">WhatsApp</span>
                 </button>
                 <button onclick="shareFacebook()" class="bg-[#1877F2] text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-[#155fc2] transition">
-                    <i class="fab fa-facebook text-3xl"></i>
-                    <span class="font-bold text-sm">Facebook</span>
+                    <i class="fab fa-facebook text-3xl"></i><span class="font-bold text-sm">Facebook</span>
                 </button>
                 <button onclick="copyToClipboard('ig')" class="bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:opacity-90 transition">
-                    <i class="fab fa-instagram text-3xl"></i>
-                    <span class="font-bold text-sm">Instagram</span>
+                    <i class="fab fa-instagram text-3xl"></i><span class="font-bold text-sm">Instagram</span>
                 </button>
                 <button onclick="copyToClipboard('link')" class="bg-gray-800 text-white p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-gray-700 transition">
-                    <i class="fas fa-link text-3xl"></i>
-                    <span class="font-bold text-sm">Copiar Link</span>
+                    <i class="fas fa-link text-3xl"></i><span class="font-bold text-sm">Copiar Link</span>
                 </button>
             </div>
 
@@ -361,30 +334,22 @@
         const PAGE_URL = "https://sebastianjimenez.cl/v/dzire-2021-01.html";
         const promoText = `Este Suzuki está para ti: ${PAGE_URL}`;
         
-        // Llave v6 para base de datos limpia
-        const API_NAMESPACE = "dzire_2021_sebastianjimenez";
+        // ==========================================
+        // CONFIGURACIÓN API CLOUDFLARE WORKER
+        // ==========================================
+        const WORKER_URL = "https://dzire-api.sebjmz.workers.dev"; 
 
-        // CONFIGURACIÓN RESTAURADA DE FANCYBOX
         Fancybox.bind("[data-fancybox]", {
             Images: { zoom: true },
             Toolbar: {
-                display: {
-                    left: ["infobar"],
-                    middle: ["zoomIn", "zoomOut", "toggle1to1"],
-                    right: ["slideshow", "close"],
-                },
+                display: { left: ["infobar"], middle: ["zoomIn", "zoomOut", "toggle1to1"], right: ["slideshow", "close"] },
             },
         });
 
         function toggleModal(id) {
             const modal = document.getElementById(id);
-            if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden'); 
-                document.body.style.overflow = 'hidden';
-            } else {
-                modal.classList.add('hidden'); 
-                document.body.style.overflow = 'auto';
-            }
+            if (modal.classList.contains('hidden')) { modal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; } 
+            else { modal.classList.add('hidden'); document.body.style.overflow = 'auto'; }
         }
 
         document.querySelectorAll('.zoom-box').forEach(box => {
@@ -398,10 +363,7 @@
                     img.style.transform = 'scale(1.5)';
                 }
             });
-            box.addEventListener('mouseleave', () => {
-                img.style.transform = 'scale(1)';
-                img.style.transformOrigin = 'center center';
-            });
+            box.addEventListener('mouseleave', () => { img.style.transform = 'scale(1)'; img.style.transformOrigin = 'center center'; });
         });
 
         function triggerFomoNotification(msg) {
@@ -412,53 +374,86 @@
         }
 
         /* =========================================
-           SISTEMA DE EVENTOS GLOBALES (POLLING SEGURO CORS)
+           SISTEMA DE EVENTOS GLOBALES (WORKER + BROADCAST CHANNEL)
            ========================================= */
-        let localStats = { downloads: 0, shares: 0, contacts: 0 };
-        let isInitLocal = { downloads: true, shares: true, contacts: true };
+        let globalStats = { visits: 67, stars: 18, downloads: 0, shares: 0, contacts: 0 };
+        let isInitialLoad = true;
+        const syncChannel = new BroadcastChannel("dzire_sync_channel");
 
-        function fetchJSON(url, callback) {
-            fetch(url)
-                .then(r => { if(r.ok) return r.json(); throw new Error(); })
-                .then(d => callback(d))
-                .catch(e => {});
+        function updateUI(stats, triggerNotifications = true) {
+            // Check changes
+            const changed = {
+                visits: stats.visits > globalStats.visits,
+                stars: stats.stars > globalStats.stars,
+                downloads: stats.downloads > globalStats.downloads,
+                shares: stats.shares > globalStats.shares,
+                contacts: stats.contacts > globalStats.contacts
+            };
+            
+            globalStats = { ...stats };
+
+            // Update Counter UI
+            if (changed.visits || isInitialLoad) {
+                renderCounter(globalStats.visits);
+            }
+
+            // Update Stars UI
+            if (changed.stars) {
+                document.getElementById('star-counter').innerText = globalStats.stars;
+                if (!isInitialLoad && triggerNotifications) triggerFomoNotification("Alguien acaba de destacar esta publicación");
+            }
+
+            // FOMO Events UI
+            if (!isInitialLoad && triggerNotifications) {
+                if (changed.downloads) triggerFomoNotification("Alguien acaba de descargar la ficha técnica");
+                if (changed.shares) triggerFomoNotification("Alguien acaba de compartir este vehículo");
+                if (changed.contacts) triggerFomoNotification("Una persona ha contactado al vendedor recién");
+            }
+            
+            isInitialLoad = false;
         }
 
-        function syncGlobalFomoEvents() {
-            const ts = Date.now();
-            fetchJSON(`https://api.counterapi.dev/v1/${API_NAMESPACE}/dls_v6?t=${ts}`, d => {
-                let c = parseInt(d.count)||0;
-                if(c > localStats.downloads) { localStats.downloads = c; if(!isInitLocal.downloads) triggerFomoNotification("Alguien acaba de descargar la ficha técnica"); }
-                isInitLocal.downloads = false;
-            });
-            fetchJSON(`https://api.counterapi.dev/v1/${API_NAMESPACE}/shrs_v6?t=${ts}`, d => {
-                let c = parseInt(d.count)||0;
-                if(c > localStats.shares) { localStats.shares = c; if(!isInitLocal.shares) triggerFomoNotification("Alguien acaba de compartir este vehículo"); }
-                isInitLocal.shares = false;
-            });
-            fetchJSON(`https://api.counterapi.dev/v1/${API_NAMESPACE}/cnts_v6?t=${ts}`, d => {
-                let c = parseInt(d.count)||0;
-                if(c > localStats.contacts) { localStats.contacts = c; if(!isInitLocal.contacts) triggerFomoNotification("Una persona ha contactado al vendedor recién"); }
-                isInitLocal.contacts = false;
-            });
+        // Listener for cross-tab local communication
+        syncChannel.onmessage = (e) => {
+            updateUI(e.data, true);
+        };
+
+        // Fetch data from Worker
+        function pollWorkerData() {
+            fetch(`${WORKER_URL}/sync`)
+                .then(r => r.json())
+                .then(d => {
+                    updateUI(d, true);
+                    syncChannel.postMessage(d); // Notificar a otras pestañas
+                }).catch(()=>{});
         }
 
-        function triggerGlobalAction(type, endpoint, localMessage) {
+        // Send POST action to Worker
+        function triggerWorkerAction(endpoint, localMessage) {
             triggerFomoNotification(localMessage);
-            localStats[type]++;
-            localStorage.setItem(`dzire_${type}_sync`, localStats[type]);
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/${endpoint}/up`, { method: 'POST' }).catch(()=>{});
+            fetch(`${WORKER_URL}/${endpoint}`, { method: 'POST' })
+                .then(r => r.json())
+                .then(d => {
+                    updateUI(d, false);
+                    syncChannel.postMessage(d);
+                }).catch(()=>{});
         }
 
+        // Action Bindings
         document.getElementById('btn-download-pdf').addEventListener('click', () => {
-            triggerGlobalAction('downloads', 'dls_v6', "Has descargado la ficha técnica");
+            triggerWorkerAction('event', "Has descargado la ficha técnica");
+            fetch(`${WORKER_URL}/event`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({type: 'downloads'}) });
         });
 
         document.getElementById('btn-contact-whatsapp').addEventListener('click', () => {
-            triggerGlobalAction('contacts', 'cnts_v6', "Te estás conectando con el vendedor");
+            triggerWorkerAction('event', "Te estás conectando con el vendedor");
+            fetch(`${WORKER_URL}/event`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({type: 'contacts'}) });
         });
 
-        function registerShareEvent() { triggerGlobalAction('shares', 'shrs_v6', "Has compartido esta publicación"); }
+        function registerShareEvent() { 
+            triggerFomoNotification("Has compartido esta publicación");
+            fetch(`${WORKER_URL}/event`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({type: 'shares'}) });
+        }
 
         function shareWhatsApp() { registerShareEvent(); window.open(`https://wa.me/?text=${encodeURIComponent(promoText)}`, '_blank'); }
         function shareFacebook() { registerShareEvent(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(PAGE_URL)}`, '_blank'); }
@@ -472,69 +467,54 @@
             });
         }
 
-        /* =========================================
-           SISTEMA ESTRELLA COMPARTIDO
-           ========================================= */
-        let isInitialStarLoad = true;
-
-        function syncStars() {
-            fetchJSON(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v6?t=${Date.now()}`, d => {
-                const currentStars = (parseInt(d.count) || 0) + 18; 
-                const counter = document.getElementById('star-counter');
-                const oldStars = parseInt(counter.innerText);
-                
-                if (currentStars > oldStars) {
-                    counter.innerText = currentStars;
-                    if (!isInitialStarLoad) { 
-                        triggerFomoNotification("Alguien acaba de destacar esta publicación");
-                    }
-                }
-                isInitialStarLoad = false;
-            });
-        }
-
         function giveStar() {
             const layer = document.getElementById('star-animation-layer');
             const icon = layer.querySelector('i');
             const counter = document.getElementById('star-counter');
             
-            const newCount = parseInt(counter.innerText) + 1;
-            counter.innerText = newCount;
-            localStorage.setItem('dzire_stars_sync', newCount); 
+            // Optimistic UI
+            globalStats.stars++;
+            counter.innerText = globalStats.stars;
+            syncChannel.postMessage(globalStats);
             
             layer.classList.remove('hidden');
             icon.classList.remove('star-animating');
             void icon.offsetWidth; 
             icon.classList.add('star-animating');
-            
             triggerFomoNotification("Has destacado esta publicación");
             setTimeout(() => layer.classList.add('hidden'), 1000);
             
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/stars_v6/up`, { method: 'POST' }).catch(()=>{});
+            // POST to Worker
+            fetch(`${WORKER_URL}/star`, { method: 'POST' })
+                .then(r => r.json())
+                .then(d => { updateUI(d, false); syncChannel.postMessage(d); })
+                .catch(()=>{});
         }
 
-        /* =========================================
-           SINCRONIZACIÓN DE PESTAÑAS LOCALES
-           ========================================= */
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'dzire_stars_sync') {
-                const newVal = parseInt(e.newValue);
-                const counter = document.getElementById('star-counter');
-                if (newVal > parseInt(counter.innerText)) {
-                    counter.innerText = newVal;
-                    triggerFomoNotification("Alguien acaba de destacar esta publicación");
+        function renderCounter(count) {
+            const container = document.getElementById('counter-digits');
+            if (!container) return;
+            
+            // Convert to string and pad appropriately
+            const prevStr = (count > 0 ? count - 1 : count).toString().padStart(3, '0');
+            const currStr = count.toString().padStart(prevStr.length, '0');
+            
+            let html = '';
+            for (let i = 0; i < currStr.length; i++) {
+                if (currStr[i] !== prevStr[i]) {
+                    html += `<div class="digit-container"><div class="digit-track" style="transform: translateY(0);"><span>${prevStr[i]}</span><span>${currStr[i]}</span></div></div>`;
+                } else {
+                    html += `<div class="digit-container"><div class="digit-track"><span>${currStr[i]}</span></div></div>`;
                 }
             }
-            if (e.key === 'dzire_downloads_sync' && parseInt(e.newValue) > localStats.downloads) {
-                localStats.downloads = parseInt(e.newValue); triggerFomoNotification("Alguien acaba de descargar la ficha técnica");
-            }
-            if (e.key === 'dzire_shares_sync' && parseInt(e.newValue) > localStats.shares) {
-                localStats.shares = parseInt(e.newValue); triggerFomoNotification("Alguien acaba de compartir este vehículo");
-            }
-            if (e.key === 'dzire_contacts_sync' && parseInt(e.newValue) > localStats.contacts) {
-                localStats.contacts = parseInt(e.newValue); triggerFomoNotification("Una persona ha contactado al vendedor recién");
-            }
-        });
+            container.innerHTML = html;
+            
+            setTimeout(() => {
+                container.parentElement.querySelectorAll('.digit-track').forEach(track => {
+                    if(track.children.length > 1) track.style.transform = 'translateY(-1.35rem)';
+                });
+            }, 800);
+        }
 
         /* =========================================
            SISTEMA ESPECTADORES UNIVERSAL (UTC)
@@ -566,44 +546,18 @@
            INICIALIZACIÓN GENERAL
            ========================================= */
         document.addEventListener("DOMContentLoaded", () => {
-            
-            syncStars();
-            setInterval(syncStars, 5000);
-
-            syncGlobalFomoEvents();
-            setInterval(syncGlobalFomoEvents, 6000);
-
             updateLiveViewers();
+            
+            // Registrar visita nueva al cargar
+            fetch(`${WORKER_URL}/visit`, { method: 'POST' })
+                .then(r => r.json())
+                .then(d => {
+                    updateUI(d, false);
+                    syncChannel.postMessage(d);
+                }).catch(()=>{ renderCounter(globalStats.visits); });
 
-            fetch(`https://api.counterapi.dev/v1/${API_NAMESPACE}/visits_v6/up`, { method: 'POST' })
-                .then(r => { if(!r.ok) throw new Error(); return r.json(); })
-                .then(d => renderCounter((parseInt(d.count) || 1) + 66))
-                .catch(() => {
-                    let localCount = parseInt(localStorage.getItem('page_visits_dzire') || '66');
-                    localStorage.setItem('page_visits_dzire', ++localCount);
-                    renderCounter(localCount);
-                });
-
-            function renderCounter(count) {
-                const container = document.getElementById('visitor-counter-container');
-                if (!container) return;
-                const prev = (count - 1).toString().padStart(count.toString().length, '0');
-                const curr = count.toString();
-                let html = '<div class="counter-capsule gap-2"><i class="fas fa-eye text-blue-400"></i><div class="flex">';
-                
-                for (let i = 0; i < curr.length; i++) {
-                    if (curr[i] !== prev[i]) html += `<div class="digit-container"><div class="digit-track" style="transform: translateY(0);"><span>${prev[i]}</span><span>${curr[i]}</span></div></div>`;
-                    else html += `<div class="digit-container"><div class="digit-track"><span>${curr[i]}</span></div></div>`;
-                }
-                html += '</div><span class="text-[10px] text-gray-400 font-sans tracking-widest ml-1">VISITAS</span></div>';
-                container.innerHTML = html;
-                
-                setTimeout(() => {
-                    container.querySelectorAll('.digit-track').forEach(track => {
-                        if(track.children.length > 1) track.style.transform = 'translateY(-1.35rem)';
-                    });
-                }, 800);
-            }
+            // Polling eficiente (cada 15 segundos extrae el estado global del worker)
+            setInterval(pollWorkerData, 15000);
         });
     </script>
 </body>
